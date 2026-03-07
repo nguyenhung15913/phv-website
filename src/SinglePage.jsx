@@ -189,7 +189,7 @@ function Tag({ type }) {
 // ─────────────────────────────────────────────
 function HomeNav({ onOrderClick }) {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", h);
@@ -209,12 +209,12 @@ function HomeNav({ onOrderClick }) {
 
   return (
     <nav style={navBase}>
-      <a href="#" style={{ display: "flex", alignItems: "center", gap: "0.7rem", textDecoration: "none" }}>
+      <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} style={{ display: "flex", alignItems: "center", gap: "0.7rem", textDecoration: "none", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
         <img src={LOGO_SRC} alt="Pho Huong Viet" style={{ height: 44, width: "auto" }} onError={e => e.target.style.display = "none"} />
         <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", color: logoColor, transition: "color 0.4s" }}>
           Pho Huong Viet
         </span>
-      </a>
+      </button>
       <ul style={{ display: "flex", gap: "2.5rem", listStyle: "none", alignItems: "center" }}>
         {["About", "Menu", "Gallery", "Visit"].map(item => (
           <li key={item} style={{ display: "none" }} className="nav-desktop-item">
@@ -334,55 +334,6 @@ const HERO_CSS = `
 .steam4 { animation: steamRise1 3.5s ease-out infinite 2.5s; }
 .steam5 { animation: steamRise2 4.4s ease-out infinite 0.4s; }
 `;
-
-// Star anise SVG path
-function StarAniseSVG({ cx, cy, r, opacity, cls }) {
-  const petals = Array.from({ length: 8 }, (_, i) => {
-    const a = (i / 8) * Math.PI * 2;
-    const px = cx + Math.cos(a) * r * 0.72;
-    const py = cy + Math.sin(a) * r * 0.72;
-    return <ellipse key={i} cx={px} cy={py} rx={r * 0.28} ry={r * 0.13}
-      fill="rgba(200,155,55,0.85)" transform={`rotate(${i * 45},${px},${py})`} />;
-  });
-  return (
-    <g opacity={opacity} className={cls}>
-      {petals}
-      <circle cx={cx} cy={cy} r={r * 0.22} fill="rgba(155,95,28,0.9)" />
-    </g>
-  );
-}
-
-function Lantern({ x, y, w, h, cls }) {
-  const gId = `lg${Math.round(x)}`;
-  return (
-    <g className={cls}>
-      {/* string */}
-      <line x1={x} y1={0} x2={x} y2={y - h * 0.55} stroke="rgba(212,168,67,0.4)" strokeWidth="1" />
-      {/* glow */}
-      <radialGradient id={gId} cx="38%" cy="30%" r="60%">
-        <stop offset="0%"   stopColor="#FF9922" stopOpacity="0.35" />
-        <stop offset="50%"  stopColor="#CC3300" stopOpacity="0.2" />
-        <stop offset="100%" stopColor="#AA1100" stopOpacity="0" />
-      </radialGradient>
-      <ellipse cx={x} cy={y} rx={w * 2.8} ry={h * 2.2} fill={`url(#${gId})`} />
-      {/* body */}
-      <ellipse cx={x} cy={y} rx={w} ry={h} fill="url(#lanternBody)" stroke="rgba(100,15,5,0.5)" strokeWidth="0.8" />
-      {/* ribs */}
-      {[-0.55, -0.28, 0, 0.28, 0.55].map((f, i) => (
-        <ellipse key={i} cx={x + f * w} cy={y} rx={w * 0.09} ry={h}
-          fill="none" stroke="rgba(90,10,4,0.45)" strokeWidth="0.7" />
-      ))}
-      {/* caps */}
-      <ellipse cx={x} cy={y - h} rx={w * 0.62} ry={h * 0.15} fill="rgba(212,168,67,0.7)" />
-      <ellipse cx={x} cy={y + h} rx={w * 0.62} ry={h * 0.15} fill="rgba(212,168,67,0.7)" />
-      {/* tassel */}
-      {[-0.2, -0.07, 0.06, 0.19].map((f, i) => (
-        <line key={i} x1={x + f * w} y1={y + h * 1.15} x2={x + f * w} y2={y + h * 1.72}
-          stroke="rgba(212,168,67,0.55)" strokeWidth="0.9" />
-      ))}
-    </g>
-  );
-}
 
 function HeroCanvas() {
   return (
@@ -1586,8 +1537,6 @@ function OrderPage({ onBack }) {
   }, []);
   const clearCart = () => setCart({});
 
-  const activeMenu = MENU.find(m => m.id === activeTab);
-
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <OrderNav
@@ -1809,7 +1758,7 @@ function KitchenPrintPage({ onBack }) {
         reconnTimerRef.current = setTimeout(connect, 5000);
       }
     };
-  }, [ablyKey, handleOrder]);
+  }, [ablyKey, handleOrder, printOnNew]);
 
   const disconnect = () => {
     clearTimeout(reconnTimerRef.current);
@@ -1852,7 +1801,7 @@ function KitchenPrintPage({ onBack }) {
         </div>
       </header>
 
-      <div style={{ flex: 1, display: "grid", gridTemplateColumns: "360px 1fr", gap: 0, maxWidth: 1200, margin: "0 auto", width: "100%", padding: "2rem", gap: "1.5rem", alignItems: "start" }}>
+      <div style={{ flex: 1, display: "grid", gridTemplateColumns: "360px 1fr", maxWidth: 1200, margin: "0 auto", width: "100%", padding: "2rem", gap: "1.5rem", alignItems: "start" }}>
 
         {/* Left — Setup panel */}
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
