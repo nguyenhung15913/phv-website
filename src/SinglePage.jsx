@@ -1,6 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
 // ─────────────────────────────────────────────
+// ABLY CONFIGURATION
+// Paste your Ably API key here once — customers
+// never need to enter it themselves.
+// ─────────────────────────────────────────────
+const ABLY_API_KEY = "vqYzYw.mXKtJw:upuGWcSbw0o2GVox26C3WA4kdfInGXrIlKJ9VBx1Je4";
+
+// ─────────────────────────────────────────────
 // GLOBAL CSS
 // ─────────────────────────────────────────────
 const css = `
@@ -1022,7 +1029,7 @@ function HomePage({ onOrderClick }) {
 
 // ── Ably publish helper ──────────────────────
 async function publishOrderToKitchen(order) {
-  const key = localStorage.getItem("ably_api_key") || "";
+  const key = ABLY_API_KEY;
   if (!key) return { ok: false, reason: "no_key" };
   try {
     const res = await fetch(
@@ -1047,7 +1054,7 @@ async function publishOrderToKitchen(order) {
 
 // ── Kitchen settings modal ───────────────────
 function KitchenSettingsModal({ open, onClose }) {
-  const [key, setKey] = useState(() => localStorage.getItem("ably_api_key") || "");
+  const [key, setKey] = useState(() => ABLY_API_KEY);
   const [testing, setTesting] = useState(false);
   const [testResult, setTestResult] = useState(null); // null | 'ok' | 'fail'
 
@@ -1137,9 +1144,9 @@ function KitchenSettingsModal({ open, onClose }) {
 
           {/* Current status pill */}
           <div style={{ marginTop: "1.2rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: localStorage.getItem("ably_api_key") ? "#27AE60" : "rgba(245,237,216,0.2)", flexShrink: 0 }} />
+            <div style={{ width: 7, height: 7, borderRadius: "50%", background: ABLY_API_KEY ? "#27AE60" : "rgba(245,237,216,0.2)", flexShrink: 0 }} />
             <span style={{ fontSize: "0.7rem", color: "rgba(245,237,216,0.35)", letterSpacing: "0.08em" }}>
-              {localStorage.getItem("ably_api_key") ? "API key saved — live orders active" : "No key saved — orders won't reach kitchen app"}
+              {ABLY_API_KEY ? "API key saved — live orders active" : "No key saved — orders won't reach kitchen app"}
             </span>
           </div>
         </div>
@@ -1517,7 +1524,7 @@ function OrderPage({ onBack }) {
   const [mobileCartOpen, setMobileCartOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [kitchenSettingsOpen, setKitchenSettingsOpen] = useState(false);
-  const [ablyConnected, setAblyConnected] = useState(() => !!localStorage.getItem("ably_api_key"));
+  const [ablyConnected, setAblyConnected] = useState(() => !!ABLY_API_KEY);
 
   const cartCount = Object.values(cart).reduce((a, b) => a + b, 0);
 
@@ -1593,7 +1600,7 @@ function OrderPage({ onBack }) {
       </footer>
       <MobileCartDrawer open={mobileCartOpen} onClose={() => setMobileCartOpen(false)} cart={cart} onAdd={addItem} onRemove={removeItem} onRemoveFull={removeItemFull} onCheckout={() => { setMobileCartOpen(false); setCheckoutOpen(true); }} />
       <CheckoutModal open={checkoutOpen} onClose={() => setCheckoutOpen(false)} cart={cart} onSuccess={clearCart} />
-      <KitchenSettingsModal open={kitchenSettingsOpen} onClose={() => { setKitchenSettingsOpen(false); setAblyConnected(!!localStorage.getItem("ably_api_key")); }} />
+      <KitchenSettingsModal open={kitchenSettingsOpen} onClose={() => { setKitchenSettingsOpen(false); setAblyConnected(!!ABLY_API_KEY); }} />
     </div>
   );
 }
@@ -1675,7 +1682,7 @@ function silentPrint(html) {
 }
 
 function KitchenPrintPage({ onBack }) {
-  const [ablyKey, setAblyKey] = useState(() => localStorage.getItem("ably_api_key") || "");
+  const [ablyKey, setAblyKey] = useState(() => ABLY_API_KEY);
   const [status, setStatus] = useState("disconnected"); // disconnected | connecting | connected | error
   const [errorMsg, setErrorMsg] = useState("");
   const [autoPrint, setAutoPrint] = useState(true);
