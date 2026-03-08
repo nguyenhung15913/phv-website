@@ -1,15 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-// ─────────────────────────────────────────────
-// ABLY CONFIGURATION
-// Paste your Ably API key here once — customers
-// never need to enter it themselves.
-// ─────────────────────────────────────────────
 const ABLY_API_KEY = "vqYzYw.mXKtJw:upuGWcSbw0o2GVox26C3WA4kdfInGXrIlKJ9VBx1Je4";
 
-// ─────────────────────────────────────────────
-// GLOBAL CSS
-// ─────────────────────────────────────────────
 const css = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -23,7 +15,7 @@ const css = `
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: #FBF6EE; color: #2A1A0E; overflow-x: hidden; }
 
-  /* HERO */
+  
   @keyframes heroZoom { from{transform:scale(1.05)} to{transform:scale(1.12)} }
   @keyframes heroFadeUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
   @keyframes scrollPulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
@@ -36,11 +28,51 @@ const css = `
   .marquee-track { animation: marquee 28s linear infinite; }
   .scroll-line-anim { animation: scrollPulse 2s ease-in-out infinite; }
 
-  /* REVEAL */
+  
   .reveal { opacity:0; transform:translateY(30px); transition:opacity 0.85s ease, transform 0.85s ease; }
   .reveal.visible { opacity:1; transform:translateY(0); }
 
-  /* PHOTO GRID */
+  
+  .section-pad   { padding: 7rem 4rem; }
+  .section-inner { max-width: 1300px; margin: 0 auto; }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 1.5rem;
+  }
+  .menu-home-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2px;
+  }
+  .visit-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .delivery-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .delivery-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  
   .photo-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
@@ -51,14 +83,14 @@ const css = `
   .photo-grid img:hover { transform:scale(1.04); }
   .photo-grid img:first-child { grid-row: span 2; }
 
-  /* MENU GRID */
+  
   .order-menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
     gap: 1rem; margin-top: 1rem;
   }
 
-  /* NAV scrolled */
+  
   .nav-scrolled {
     background: rgba(251,246,238,0.97) !important;
     backdrop-filter: blur(10px);
@@ -68,7 +100,33 @@ const css = `
   .nav-scrolled .nav-link { color: #4A2C1A !important; }
   .nav-scrolled .nav-link:hover { color: #6B1A1A !important; }
 
-  /* HOURS TABLE */
+  
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #1E1410;
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a, .mobile-menu button.mobile-nav-link {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #F5EDD8;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover, .mobile-menu button.mobile-nav-link:hover { color: #D4A843; }
+
+  
   .hours-table { width:100%; border-collapse:collapse; }
   .hours-table tr { border-bottom: 1px solid rgba(107,26,26,0.12); }
   .hours-table tr:last-child { border-bottom: none; }
@@ -76,28 +134,71 @@ const css = `
   .hours-table td:first-child { color: #2A1A0E; font-weight: 500; }
   .hours-table td:last-child { color: #C4882B; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; text-align: right; }
 
-  /* SCROLLBAR */
+  
   .cart-list-scroll { max-height: 320px; overflow-y: auto; }
   .cart-list-scroll::-webkit-scrollbar { width: 4px; }
   .cart-list-scroll::-webkit-scrollbar-thumb { background: rgba(107,26,26,0.2); }
 
-  /* MODAL */
-  .modal-open { display: flex !important; }
+  
+  .order-layout {
+    max-width: 1200px; margin: 0 auto;
+    padding: 2.5rem 2rem 6rem;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+    align-items: start;
+    flex: 1;
+  }
+  .order-nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    padding: 1rem 2.5rem;
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 1rem;
+  }
+  .order-hero-info {
+    display: flex; justify-content: center;
+    gap: 2rem; flex-wrap: wrap;
+  }
 
-  @media(max-width:900px) {
+  
+  @media(max-width: 1024px) {
+    .about-grid { gap: 3rem; }
+    .visit-grid { gap: 3rem; }
+  }
+
+  @media(max-width: 860px) {
+    .section-pad { padding: 5rem 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-stats { grid-template-columns: repeat(3,1fr); }
+    .menu-home-grid { grid-template-columns: 1fr 1fr; }
+    .visit-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .delivery-inner { flex-direction: column; align-items: flex-start; }
     .photo-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
     .photo-grid img:first-child { grid-row: span 1; }
     .photo-grid img { height: 220px; }
+    .order-layout { grid-template-columns: 1fr; padding: 1.5rem 1rem 6rem; }
+    .order-nav-inner { padding: 0.9rem 1.2rem; }
+    .order-hero-info { gap: 1rem; }
+    .nav-desktop-item { display: none !important; }
+    .nav-order-btn { display: none !important; }
+    .hamburger-btn { display: flex !important; }
   }
-  @media(max-width:650px) {
+
+  @media(max-width: 600px) {
+    .section-pad { padding: 4rem 1.2rem; }
+    .about-stats { grid-template-columns: repeat(3,1fr); gap: 0.8rem; }
+    .menu-home-grid { grid-template-columns: 1fr; }
     .photo-grid { grid-template-columns: 1fr; }
     .photo-grid img { height: 240px; }
+    .delivery-btns { flex-direction: column; width: 100%; }
+    .delivery-btns a, .delivery-btns button { width: 100%; text-align: center; justify-content: center; }
+    .order-hero-info { flex-direction: column; align-items: center; gap: 0.5rem; }
+    .order-nav-kitchen { display: none !important; }
+    .order-nav-pickup { display: none !important; }
+    .kitchen-grid { grid-template-columns: 1fr !important; }
   }
 `;
 
-// ─────────────────────────────────────────────
-// MENU DATA
-// ─────────────────────────────────────────────
 const MENU = [
   { category: "🍜 Pho Noodle Soup", id: "pho", items: [
     { id: 1, name: "Pho Dac Biet — House Special Combo", desc: "Rare beef, brisket, meatballs & tendon in rich bone broth", price: 17.50, tags: ["pop"] },
@@ -145,9 +246,6 @@ const MENU = [
   ]},
 ];
 
-// ─────────────────────────────────────────────
-// HELPERS
-// ─────────────────────────────────────────────
 function getItem(id) {
   for (const cat of MENU) {
     const f = cat.items.find(i => i.id === id);
@@ -168,9 +266,6 @@ function useReveal() {
   return ref;
 }
 
-// ─────────────────────────────────────────────
-// SHARED COMPONENTS
-// ─────────────────────────────────────────────
 const LOGO_SRC = "https://lacvietrestaurant.com/huongviet17.2023/wp-content/uploads/2023/10/logo1.png";
 const PATTERN_BG = `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23d4a843' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`;
 
@@ -191,11 +286,9 @@ function Tag({ type }) {
   );
 }
 
-// ─────────────────────────────────────────────
-// HOME PAGE
-// ─────────────────────────────────────────────
 function HomeNav({ onOrderClick }) {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 60);
@@ -203,9 +296,15 @@ function HomeNav({ onOrderClick }) {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
+  
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
   const navBase = {
-    position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-    padding: "1.1rem 3.5rem",
+    position: "fixed", top: 0, left: 0, right: 0, zIndex: 150,
+    padding: "1rem 2rem",
     display: "flex", alignItems: "center", justifyContent: "space-between",
     transition: "all 0.4s ease",
     background: scrolled ? "rgba(251,246,238,0.97)" : "transparent",
@@ -213,45 +312,67 @@ function HomeNav({ onOrderClick }) {
   };
   const linkColor = scrolled ? "#4A2C1A" : "rgba(245,237,216,0.85)";
   const logoColor = scrolled ? "#6B1A1A" : "#F5EDD8";
+  const burgerColor = scrolled ? "#6B1A1A" : "#F5EDD8";
+
+  const navLink = (href, label) => (
+    <a href={href} className="nav-link" onClick={() => setMobileOpen(false)}
+      style={{ fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none", color: linkColor, transition: "color 0.3s" }}>
+      {label}
+    </a>
+  );
 
   return (
-    <nav style={navBase}>
-      <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} style={{ display: "flex", alignItems: "center", gap: "0.7rem", textDecoration: "none", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
-        <img src={LOGO_SRC} alt="Pho Huong Viet" style={{ height: 44, width: "auto" }} onError={e => e.target.style.display = "none"} />
-        <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", color: logoColor, transition: "color 0.4s" }}>
-          Pho Huong Viet
-        </span>
-      </button>
-      <ul style={{ display: "flex", gap: "2.5rem", listStyle: "none", alignItems: "center" }}>
-        {["About", "Menu", "Gallery", "Visit"].map(item => (
-          <li key={item} style={{ display: "none" }} className="nav-desktop-item">
-            <a href={`#${item.toLowerCase()}`} style={{ fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none", color: linkColor, transition: "color 0.3s" }}>
-              {item}
-            </a>
+    <>
+      <nav style={navBase}>
+        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} style={{ display: "flex", alignItems: "center", gap: "0.7rem", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+          <img src={LOGO_SRC} alt="Pho Huong Viet" style={{ height: 40, width: "auto" }} onError={e => e.target.style.display = "none"} />
+          <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", color: logoColor, transition: "color 0.4s" }}>
+            Pho Huong Viet
+          </span>
+        </button>
+
+        
+        <ul style={{ display: "flex", gap: "2.5rem", listStyle: "none", alignItems: "center" }}>
+          {["About", "Menu", "Gallery", "Visit"].map(item => (
+            <li key={item} className="nav-desktop-item" style={{ display: "none" }}>
+              {navLink(`#${item.toLowerCase()}`, item)}
+            </li>
+          ))}
+          <li className="nav-order-btn">
+            <button onClick={onOrderClick} style={{ background: "#C4882B", color: "white", border: "none", padding: "0.55rem 1.4rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.3s" }}
+              onMouseEnter={e => e.target.style.background = "#6B1A1A"}
+              onMouseLeave={e => e.target.style.background = "#C4882B"}
+            >Order Now</button>
           </li>
+          
+          <li className="hamburger-btn" style={{ display: "none" }}>
+            <button onClick={() => setMobileOpen(v => !v)} style={{ background: "none", border: "none", cursor: "pointer", padding: "0.3rem", display: "flex", flexDirection: "column", gap: "5px" }}>
+              <span style={{ display: "block", width: 24, height: 2, background: burgerColor, transition: "all 0.3s", transform: mobileOpen ? "rotate(45deg) translate(5px, 5px)" : "none" }} />
+              <span style={{ display: "block", width: 24, height: 2, background: burgerColor, transition: "all 0.3s", opacity: mobileOpen ? 0 : 1 }} />
+              <span style={{ display: "block", width: 24, height: 2, background: burgerColor, transition: "all 0.3s", transform: mobileOpen ? "rotate(-45deg) translate(5px, -5px)" : "none" }} />
+            </button>
+          </li>
+        </ul>
+
+        <style>{`@media(min-width:861px){ .nav-desktop-item { display: list-item !important; } }`}</style>
+      </nav>
+
+      
+      <div className={`mobile-menu${mobileOpen ? " open" : ""}`}>
+        <button onClick={() => setMobileOpen(false)} style={{ position: "absolute", top: "1.5rem", right: "2rem", background: "none", border: "none", color: "#F5EDD8", fontSize: "1.8rem", cursor: "pointer" }}>✕</button>
+        <img src={LOGO_SRC} alt="" style={{ height: 56, opacity: 0.9, marginBottom: "1rem" }} onError={e => e.target.style.display = "none"} />
+        {[["#about","About"], ["#menu","Menu"], ["#gallery","Gallery"], ["#visit","Visit"]].map(([href, label]) => (
+          <a key={label} href={href} onClick={() => setMobileOpen(false)}>{label}</a>
         ))}
-        <li>
-          <button onClick={onOrderClick} style={{
-            background: "#C4882B", color: "white", border: "none",
-            padding: "0.55rem 1.4rem", fontFamily: "'DM Sans', sans-serif",
-            fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.1em",
-            textTransform: "uppercase", cursor: "pointer", transition: "background 0.3s",
-          }}
-            onMouseEnter={e => e.target.style.background = "#6B1A1A"}
-            onMouseLeave={e => e.target.style.background = "#C4882B"}
-          >Order Now</button>
-        </li>
-      </ul>
-      <style>{`
-        @media(min-width:700px){ .nav-desktop-item { display: list-item !important; } }
-      `}</style>
-    </nav>
+        <button className="mobile-nav-link" onClick={() => { setMobileOpen(false); onOrderClick(); }}
+          style={{ background: "#C4882B", color: "white", padding: "0.9rem 2.5rem", fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", border: "none", cursor: "pointer", marginTop: "0.5rem" }}>
+          Order Now
+        </button>
+      </div>
+    </>
   );
 }
 
-// ─────────────────────────────────────────────
-// HERO BG — SVG + CSS animated restaurant scene
-// ─────────────────────────────────────────────
 const HERO_CSS = `
 @keyframes lanternSwing {
   0%,100%{ transform: rotate(-6deg); }
@@ -347,12 +468,12 @@ function HeroCanvas() {
     <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
       <style>{HERO_CSS}</style>
 
-      {/* layered dark backgrounds */}
+      
       <div style={{ position:"absolute", inset:0, background:"linear-gradient(155deg,#06030200 0%,#0D0604 22%,#1A0A07 52%,#220B08 78%,#0C0503 100%)" }} />
       <div style={{ position:"absolute", inset:0, background:"radial-gradient(ellipse 75% 60% at 50% 78%, rgba(160,55,12,0.32) 0%, rgba(100,28,6,0.14) 50%, transparent 100%)" }} />
       <div style={{ position:"absolute", inset:0, background:"radial-gradient(ellipse 90% 40% at 50% 0%, rgba(120,18,8,0.25) 0%, transparent 68%)" }} />
 
-      {/* SVG scene */}
+      
       <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice"
         style={{ position:"absolute", inset:0, width:"100%", height:"100%" }}
         xmlns="http://www.w3.org/2000/svg">
@@ -398,7 +519,7 @@ function HeroCanvas() {
           </filter>
         </defs>
 
-        {/* diagonal grid */}
+        
         {Array.from({length:14},(_,i)=>(
           <line key={`gl${i}`} x1={i*95} y1={0} x2={i*95+700} y2={700}
             stroke="#D4A843" strokeWidth="0.4" strokeOpacity="0.032"/>
@@ -408,7 +529,7 @@ function HeroCanvas() {
             stroke="#D4A843" strokeWidth="0.35" strokeOpacity="0.022"/>
         ))}
 
-        {/* Vietnamese wave corner motifs */}
+        
         {[
           {ox:0,   oy:28, dir:1,  n:6, span:165},
           {ox:1200,oy:28, dir:-1, n:6, span:165},
@@ -428,7 +549,7 @@ function HeroCanvas() {
           })
         )}
 
-        {/* ── LANTERN A (top-left) ── */}
+        
         <g className="lantern-a">
           <line x1={82} y1={0} x2={82} y2={28} stroke="rgba(212,168,67,0.4)" strokeWidth="1"/>
           <ellipse cx={82} cy={82} rx={90} ry={120} fill="url(#lanternGlow1)"/>
@@ -444,7 +565,7 @@ function HeroCanvas() {
           ))}
         </g>
 
-        {/* ── LANTERN B (top-right) ── */}
+        
         <g className="lantern-b">
           <line x1={1118} y1={0} x2={1118} y2={22} stroke="rgba(212,168,67,0.4)" strokeWidth="1"/>
           <ellipse cx={1118} cy={86} rx={108} ry={140} fill="url(#lanternGlow2)"/>
@@ -460,7 +581,7 @@ function HeroCanvas() {
           ))}
         </g>
 
-        {/* ── LANTERN C (lower-left) ── */}
+        
         <g className="lantern-c">
           <line x1={195} y1={528} x2={195} y2={558} stroke="rgba(212,168,67,0.35)" strokeWidth="1"/>
           <ellipse cx={195} cy={600} rx={68} ry={84} fill="url(#lanternGlow1)"/>
@@ -476,7 +597,7 @@ function HeroCanvas() {
           ))}
         </g>
 
-        {/* ── LANTERN D (lower-right) ── */}
+        
         <g className="lantern-d">
           <line x1={1012} y1={538} x2={1012} y2={562} stroke="rgba(212,168,67,0.35)" strokeWidth="1"/>
           <ellipse cx={1012} cy={608} rx={80} ry={100} fill="url(#lanternGlow2)"/>
@@ -492,20 +613,20 @@ function HeroCanvas() {
           ))}
         </g>
 
-        {/* ── Bowl glow ── */}
+        
         <ellipse cx={600} cy={592} rx={255} ry={70}
           fill="rgba(155,52,10,0.2)" filter="url(#softGlow)"/>
 
-        {/* ── Bowl outer rim ── */}
+        
         <ellipse cx={600} cy={576} rx={220} ry={47}
           fill="url(#rimGrad)" stroke="#F5EDD8" strokeWidth="2.2" strokeOpacity="0.28"/>
 
-        {/* ── Broth surface ── */}
+        
         <ellipse cx={600} cy={574} rx={194} ry={40}
           fill="url(#brothGrad)"
           style={{animation:"brothShimmer 3.5s ease-in-out infinite"}}/>
 
-        {/* ── Noodle waves ── */}
+        
         {[
           {dy:-13,dur:"4.2s",del:"0s",  amp:24,stroke:2.1},
           {dy:  1,dur:"3.8s",del:"0.7s",amp:19,stroke:1.8},
@@ -517,13 +638,13 @@ function HeroCanvas() {
             d={`M${435},${574+n.dy} Q${517},${574+n.dy-n.amp} ${600},${574+n.dy} Q${683},${574+n.dy+n.amp} ${765},${574+n.dy}`}/>
         ))}
 
-        {/* ── Chopsticks ── */}
+        
         <g transform="translate(600,558) rotate(-14)">
           <rect x={-10} y={-188} width={6} height={192} rx={2.5} fill="rgba(168,115,50,0.7)"/>
           <rect x={5}   y={-178} width={6} height={182} rx={2.5} fill="rgba(130,85,32,0.62)"/>
         </g>
 
-        {/* ── Steam ── */}
+        
         {[
           {x:566,y:540,cls:"steam1",rx:22,ry:12},
           {x:600,y:537,cls:"steam2",rx:18,ry:10},
@@ -535,7 +656,7 @@ function HeroCanvas() {
             fill="rgba(255,235,210,0.52)" filter="url(#steamBlur)" className={s.cls}/>
         ))}
 
-        {/* ── Star anise ── */}
+        
         {[
           {cx:155,cy:222,r:22,op:0.16,cls:"floatDrift"},
           {cx:1052,cy:182,r:18,op:0.13,cls:"floatDrift2"},
@@ -558,7 +679,7 @@ function HeroCanvas() {
           </g>
         ))}
 
-        {/* ── Herb leaves ── */}
+        
         {[
           {cx:242,cy:352,rx:8, ry:20,rot:30, op:0.12,cls:"floatDrift2"},
           {cx:982,cy:282,rx:7, ry:17,rot:-45,op:0.1, cls:"floatDrift"},
@@ -572,7 +693,7 @@ function HeroCanvas() {
             transform={`rotate(${l.rot},${l.cx},${l.cy})`} className={l.cls}/>
         ))}
 
-        {/* ── Sesame sparkles ── */}
+        
         {[
           [482,195,0],[722,148,0.38],[352,312,0.75],[882,332,1.12],
           [202,468,1.5],[1002,448,1.88],[542,90,2.25],[662,96,0.62],
@@ -582,11 +703,11 @@ function HeroCanvas() {
             style={{animation:`sparkle ${2.5+(i%4)*0.55}s ease-in-out infinite ${delay}s`}}/>
         ))}
 
-        {/* ── Rim highlight ── */}
+        
         <path d="M 406 568 A 196 42 0 0 1 794 568"
           fill="none" stroke="rgba(255,245,215,0.15)" strokeWidth="3.5"/>
 
-        {/* ── Vignette ── */}
+        
         <rect x={0} y={0} width={1200} height={700} fill="url(#bottomFade)"/>
         <rect x={0} y={0} width={1200} height={700}
           fill="url(#sideVig)" opacity="0.0"/>
@@ -601,7 +722,7 @@ function HeroCanvas() {
         </rect>
         <ellipse cx={600} cy={350} rx={680} ry={420}
           fill="none" stroke="none" opacity="0"/>
-        {/* radial vignette */}
+        
         <radialGradient id="vigRad" cx="50%" cy="50%" r="75%">
           <stop offset="0%"   stopColor="#000" stopOpacity="0"/>
           <stop offset="68%"  stopColor="#000" stopOpacity="0.08"/>
@@ -615,9 +736,9 @@ function HeroCanvas() {
 function HomeHero({ onOrderClick }) {
   return (
     <section style={{ position: "relative", height: "100vh", minHeight: 700, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-      {/* Canvas BG */}
+      
       <HeroCanvas />
-      {/* Content */}
+      
       <div className="hero-content-anim" style={{ position: "relative", zIndex: 2, textAlign: "center", maxWidth: 820, padding: "0 2rem" }}>
         <img src={LOGO_SRC} alt="" style={{ height: 88, margin: "0 auto 1.5rem", display: "block", filter: "brightness(0) invert(1)" }} onError={e => e.target.style.display = "none"} />
         <div style={{ fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.3em", textTransform: "uppercase", color: "#D4A843", marginBottom: "1.2rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem" }}>
@@ -642,7 +763,7 @@ function HomeHero({ onOrderClick }) {
           >Order Online</button>
         </div>
       </div>
-      {/* Scroll indicator */}
+      
       <div style={{ position: "absolute", bottom: "2.5rem", left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem", color: "rgba(245,237,216,0.5)", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>
         <div className="scroll-line-anim" style={{ width: 1, height: 50, background: "linear-gradient(to bottom,rgba(245,237,216,0.5),transparent)" }} />
         Scroll
@@ -671,8 +792,8 @@ function Marquee() {
 function AboutSection() {
   const ref = useReveal();
   return (
-    <section id="about" style={{ padding: "7rem 4rem" }}>
-      <div ref={ref} className="reveal" style={{ maxWidth: 1300, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6rem", alignItems: "center" }}>
+    <section id="about" className="section-pad">
+      <div ref={ref} className="reveal section-inner about-grid">
         <div>
           <div style={{ fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.3em", textTransform: "uppercase", color: "#C4882B", marginBottom: "1rem" }}>Our Story</div>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem,5vw,3.5rem)", fontWeight: 400, lineHeight: 1.15, color: "#1E1410", marginBottom: "2rem" }}>
@@ -684,10 +805,10 @@ function AboutSection() {
           <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.15rem", lineHeight: 1.85, color: "#4A3828", marginBottom: "1.4rem", fontWeight: 300 }}>
             We always use fresh ingredients to bring out the true taste in every dish — a difference you will notice the moment your bowl arrives. Must-tries: Grilled Beef Lemon with Steamed Rice, the Sate Chicken Sub, and our signature Pho Dac Biet.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "1.5rem", marginTop: "3rem", paddingTop: "3rem", borderTop: "1px solid rgba(107,26,26,0.15)" }}>
+          <div className="about-stats" style={{ marginTop: "3rem", paddingTop: "3rem", borderTop: "1px solid rgba(107,26,26,0.15)" }}>
             {[["20+", "Years of Experience"], ["4.3★", "Guest Rated"], ["50+", "Menu Items"]].map(([num, label]) => (
               <div key={label}>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "2.5rem", fontWeight: 700, color: "#6B1A1A", lineHeight: 1 }}>{num}</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.8rem,4vw,2.5rem)", fontWeight: 700, color: "#6B1A1A", lineHeight: 1 }}>{num}</div>
                 <div style={{ fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#7A6050", marginTop: "0.4rem" }}>{label}</div>
               </div>
             ))}
@@ -715,13 +836,13 @@ function DeliveryBanner({ onOrderClick }) {
     background: bg, color: "white", border: "none", cursor: "pointer",
   });
   return (
-    <div style={{ background: "#F5EDD8", padding: "3rem 4rem", borderTop: "1px solid rgba(107,26,26,0.1)", borderBottom: "1px solid rgba(107,26,26,0.1)" }}>
-      <div ref={ref} className="reveal" style={{ maxWidth: 1300, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "2rem", flexWrap: "wrap" }}>
+    <div style={{ background: "#F5EDD8", padding: "3rem 2rem", borderTop: "1px solid rgba(107,26,26,0.1)", borderBottom: "1px solid rgba(107,26,26,0.1)" }}>
+      <div ref={ref} className="reveal section-inner delivery-inner">
         <div>
           <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.5rem", color: "#1E1410", marginBottom: "0.4rem" }}>Order Your Favourites</h3>
           <p style={{ fontSize: "0.9rem", color: "#6A5040" }}>Pick up in-store or have your meal delivered right to your door</p>
         </div>
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
+        <div className="delivery-btns">
           <a href="https://www.skipthedishes.com/pho-huong-viet" target="_blank" rel="noreferrer" style={btnStyle("#E8344D")}
             onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
             onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
@@ -763,7 +884,7 @@ function MenuSection() {
   ];
   const active = homeTabs.find(t => t.id === activeTab);
   return (
-    <div id="menu" style={{ background: "#1E1410", padding: "7rem 4rem", position: "relative", overflow: "hidden" }}>
+    <div id="menu" className="section-pad" style={{ background: "#1E1410", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", top: -200, right: -200, width: 600, height: 600, background: "radial-gradient(circle,rgba(107,26,26,0.25) 0%,transparent 70%)", pointerEvents: "none" }} />
       <div ref={tabsRef} className="reveal" style={{ maxWidth: 1300, margin: "0 auto 4rem", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1.5rem" }}>
         <div>
@@ -826,8 +947,8 @@ function GallerySection() {
     { src: "https://phohuongviet17.com/wp-content/uploads/2025/03/IMG_4272.jpg", fb: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" },
   ];
   return (
-    <section id="gallery" style={{ background: "#F5EDD8", padding: "6rem 4rem" }}>
-      <div style={{ maxWidth: 1300, margin: "0 auto" }}>
+    <section id="gallery" className="section-pad" style={{ background: "#F5EDD8" }}>
+      <div className="section-inner">
         <div ref={ref} className="reveal" style={{ textAlign: "center", marginBottom: "3rem" }}>
           <div style={{ fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.3em", textTransform: "uppercase", color: "#C4882B", marginBottom: "1rem" }}>Our Food & Space</div>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem,5vw,3.5rem)", fontWeight: 400, color: "#1E1410" }}>
@@ -852,8 +973,8 @@ function TestimonialsSection() {
     { text: "We recently found this place and it was a treat. Pho portions are huge, the rice porkchop is great. Best pho we've had in a while. It's our new favourite Vietnamese spot in Calgary!", author: "TripAdvisor Guest", source: "TripAdvisor" },
   ];
   return (
-    <div style={{ background: "#6B1A1A", padding: "7rem 4rem" }}>
-      <div style={{ maxWidth: 1300, margin: "0 auto" }}>
+    <div className="section-pad" style={{ background: "#6B1A1A" }}>
+      <div className="section-inner">
         <div style={{ textAlign: "center", marginBottom: "4rem" }}>
           <div style={{ fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.3em", textTransform: "uppercase", color: "#D4A843", marginBottom: "1rem" }}>Guest Voices</div>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem,5vw,3.5rem)", fontWeight: 400, color: "#F5EDD8" }}>
@@ -879,8 +1000,8 @@ function TestimonialsSection() {
 function VisitSection({ onOrderClick }) {
   const ref = useReveal();
   return (
-    <section id="visit" style={{ padding: "7rem 4rem" }}>
-      <div ref={ref} className="reveal" style={{ maxWidth: 1300, margin: "0 auto", display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "5rem", alignItems: "start" }}>
+    <section id="visit" className="section-pad">
+      <div ref={ref} className="reveal section-inner visit-grid">
         <div>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2509.0!2d-114.1450!3d51.0390!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537170144939363b%3A0x7d68671f6f9c0a50!2sPho%20Huong%20Viet%20Noodle%20House!5e0!3m2!1sen!2sca!4v1"
@@ -937,7 +1058,7 @@ function OrderCTASection({ onOrderClick }) {
     fontFamily: "'DM Sans', sans-serif",
   });
   return (
-    <div style={{ background: "#1E1410", padding: "7rem 4rem", position: "relative", overflow: "hidden" }}>
+    <div className="section-pad" style={{ background: "#1E1410", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", top: "-4rem", right: "-2rem", fontFamily: "'Playfair Display', serif", fontSize: "20rem", color: "rgba(255,255,255,0.02)", pointerEvents: "none", lineHeight: 1, userSelect: "none" }}>"PHỞ"</div>
       <div ref={ref} className="reveal" style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
         <div style={{ fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.3em", textTransform: "uppercase", color: "#D4A843", marginBottom: "1rem" }}>Ready to Eat?</div>
@@ -972,7 +1093,7 @@ function OrderCTASection({ onOrderClick }) {
 
 function HomeFooter({ onOrderClick }) {
   return (
-    <footer style={{ background: "#120C08", padding: "4rem", textAlign: "center" }}>
+    <footer style={{ background: "#120C08", padding: "4rem 2rem", textAlign: "center" }}>
       <img src={LOGO_SRC} alt="Pho Huong Viet" style={{ height: 60, margin: "0 auto 0.5rem", display: "block", opacity: 0.85 }} onError={e => e.target.style.display = "none"} />
       <div style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", color: "rgba(245,237,216,0.35)", fontSize: "0.95rem", marginBottom: "2.5rem" }}>
         Authentic Vietnamese Kitchen · Over 20 Years · Calgary, AB
@@ -1023,11 +1144,6 @@ function HomePage({ onOrderClick }) {
   );
 }
 
-// ─────────────────────────────────────────────
-// ORDER PAGE
-// ─────────────────────────────────────────────
-
-// ── Ably publish helper ──────────────────────
 async function publishOrderToKitchen(order) {
   const key = ABLY_API_KEY;
   if (!key) return { ok: false, reason: "no_key" };
@@ -1052,33 +1168,18 @@ async function publishOrderToKitchen(order) {
   }
 }
 
-// ── Kitchen settings modal ───────────────────
 function KitchenSettingsModal({ open, onClose }) {
-  const [key, setKey] = useState(() => ABLY_API_KEY);
   const [testing, setTesting] = useState(false);
-  const [testResult, setTestResult] = useState(null); // null | 'ok' | 'fail'
-
-  const save = () => {
-    localStorage.setItem("ably_api_key", key.trim());
-    onClose();
-  };
+  const [testResult, setTestResult] = useState(null);
 
   const testConnection = async () => {
-    if (!key.trim()) return;
     setTesting(true); setTestResult(null);
-    // Send a tiny ping message
     try {
-      const res = await fetch(
-        "https://rest.ably.io/channels/pho-kitchen-orders/messages",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Basic " + btoa(key.trim()),
-          },
-          body: JSON.stringify({ name: "ping", data: "test" }),
-        }
-      );
+      const res = await fetch("https://rest.ably.io/channels/pho-kitchen-orders/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": "Basic " + btoa(ABLY_API_KEY) },
+        body: JSON.stringify({ name: "ping", data: "test" }),
+      });
       setTestResult(res.ok ? "ok" : "fail");
     } catch { setTestResult("fail"); }
     setTesting(false);
@@ -1087,12 +1188,11 @@ function KitchenSettingsModal({ open, onClose }) {
   if (!open) return null;
   return (
     <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", zIndex: 400, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}>
-      <div style={{ background: "#1A0A06", border: "1px solid rgba(212,168,67,0.2)", width: "100%", maxWidth: 480, boxShadow: "0 30px 80px rgba(0,0,0,0.6)" }}>
-        {/* Header */}
+      <div style={{ background: "#1A0A06", border: "1px solid rgba(212,168,67,0.2)", width: "100%", maxWidth: 420, boxShadow: "0 30px 80px rgba(0,0,0,0.6)" }}>
         <div style={{ padding: "1.3rem 1.6rem", borderBottom: "1px solid rgba(212,168,67,0.12)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", color: "#F5EDD8" }}>
-              🍜 Kitchen App <em style={{ color: "#D4A843" }}>Connection</em>
+              🍜 Kitchen App <em style={{ color: "#D4A843" }}>Status</em>
             </div>
             <div style={{ fontSize: "0.68rem", color: "rgba(212,168,67,0.55)", letterSpacing: "0.14em", textTransform: "uppercase", marginTop: "0.2rem" }}>
               Ably Realtime · pho-kitchen-orders
@@ -1101,53 +1201,32 @@ function KitchenSettingsModal({ open, onClose }) {
           <button onClick={onClose} style={{ background: "none", border: "none", color: "rgba(245,237,216,0.4)", fontSize: "1.2rem", cursor: "pointer" }}>✕</button>
         </div>
         <div style={{ padding: "1.6rem" }}>
-          {/* Status indicator */}
-          <div style={{ background: "rgba(212,168,67,0.06)", border: "1px solid rgba(212,168,67,0.15)", padding: "0.9rem 1rem", marginBottom: "1.4rem", fontSize: "0.8rem", color: "rgba(245,237,216,0.6)", lineHeight: 1.65 }}>
-            Orders placed on this website are sent live to the{" "}
-            <strong style={{ color: "#D4A843" }}>Pho Kitchen App</strong> via Ably.
-            Paste your Ably API key below to connect.{" "}
-            <a href="https://ably.com" target="_blank" rel="noreferrer" style={{ color: "#C4882B", textDecoration: "none" }}>Get a free key at ably.com →</a>
+          
+          <div style={{ display: "flex", alignItems: "center", gap: "0.9rem", background: "rgba(39,174,96,0.08)", border: "1px solid rgba(39,174,96,0.22)", padding: "1rem 1.2rem", marginBottom: "1.4rem" }}>
+            <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#27AE60", flexShrink: 0, boxShadow: "0 0 8px rgba(39,174,96,0.6)" }} />
+            <div>
+              <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "#27AE60", marginBottom: "0.2rem" }}>Live — Orders Active</div>
+              <div style={{ fontSize: "0.72rem", color: "rgba(245,237,216,0.4)", lineHeight: 1.5 }}>
+                Orders placed on this website go directly to the <strong style={{ color: "rgba(245,237,216,0.6)" }}>Pho Kitchen App</strong> on your phone in real time.
+              </div>
+            </div>
           </div>
 
-          <label style={{ display: "block", fontSize: "0.7rem", fontWeight: 600, color: "rgba(212,168,67,0.7)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
-            Ably API Key
-          </label>
-          <input
-            type="text"
-            value={key}
-            onChange={e => { setKey(e.target.value); setTestResult(null); }}
-            placeholder="xxxxxx.xxxxxx:xxxxxxxxxxxxxxxxxxxxxxxx"
-            style={{ width: "100%", padding: "0.75rem 1rem", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(212,168,67,0.2)", color: "#F5EDD8", fontFamily: "monospace", fontSize: "0.82rem", outline: "none", marginBottom: "0.6rem" }}
-            onFocus={e => e.target.style.borderColor = "#D4A843"}
-            onBlur={e => e.target.style.borderColor = "rgba(212,168,67,0.2)"}
-          />
-          <div style={{ fontSize: "0.7rem", color: "rgba(245,237,216,0.35)", marginBottom: "1.4rem", fontFamily: "monospace" }}>
-            Format: appId.keyId:keySecret
-          </div>
-
-          {/* Test result */}
+          
           {testResult && (
             <div style={{ padding: "0.65rem 1rem", marginBottom: "1rem", fontSize: "0.82rem", fontWeight: 500, background: testResult === "ok" ? "rgba(39,174,96,0.1)" : "rgba(192,57,43,0.12)", border: `1px solid ${testResult === "ok" ? "rgba(39,174,96,0.3)" : "rgba(192,57,43,0.3)"}`, color: testResult === "ok" ? "#27AE60" : "#E74C3C" }}>
-              {testResult === "ok" ? "✅ Connected — kitchen app will receive orders" : "❌ Connection failed — check your API key"}
+              {testResult === "ok" ? "✅ Connected — kitchen app will receive orders" : "❌ Connection failed — check your internet connection"}
             </div>
           )}
 
           <div style={{ display: "flex", gap: "0.7rem" }}>
-            <button onClick={testConnection} disabled={!key.trim() || testing} style={{ flex: 1, padding: "0.75rem", background: "transparent", border: "1px solid rgba(212,168,67,0.3)", color: "#D4A843", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: key.trim() ? "pointer" : "not-allowed", opacity: key.trim() ? 1 : 0.4, transition: "all 0.2s" }}>
+            <button onClick={testConnection} disabled={testing} style={{ flex: 1, padding: "0.75rem", background: "transparent", border: "1px solid rgba(212,168,67,0.3)", color: "#D4A843", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "all 0.2s" }}>
               {testing ? "Testing…" : "Test Connection"}
             </button>
-            <button onClick={save} style={{ flex: 2, padding: "0.75rem", background: "#6B1A1A", border: "none", color: "white", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.2s" }}
+            <button onClick={onClose} style={{ flex: 1, padding: "0.75rem", background: "#6B1A1A", border: "none", color: "white", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.2s" }}
               onMouseEnter={e => e.target.style.background = "#C4882B"}
               onMouseLeave={e => e.target.style.background = "#6B1A1A"}
-            >Save & Close</button>
-          </div>
-
-          {/* Current status pill */}
-          <div style={{ marginTop: "1.2rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: ABLY_API_KEY ? "#27AE60" : "rgba(245,237,216,0.2)", flexShrink: 0 }} />
-            <span style={{ fontSize: "0.7rem", color: "rgba(245,237,216,0.35)", letterSpacing: "0.08em" }}>
-              {ABLY_API_KEY ? "API key saved — live orders active" : "No key saved — orders won't reach kitchen app"}
-            </span>
+            >Close</button>
           </div>
         </div>
       </div>
@@ -1174,7 +1253,7 @@ function OrderNav({ onBack, cartCount, onCartOpen, onSettingsOpen, ablyConnected
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-          {/* Kitchen connection status + settings */}
+          
           <button onClick={onSettingsOpen} title="Kitchen App Settings" style={{ display: "flex", alignItems: "center", gap: "0.45rem", background: ablyConnected ? "rgba(39,174,96,0.1)" : "rgba(245,237,216,0.05)", border: `1px solid ${ablyConnected ? "rgba(39,174,96,0.3)" : "rgba(245,237,216,0.12)"}`, color: ablyConnected ? "#27AE60" : "rgba(245,237,216,0.4)", padding: "0.35rem 0.8rem", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "all 0.25s", fontFamily: "'DM Sans', sans-serif" }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = "#D4A843"; e.currentTarget.style.color = "#D4A843"; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = ablyConnected ? "rgba(39,174,96,0.3)" : "rgba(245,237,216,0.12)"; e.currentTarget.style.color = ablyConnected ? "#27AE60" : "rgba(245,237,216,0.4)"; }}
@@ -1214,7 +1293,7 @@ function OrderHero() {
       <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.15rem", fontStyle: "italic", color: "rgba(245,237,216,0.55)", fontWeight: 300, marginBottom: "1.5rem" }}>
         Fresh, authentic Vietnamese cuisine — ready when you are
       </p>
-      <div style={{ display: "flex", justifyContent: "center", gap: "2rem", flexWrap: "wrap" }}>
+      <div className="order-hero-info">
         {["📍 #3855 17 Ave SW, Calgary", "📞 (403) 686-3799", "🕐 Mon 11am–4pm · Tue–Sun 11am–9pm"].map(t => (
           <span key={t} style={{ fontSize: "0.78rem", color: "rgba(212,168,67,0.75)", letterSpacing: "0.08em" }}>{t}</span>
         ))}
@@ -1361,7 +1440,7 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
   const [success, setSuccess] = useState(false);
   const [orderId, setOrderId] = useState("");
   const [placing, setPlacing] = useState(false);
-  const [kitchenStatus, setKitchenStatus] = useState(null); // null | 'sending' | 'sent' | 'no_key' | 'failed'
+  const [kitchenStatus, setKitchenStatus] = useState(null); 
 
   const total = Object.entries(cart).reduce((s, [id, qty]) => s + (getItem(Number(id))?.price || 0) * qty, 0);
 
@@ -1372,7 +1451,7 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
 
     const id = "PHV-" + Date.now().toString(36).toUpperCase().slice(-6);
 
-    // Build the Order object matching the kitchen app's types.ts
+    
     const order = {
       orderId: id,
       timestamp: new Date().toLocaleString("en-CA", { dateStyle: "medium", timeStyle: "short" }),
@@ -1388,7 +1467,7 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
       restaurantPhone: "(403) 686-3799",
     };
 
-    // Send to kitchen app via Ably
+    
     setKitchenStatus("sending");
     const result = await publishOrderToKitchen(order);
     if (result.ok) {
@@ -1451,7 +1530,7 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
                 Order #{orderId}
               </div>
 
-              {/* Kitchen notification status */}
+              
               {kitchenStatus && (
                 <div style={{ margin: "1rem 0 0.5rem", padding: "0.65rem 1rem", fontSize: "0.8rem", fontWeight: 500, background: kitchenBadge[kitchenStatus].bg, border: `1px solid ${kitchenBadge[kitchenStatus].border}`, color: kitchenBadge[kitchenStatus].color, textAlign: "left", lineHeight: 1.5 }}>
                   {kitchenBadge[kitchenStatus].text}
@@ -1554,9 +1633,9 @@ function OrderPage({ onBack }) {
         ablyConnected={ablyConnected}
       />
       <OrderHero />
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "2.5rem 2rem 6rem", display: "grid", gridTemplateColumns: "1fr 320px", gap: "2rem", alignItems: "start", flex: 1 }}>
+      <div className="order-layout">
         <div style={{ minWidth: 0 }}>
-          {/* Category tabs */}
+          
           <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", marginBottom: "1.8rem" }}>
             {MENU.map(cat => (
               <button key={cat.id} onClick={() => setActiveTab(cat.id)} style={{
@@ -1571,7 +1650,7 @@ function OrderPage({ onBack }) {
               </button>
             ))}
           </div>
-          {/* Menu items */}
+          
           {MENU.map(cat => (
             <div key={cat.id} id={`sec-${cat.id}`} style={{ marginBottom: "3rem", display: activeTab === cat.id ? "block" : "block" }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.25rem", fontWeight: 600, color: "#1E1410", paddingBottom: "0.8rem", marginBottom: "0.2rem", borderBottom: "2px solid rgba(107,26,26,0.14)", display: "flex", alignItems: "center", gap: "0.6rem" }}>
@@ -1586,7 +1665,7 @@ function OrderPage({ onBack }) {
             </div>
           ))}
         </div>
-        {/* Sidebar */}
+        
         <div style={{ display: "none", alignSelf: "stretch" }} className="order-sidebar-desktop">
           <SideCart cart={cart} onAdd={addItem} onRemove={removeItem} onRemoveFull={removeItemFull} onCheckout={() => setCheckoutOpen(true)} />
         </div>
@@ -1605,11 +1684,6 @@ function OrderPage({ onBack }) {
   );
 }
 
-// ─────────────────────────────────────────────
-// KITCHEN PRINT PAGE
-// Runs in Chrome on any PC/Mac with a USB printer
-// Connects to Ably, auto-prints each confirmed order
-// ─────────────────────────────────────────────
 const KITCHEN_PRINT_CSS = `
 @keyframes kpFadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 .kp-entry { animation: kpFadeIn 0.35s ease both; }
@@ -1621,7 +1695,6 @@ const KITCHEN_PRINT_CSS = `
 }
 `;
 
-// Mirrors the receipt HTML from the kitchen app's printService.ts
 function buildReceiptHTML(order, prepMins) {
   const now = new Date().toLocaleString("en-CA", { dateStyle: "medium", timeStyle: "short" });
   const itemRows = order.items.map(item =>
@@ -1660,7 +1733,7 @@ ${special}<hr>
 }
 
 function silentPrint(html) {
-  // Inject into hidden iframe then print — doesn't interrupt the page UI
+  
   let frame = document.getElementById("kp-print-frame");
   if (!frame) {
     frame = document.createElement("iframe");
@@ -1674,7 +1747,7 @@ function silentPrint(html) {
       frame.contentWindow.focus();
       frame.contentWindow.print();
     } catch (e) {
-      // fallback: open in new tab
+      
       const w = window.open("", "_blank");
       if (w) { w.document.write(html); w.document.close(); w.print(); }
     }
@@ -1682,12 +1755,11 @@ function silentPrint(html) {
 }
 
 function KitchenPrintPage({ onBack }) {
-  const [ablyKey, setAblyKey] = useState(() => ABLY_API_KEY);
-  const [status, setStatus] = useState("disconnected"); // disconnected | connecting | connected | error
+  const [status, setStatus] = useState("disconnected");
   const [errorMsg, setErrorMsg] = useState("");
   const [autoPrint, setAutoPrint] = useState(true);
-  const [printOnNew, setPrintOnNew] = useState(false); // optional: print on arrival too
-  const [log, setLog] = useState([]); // [{order, time, printed, trigger}]
+  const [printOnNew, setPrintOnNew] = useState(false);
+  const [log, setLog] = useState([]);
   const wsRef = useRef(null);
   const reconnTimerRef = useRef(null);
 
@@ -1696,7 +1768,7 @@ function KitchenPrintPage({ onBack }) {
       order,
       time: new Date().toLocaleTimeString("en-CA", { hour: "2-digit", minute: "2-digit" }),
       printed,
-      trigger, // 'confirmed' | 'arrived'
+      trigger, 
       id: order.orderId + Date.now(),
     }, ...prev].slice(0, 40));
   };
@@ -1709,10 +1781,8 @@ function KitchenPrintPage({ onBack }) {
   }, [autoPrint]);
 
   const connect = useCallback(() => {
-    const key = ablyKey.trim();
+    const key = ABLY_API_KEY;
     if (!key) return;
-    localStorage.setItem("ably_api_key", key);
-
     if (wsRef.current) { wsRef.current.onclose = null; wsRef.current.close(); }
     clearTimeout(reconnTimerRef.current);
     setStatus("connecting"); setErrorMsg("");
@@ -1729,7 +1799,7 @@ function KitchenPrintPage({ onBack }) {
     ws.onmessage = (e) => {
       try {
         const msg = JSON.parse(e.data);
-        if (msg.action === 4) { // CONNECTED
+        if (msg.action === 4) { 
           clearTimeout(timeout);
           setStatus("connected"); setErrorMsg("");
           ws.send(JSON.stringify({ action: 10, channel: "pho-kitchen-orders" }));
@@ -1738,13 +1808,13 @@ function KitchenPrintPage({ onBack }) {
           (msg.messages || []).forEach(m => {
             try {
               const data = typeof m.data === "string" ? JSON.parse(m.data) : m.data;
-              // PRINT_ORDER = kitchen staff confirmed → print immediately
+              
               if (data?.type === "PRINT_ORDER" && data?.order) {
                 handleOrder(data.order, data.prepMins ?? null);
               }
-              // Also catch NEW_ORDER if user wants to print on arrival too
+              
               if (data?.type === "NEW_ORDER" && data?.order && printOnNew) {
-                handleOrder(data.order, null, true /* isArrival */);
+                handleOrder(data.order, null, true );
               }
             } catch {}
           });
@@ -1765,7 +1835,7 @@ function KitchenPrintPage({ onBack }) {
         reconnTimerRef.current = setTimeout(connect, 5000);
       }
     };
-  }, [ablyKey, handleOrder, printOnNew]);
+  }, [handleOrder, printOnNew]);
 
   const disconnect = () => {
     clearTimeout(reconnTimerRef.current);
@@ -1787,7 +1857,7 @@ function KitchenPrintPage({ onBack }) {
     <div style={{ minHeight: "100vh", background: "#0E0806", color: "#F5EDD8", display: "flex", flexDirection: "column" }}>
       <style>{KITCHEN_PRINT_CSS}</style>
 
-      {/* Header */}
+      
       <header style={{ background: "#120A06", borderBottom: "1px solid rgba(212,168,67,0.12)", padding: "1rem 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 10 }}>
         <div style={{ display: "flex", alignItems: "center", gap: "1.2rem" }}>
           <button onClick={onBack} style={{ color: "rgba(245,237,216,0.4)", fontSize: "0.75rem", letterSpacing: "0.12em", textTransform: "uppercase", background: "none", border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
@@ -1801,19 +1871,19 @@ function KitchenPrintPage({ onBack }) {
             </div>
           </div>
         </div>
-        {/* Status pill */}
+        
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.4rem 1rem", background: sc.bg, border: `1px solid ${sc.dot}30`, borderRadius: 2 }}>
           <div style={{ width: 8, height: 8, borderRadius: "50%", background: sc.dot, flexShrink: 0 }} className={status === "connecting" ? "kp-pulse" : ""} />
           <span style={{ fontSize: "0.72rem", color: sc.dot, fontWeight: 500, letterSpacing: "0.08em" }}>{sc.label}</span>
         </div>
       </header>
 
-      <div style={{ flex: 1, display: "grid", gridTemplateColumns: "360px 1fr", maxWidth: 1200, margin: "0 auto", width: "100%", padding: "2rem", gap: "1.5rem", alignItems: "start" }}>
+      <div className="kitchen-grid" style={{ flex: 1, display: "grid", gridTemplateColumns: "min(360px, 100%) 1fr", maxWidth: 1200, margin: "0 auto", width: "100%", padding: "2rem 1rem", gap: "1.5rem", alignItems: "start" }}>
 
-        {/* Left — Setup panel */}
+        
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
 
-          {/* How it works */}
+          
           <div style={{ background: "rgba(212,168,67,0.05)", border: "1px solid rgba(212,168,67,0.14)", padding: "1.1rem 1.2rem" }}>
             <div style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "#D4A843", marginBottom: "0.7rem" }}>How it works</div>
             {[
@@ -1832,21 +1902,16 @@ function KitchenPrintPage({ onBack }) {
             </div>
           </div>
 
-          {/* Connection setup */}
+          
           <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(212,168,67,0.12)", padding: "1.3rem" }}>
-            <div style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "#D4A843", marginBottom: "1rem" }}>Ably Connection</div>
-            <label style={{ display: "block", fontSize: "0.68rem", color: "rgba(245,237,216,0.4)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>API Key</label>
-            <input
-              value={ablyKey}
-              onChange={e => setAblyKey(e.target.value)}
-              placeholder="xxxxxx.xxxxxx:xxxxxxxxxxxxxxxx"
-              disabled={status === "connected" || status === "connecting"}
-              style={{ width: "100%", padding: "0.65rem 0.8rem", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(212,168,67,0.18)", color: "#F5EDD8", fontFamily: "monospace", fontSize: "0.78rem", outline: "none", marginBottom: "0.8rem", opacity: status === "connected" ? 0.5 : 1 }}
-            />
+            <div style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "#D4A843", marginBottom: "1rem" }}>Connection</div>
             <div style={{ display: "flex", gap: "0.6rem" }}>
               {status !== "connected" ? (
-                <button onClick={connect} disabled={!ablyKey.trim()} style={{ flex: 1, padding: "0.7rem", background: ablyKey.trim() ? "#6B1A1A" : "rgba(255,255,255,0.05)", color: ablyKey.trim() ? "white" : "rgba(245,237,216,0.3)", border: "none", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: ablyKey.trim() ? "pointer" : "not-allowed", transition: "background 0.2s" }}>
-                  Connect
+                <button onClick={connect} style={{ flex: 1, padding: "0.7rem", background: "#6B1A1A", color: "white", border: "none", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.2s" }}
+                  onMouseEnter={e => e.target.style.background = "#C4882B"}
+                  onMouseLeave={e => e.target.style.background = "#6B1A1A"}
+                >
+                  {status === "connecting" ? "Connecting…" : status === "error" ? "Retry" : "Connect"}
                 </button>
               ) : (
                 <button onClick={disconnect} style={{ flex: 1, padding: "0.7rem", background: "rgba(192,57,43,0.15)", color: "#E74C3C", border: "1px solid rgba(192,57,43,0.3)", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer" }}>
@@ -1856,11 +1921,11 @@ function KitchenPrintPage({ onBack }) {
             </div>
           </div>
 
-          {/* Print settings + test */}
+          
           <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(212,168,67,0.12)", padding: "1.3rem" }}>
             <div style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "#D4A843", marginBottom: "1rem" }}>Print Settings</div>
 
-            {/* Auto-print on confirm toggle */}
+            
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", paddingBottom: "1rem", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
               <div>
                 <div style={{ fontSize: "0.8rem", fontWeight: 500, color: "#F5EDD8" }}>Print on Confirm</div>
@@ -1871,7 +1936,7 @@ function KitchenPrintPage({ onBack }) {
               </div>
             </div>
 
-            {/* Also print on arrival toggle */}
+            
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
               <div>
                 <div style={{ fontSize: "0.8rem", fontWeight: 500, color: "#F5EDD8" }}>Also Print on Arrival</div>
@@ -1902,7 +1967,7 @@ function KitchenPrintPage({ onBack }) {
             >🖨 Print Test Receipt</button>
           </div>
 
-          {/* Silent print tip */}
+          
           <div style={{ background: "rgba(41,128,185,0.07)", border: "1px solid rgba(41,128,185,0.2)", padding: "1rem 1.1rem", fontSize: "0.75rem", color: "rgba(245,237,216,0.5)", lineHeight: 1.7 }}>
             <strong style={{ color: "#2980B9", display: "block", marginBottom: "0.3rem" }}>💡 Tip: Skip the print dialog</strong>
             In Chrome, go to <strong style={{ color: "rgba(245,237,216,0.7)" }}>Settings → Printing → Skip print preview</strong>, or launch Chrome with:
@@ -1911,7 +1976,7 @@ function KitchenPrintPage({ onBack }) {
           </div>
         </div>
 
-        {/* Right — Live order log */}
+        
         <div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
             <div>
@@ -1972,9 +2037,6 @@ function KitchenPrintPage({ onBack }) {
   );
 }
 
-// ─────────────────────────────────────────────
-// APP ROOT
-// ─────────────────────────────────────────────
 export default function App() {
   const [page, setPage] = useState("home");
 
