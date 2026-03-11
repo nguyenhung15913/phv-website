@@ -251,29 +251,29 @@ const MENU = [
     { id: 207, name: "S7 — Grilled Prawn Skewers Sub", desc: "Bánh Mì Tôm Nướng — Chargrilled prawn skewers with house toppings", price: 11.75, tags: ["pop"] },
   ]},
   { category: "🍜 Phở — Beef Noodle Soup", id: "pho", items: [
-    { id: 301, name: "1 — Huong Viet Sate Beef Noodle Soup (Spicy)", desc: "Phở Bò Sate — House signature spicy sate beef in rich bone broth. Sm $14.25 / Lg $15.25", price: 14.25, tags: ["pop", "spicy"] },
-    { id: 302, name: "1A — Seafood Sate Noodle Soup", desc: "Phở Sate Đồ Biển — Shrimp, squid and artificial crab in spicy sate broth. One size only", price: 16.25, tags: ["spicy"] },
-    { id: 303, name: "2 — Chicken Noodle Soup", desc: "Phở Gà — Tender chicken breast in light fragrant broth. Sm $13.95 / Lg $14.95", price: 13.95 },
-    { id: 304, name: "2A — Sate Chicken Noodle Soup (Spicy)", desc: "Phở Gà Sate — Chicken breast in spicy sate broth. Sm $14.25 / Lg $15.25", price: 14.25, tags: ["spicy"] },
-    { id: 305, name: "2B — Curry Chicken Noodle Soup", desc: "Phở Gà Cà Ri — Chicken breast in aromatic curry broth", price: 15.25 },
-    { id: 306, name: "3 — Huong Viet's Special Noodle Soup", desc: "Phở Đặc Biệt — Rare beef, beef ball, tendon, flank and tripe. Sm $14.95 / Lg $15.95", price: 14.95, tags: ["pop"] },
-    { id: 307, name: "4 — Rare Beef Noodle Soup", desc: "Phở Tái — Sliced rare beef in classic bone broth. Sm $13.95 / Lg $14.95", price: 13.95 },
-    { id: 308, name: "5 — Rare Beef & Flank Noodle Soup", desc: "Phở Tái Nạm — Rare beef with slow-cooked flank. Sm $13.95 / Lg $14.95", price: 13.95, tags: ["pop"] },
-    { id: 309, name: "6 — Rare Beef & Tripe Noodle Soup", desc: "Phở Tái Sách — Rare beef with honeycomb tripe. Sm $13.95 / Lg $14.95", price: 13.95 },
-    { id: 310, name: "7 — Rare Beef & Tendon Noodle Soup", desc: "Phở Tái Gân — Rare beef with slow-cooked tendon. Sm $13.95 / Lg $14.95", price: 13.95 },
-    { id: 311, name: "8 — Well Done Flank Noodle Soup", desc: "Phở Nạm — Well-done slow-cooked flank in bone broth. Sm $13.95 / Lg $14.95", price: 13.95 },
-    { id: 312, name: "9 — Rare Beef & Beef Ball Noodle Soup", desc: "Phở Tái Bò Viên — Rare beef with house-made beef balls. Sm $13.95 / Lg $14.95", price: 13.95 },
-    { id: 313, name: "10 — Rare Beef, Flank & Tripe Noodle Soup", desc: "Phở Tái Nạm Sách — Sm $13.95 / Lg $14.95", price: 13.95 },
-    { id: 314, name: "11 — Rare Beef, Flank, Tendon & Tripe", desc: "Phở Tái Nạm Gân Sách — The full combination. Sm $13.95 / Lg $14.95", price: 13.95, tags: ["pop"] },
-    { id: 315, name: "12 — Well Done Flank, Tendon & Tripe", desc: "Phở Nạm Gân Sách — Well-done combination. Sm $13.95 / Lg $14.95", price: 13.95 },
-    { id: 316, name: "13 — Beef Ball Noodle Soup", desc: "Phở Bò Viên — House-made beef balls in bone broth. Sm $13.95 / Lg $14.95", price: 13.95 },
-    { id: 317, name: "14 — Vegetables Noodle Soup", desc: "Phở Rau Củ — Fresh vegetables in beef or vegetarian broth. Sm $13.95 / Lg $14.95", price: 13.95, tags: ["veg"] },
-    { id: 318, name: "15 — Bún Bò Huế (Hue Style Spicy Noodle Soup)", desc: "Flank, rare beef, pork roll and beef ball in spicy shrimp paste broth. Sm $14.95 / Lg $15.95", price: 14.95, tags: ["spicy"] },
-    { id: 319, name: "15A — Pork Ball Sate Noodle Soup", desc: "Phở Heo Viên Sate — Pork balls in spicy sate broth. Sm $13.95 / Lg $14.95", price: 13.95, tags: ["spicy"] },
-    { id: 320, name: "★ Beef Ribs Phở (NEW)", desc: "Short ribs, beef balls and flank in our savoury bone broth with rice noodles", price: 19.95, tags: ["pop"] },
-    { id: 321, name: "16A — Wonton Soup (8 wontons)", desc: "Hoành Thánh Soup — Handmade wontons in chicken broth", price: 10.95 },
-    { id: 322, name: "16C — Special Wor Wonton Soup", desc: "Mì Hoành Thánh Đặc Biệt — Chicken breast, egg noodle, wontons and veggies", price: 16.25, tags: ["pop"] },
-    { id: 323, name: "16D — Beef Stew (Bò Kho)", desc: "Slow-braised beef stew — choice of noodle or baguette", price: 16.25, tags: ["pop"] },
+    { id: 301, name: "1 — Huong Viet Sate Beef Noodle Soup (Spicy)", desc: "Phở Bò Sate — House signature spicy sate beef in rich bone broth.", price: 14.25, tags: ["pop", "spicy"], sizes: [{label:"Sm", price:14.25},{label:"Lg", price:15.25}] },
+    { id: 302, name: "1A — Seafood Sate Noodle Soup", desc: "Phở Sate Đồ Biển — Shrimp, squid and artificial crab in spicy sate broth.", price: 16.25, tags: ["spicy"] },
+    { id: 303, name: "2 — Chicken Noodle Soup", desc: "Phở Gà — Tender chicken breast in light fragrant broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 304, name: "2A — Sate Chicken Noodle Soup (Spicy)", desc: "Phở Gà Sate — Chicken breast in spicy sate broth.", price: 14.25, tags: ["spicy"], sizes: [{label:"Sm", price:14.25},{label:"Lg", price:15.25}] },
+    { id: 305, name: "2B — Curry Chicken Noodle Soup", desc: "Phở Gà Cà Ri — Chicken breast in aromatic curry broth.", price: 15.25 },
+    { id: 306, name: "3 — Huong Viet's Special Noodle Soup", desc: "Phở Đặc Biệt — Rare beef, beef ball, tendon, flank and tripe.", price: 14.95, tags: ["pop"], sizes: [{label:"Sm", price:14.95},{label:"Lg", price:15.95}] },
+    { id: 307, name: "4 — Rare Beef Noodle Soup", desc: "Phở Tái — Sliced rare beef in classic bone broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 308, name: "5 — Rare Beef & Flank Noodle Soup", desc: "Phở Tái Nạm — Rare beef with slow-cooked flank.", price: 13.95, tags: ["pop"], sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 309, name: "6 — Rare Beef & Tripe Noodle Soup", desc: "Phở Tái Sách — Rare beef with honeycomb tripe.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 310, name: "7 — Rare Beef & Tendon Noodle Soup", desc: "Phở Tái Gân — Rare beef with slow-cooked tendon.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 311, name: "8 — Well Done Flank Noodle Soup", desc: "Phở Nạm — Well-done slow-cooked flank in bone broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 312, name: "9 — Rare Beef & Beef Ball Noodle Soup", desc: "Phở Tái Bò Viên — Rare beef with house-made beef balls.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 313, name: "10 — Rare Beef, Flank & Tripe Noodle Soup", desc: "Phở Tái Nạm Sách", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 314, name: "11 — Rare Beef, Flank, Tendon & Tripe", desc: "Phở Tái Nạm Gân Sách — The full combination.", price: 13.95, tags: ["pop"], sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 315, name: "12 — Well Done Flank, Tendon & Tripe", desc: "Phở Nạm Gân Sách — Well-done combination.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 316, name: "13 — Beef Ball Noodle Soup", desc: "Phở Bò Viên — House-made beef balls in bone broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 317, name: "14 — Vegetables Noodle Soup", desc: "Phở Rau Củ — Fresh vegetables in beef or vegetarian broth.", price: 13.95, tags: ["veg"], sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
+    { id: 318, name: "15 — Bún Bò Huế (Hue Style Spicy Noodle Soup)", desc: "Flank, rare beef, pork roll and beef ball in spicy shrimp paste broth.", price: 14.95, tags: ["spicy"], sizes: [{label:"Sm", price:14.95},{label:"Lg", price:15.95}] },
+
+    { id: 320, name: "★ Beef Ribs Phở (NEW)", desc: "Short ribs, beef balls and flank in our savoury bone broth with rice noodles.", price: 19.95, tags: ["pop"] },
+    { id: 321, name: "16A — Wonton Soup (8 wontons)", desc: "Hoành Thánh Soup — Handmade wontons in chicken broth.", price: 10.95 },
+    { id: 322, name: "16C — Special Wor Wonton Soup", desc: "Mì Hoành Thánh Đặc Biệt — Chicken breast, egg noodle, wontons and veggies.", price: 16.25, tags: ["pop"] },
+    { id: 323, name: "16D — Beef Stew (Bò Kho)", desc: "Slow-braised beef stew — choice of noodle or baguette.", price: 16.25, tags: ["pop"] },
   ]},
   { category: "🍝 Bún — Vermicelli Bowls", id: "bun", items: [
     { id: 401, name: "B1 — BBQ Pork & Spring Rolls on Vermicelli", desc: "Bún Thịt Nướng Chả Giò — Grilled BBQ pork and crispy spring rolls on rice vermicelli with veggies", price: 14.95 },
@@ -337,10 +337,6 @@ function getItem(id) {
     const f = cat.items.find(i => i.id === numId);
     if (f) return f;
   }
-}
-function getItemFlavour(key) {
-  const parts = String(key).split("|");
-  return parts.length > 1 ? parts[1] : null;
 }
 function useReveal() {
   const ref = useRef(null);
@@ -968,7 +964,7 @@ function MenuSection() {
     ]},
     { id: "drinks", label: "Drinks & Desserts", items: [
       { name: "Caramel Coffee", viet: "Cà Phê Caramel", desc: "Smooth Vietnamese coffee swirled with golden caramel, served over ice for a rich indulgent sip.", price: "~$6", tag: "NEW", img: "/caramelcoffee.jpg", fallback: "/caramelcoffee.jpg" },
-      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "Vietnamese coffee blended with creamy coconut milk — cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.webp", fallback: "/coconutcoffee.webp" },
+      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "Vietnamese coffee blended with creamy coconut milk — cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.jpeg", fallback: "/coconutcoffee.jpeg" },
       { name: "Sparkling Lychee Drink", viet: "Nước Vải Có Ga", desc: "Refreshing sparkling lychee drink with a fruity floral finish. Perfect to cool down.", price: "~$6", tag: "NEW", img: "/lycheedrink.webp", fallback: "/lycheedrink.webp" },
     ]},
   ];
@@ -1474,11 +1470,17 @@ function OrderHero() {
   );
 }
 
-function MenuCard({ item, qty, onAdd, onRemove }) {
+function MenuCard({ item, cart, onAdd, onRemove }) {
   const [hovered, setHovered] = useState(false);
   const [selected, setSelected] = useState("");
+  const [size, setSize] = useState(item.sizes ? item.sizes[0] : null);
 
-  const canAdd = !item.selectOptions || selected !== "";
+  const canAdd = (!item.selectOptions || selected !== "");
+  const activePrice = size ? size.price : item.price;
+
+  const sizeTag = size ? `sz:${size.label}` : null;
+  const cartKey = [String(item.id), selected || null, sizeTag].filter(Boolean).join("|");
+  const qty = cart[cartKey]?.qty || 0;
 
   return (
     <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} style={{
@@ -1494,6 +1496,24 @@ function MenuCard({ item, qty, onAdd, onRemove }) {
         {(item.tags || []).map(t => <Tag key={t} type={t} />)}
       </div>
       <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem", lineHeight: 1.6, flex: 1, color: "#6A5040", fontWeight: 300 }}>{item.desc}</div>
+
+      {item.sizes && (
+        <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.2rem" }}>
+          {item.sizes.map(s => (
+            <button key={s.label} onClick={() => setSize(s)} style={{
+              padding: "0.3rem 0.85rem", fontSize: "0.78rem", fontFamily: "'DM Sans', sans-serif",
+              fontWeight: 600, letterSpacing: "0.05em", cursor: "pointer", border: "1px solid",
+              transition: "all 0.15s",
+              background: size?.label === s.label ? "#6B1A1A" : "transparent",
+              color: size?.label === s.label ? "white" : "#6B1A1A",
+              borderColor: "#6B1A1A",
+            }}>
+              {s.label} — ${s.price.toFixed(2)}
+            </button>
+          ))}
+        </div>
+      )}
+
       {item.selectOptions && (
         <select
           value={selected}
@@ -1513,19 +1533,20 @@ function MenuCard({ item, qty, onAdd, onRemove }) {
           ))}
         </select>
       )}
+
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "0.3rem", paddingTop: "0.7rem", borderTop: "1px solid rgba(107,26,26,0.08)" }}>
-        <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontWeight: 700, color: "#6B1A1A" }}>${item.price.toFixed(2)}</span>
+        <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontWeight: 700, color: "#6B1A1A" }}>${activePrice.toFixed(2)}</span>
         {qty === 0 ? (
-          <button onClick={() => { if (canAdd) onAdd(item.id, selected); }} style={{ background: canAdd ? "#6B1A1A" : "#ccc", color: "white", border: "none", width: 32, height: 32, fontSize: "1.2rem", fontWeight: 700, cursor: canAdd ? "pointer" : "not-allowed", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}
+          <button onClick={() => { if (canAdd) onAdd(item.id, selected, size); }} style={{ background: canAdd ? "#6B1A1A" : "#ccc", color: "white", border: "none", width: 32, height: 32, fontSize: "1.2rem", fontWeight: 700, cursor: canAdd ? "pointer" : "not-allowed", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}
             onMouseEnter={e => { if (canAdd) e.target.style.background = "#C4882B"; }}
             onMouseLeave={e => { if (canAdd) e.target.style.background = "#6B1A1A"; }}
             title={!canAdd ? `Please ${item.selectLabel?.toLowerCase()} first` : ""}
           >+</button>
         ) : (
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <button onClick={() => onRemove(item.id)} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s", color: "#2A1A0E" }}>−</button>
+            <button onClick={() => onRemove(item.id, selected, size)} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s", color: "#2A1A0E" }}>−</button>
             <span style={{ fontWeight: 700, minWidth: 20, textAlign: "center", fontSize: "0.95rem", color: "#6B1A1A" }}>{qty}</span>
-            <button onClick={() => onAdd(item.id, selected)} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s", color: "#2A1A0E" }}>+</button>
+            <button onClick={() => onAdd(item.id, selected, size)} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s", color: "#2A1A0E" }}>+</button>
           </div>
         )}
       </div>
@@ -1534,8 +1555,8 @@ function MenuCard({ item, qty, onAdd, onRemove }) {
 }
 
 function SideCart({ cart, onAdd, onRemove, onRemoveFull, onCheckout }) {
-  const total = Object.entries(cart).reduce((s, [id, qty]) => s + (getItem(id)?.price || 0) * qty, 0);
-  const count = Object.values(cart).reduce((a, b) => a + b, 0);
+  const total = Object.entries(cart).reduce((s, [, v]) => s + (v?.price || 0) * (v?.qty || 0), 0);
+  const count = Object.values(cart).reduce((a, v) => a + (v?.qty || 0), 0);
   return (
     <div style={{ position: "sticky", top: 80, maxHeight: "calc(100vh - 100px)", display: "flex", flexDirection: "column" }}>
       <div style={{ background: "white", border: "1px solid rgba(107,26,26,0.14)", boxShadow: "0 2px 24px rgba(107,26,26,0.07)", overflow: "hidden", display: "flex", flexDirection: "column", maxHeight: "calc(100vh - 100px)" }}>
@@ -1549,18 +1570,22 @@ function SideCart({ cart, onAdd, onRemove, onRemoveFull, onCheckout }) {
               Your cart is empty.<br />Add items from the menu.
             </div>
           ) : (
-            Object.entries(cart).map(([key, qty]) => {
+            Object.entries(cart).map(([key, v]) => {
               const item = getItem(key);
-              const flavour = getItemFlavour(key);
+              const parts = key.split("|").slice(1);
+              const flavour = parts.find(p => !p.startsWith("sz:")) || null;
+              const sizeLabel = (parts.find(p => p.startsWith("sz:")) || "").replace("sz:", "");
               if (!item) return null;
+              const qty = v?.qty || 0;
+              const price = v?.price || item.price;
               return (
                 <div key={key} style={{ display: "flex", alignItems: "center", gap: "0.6rem", padding: "0.7rem 0", borderBottom: "1px solid rgba(107,26,26,0.07)", fontSize: "0.82rem" }}>
                   <div style={{ flex: 1, fontWeight: 500, lineHeight: 1.3, color: "#2A1A0E" }}>
                     {item.name}
-                    {flavour && <div style={{ fontSize: "0.72rem", color: "#C4882B", fontWeight: 400 }}>{flavour}</div>}
+                    {(flavour || sizeLabel) && <div style={{ fontSize: "0.72rem", color: "#C4882B", fontWeight: 400 }}>{[sizeLabel, flavour].filter(Boolean).join(" · ")}</div>}
                   </div>
                   <div style={{ color: "#7A6050", fontSize: "0.75rem" }}>×{qty}</div>
-                  <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, color: "#6B1A1A", whiteSpace: "nowrap", fontSize: "0.9rem" }}>${(item.price * qty).toFixed(2)}</div>
+                  <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, color: "#6B1A1A", whiteSpace: "nowrap", fontSize: "0.9rem" }}>${(price * qty).toFixed(2)}</div>
                   <button onClick={() => onRemoveFull(key)} style={{ background: "none", border: "none", color: "rgba(107,26,26,0.3)", cursor: "pointer", fontSize: "0.9rem", padding: "2px 4px", transition: "color 0.15s" }}
                     onMouseEnter={e => e.target.style.color = "#6B1A1A"}
                     onMouseLeave={e => e.target.style.color = "rgba(107,26,26,0.3)"}
@@ -1588,8 +1613,8 @@ function SideCart({ cart, onAdd, onRemove, onRemoveFull, onCheckout }) {
 }
 
 function MobileCartDrawer({ open, onClose, cart, onAdd, onRemove, onRemoveFull, onCheckout }) {
-  const total = Object.entries(cart).reduce((s, [id, qty]) => s + (getItem(id)?.price || 0) * qty, 0);
-  const count = Object.values(cart).reduce((a, b) => a + b, 0);
+  const total = Object.entries(cart).reduce((s, [, v]) => s + (v?.price || 0) * (v?.qty || 0), 0);
+  const count = Object.values(cart).reduce((a, v) => a + (v?.qty || 0), 0);
   return (
     <>
       {open && <div onClick={onClose} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)", zIndex: 200 }} />}
@@ -1603,18 +1628,22 @@ function MobileCartDrawer({ open, onClose, cart, onAdd, onRemove, onRemoveFull, 
             <div style={{ textAlign: "center", color: "#7A6050", padding: "1.5rem", fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>Your cart is empty.</div>
           ) : (
             <>
-              {Object.entries(cart).map(([key, qty]) => {
+              {Object.entries(cart).map(([key, v]) => {
                 const item = getItem(key);
-                const flavour = getItemFlavour(key);
+                const parts = key.split("|").slice(1);
+                const flavour = parts.find(p => !p.startsWith("sz:")) || null;
+                const sizeLabel = (parts.find(p => p.startsWith("sz:")) || "").replace("sz:", "");
                 if (!item) return null;
+                const qty = v?.qty || 0;
+                const price = v?.price || item.price;
                 return (
                   <div key={key} style={{ display: "flex", alignItems: "center", gap: "0.6rem", padding: "0.7rem 0", borderBottom: "1px solid rgba(107,26,26,0.07)", fontSize: "0.82rem" }}>
                     <div style={{ flex: 1, fontWeight: 500, lineHeight: 1.3 }}>
                       {item.name}
-                      {flavour && <div style={{ fontSize: "0.72rem", color: "#C4882B", fontWeight: 400 }}>{flavour}</div>}
+                      {(flavour || sizeLabel) && <div style={{ fontSize: "0.72rem", color: "#C4882B", fontWeight: 400 }}>{[sizeLabel, flavour].filter(Boolean).join(" · ")}</div>}
                     </div>
                     <div style={{ color: "#7A6050" }}>×{qty}</div>
-                    <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, color: "#6B1A1A" }}>${(item.price * qty).toFixed(2)}</div>
+                    <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, color: "#6B1A1A" }}>${(price * qty).toFixed(2)}</div>
                     <button onClick={() => onRemoveFull(key)} style={{ background: "none", border: "none", color: "#7A6050", cursor: "pointer" }}>✕</button>
                   </div>
                 );
@@ -1646,7 +1675,7 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
   const [placing, setPlacing] = useState(false);
   const [kitchenStatus, setKitchenStatus] = useState(null); 
 
-  const total = Object.entries(cart).reduce((s, [id, qty]) => s + (getItem(id)?.price || 0) * qty, 0);
+  const total = Object.entries(cart).reduce((s, [, v]) => s + (v?.price || 0) * (v?.qty || 0), 0);
 
   const handlePlace = async () => {
     if (!name.trim() || !phone.trim() || !email.trim()) { alert("Please fill in your name, phone and email."); return; }
@@ -1662,10 +1691,15 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
       type: "PICKUP",
       customer: { name: name.trim(), phone: phone.trim(), email: email.trim() },
       specialInstructions: notes.trim() || "None",
-      items: Object.entries(cart).map(([key, qty]) => {
+      items: Object.entries(cart).map(([key, v]) => {
         const item = getItem(key);
-        const flavour = getItemFlavour(key);
-        return { id: Number(String(key).split("|")[0]), name: item.name + (flavour ? ` (${flavour})` : ""), qty, unitPrice: item.price, subtotal: item.price * qty };
+        const parts = key.split("|").slice(1);
+        const flavour = parts.find(p => !p.startsWith("sz:")) || null;
+        const sizeLabel = (parts.find(p => p.startsWith("sz:")) || "").replace("sz:", "");
+        const label = [sizeLabel, flavour].filter(Boolean).join(", ");
+        const qty = v?.qty || 0;
+        const price = v?.price || item.price;
+        return { id: Number(String(key).split("|")[0]), name: item.name + (label ? ` (${label})` : ""), qty, unitPrice: price, subtotal: price * qty };
       }),
       total,
       restaurant: "Pho Huong Viet 17Ave SW",
@@ -1752,14 +1786,19 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
             <>
               <div style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", padding: "1.2rem", marginBottom: "1.5rem" }}>
                 <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.9rem", fontWeight: 600, marginBottom: "0.8rem", color: "#1E1410", letterSpacing: "0.05em", textTransform: "uppercase" }}>Order Summary</h4>
-                {Object.entries(cart).map(([key, qty]) => {
+                {Object.entries(cart).map(([key, v]) => {
                   const item = getItem(key);
-                  const flavour = getItemFlavour(key);
+                  const parts = key.split("|").slice(1);
+                  const flavour = parts.find(p => !p.startsWith("sz:")) || null;
+                  const sizeLabel = (parts.find(p => p.startsWith("sz:")) || "").replace("sz:", "");
                   if (!item) return null;
+                  const qty = v?.qty || 0;
+                  const price = v?.price || item.price;
+                  const label = [sizeLabel, flavour].filter(Boolean).join(", ");
                   return (
                     <div key={key} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem", padding: "0.3rem 0", color: "#2A1A0E" }}>
-                      <span>{item.name}{flavour ? ` (${flavour})` : ""} ×{qty}</span>
-                      <span>${(item.price * qty).toFixed(2)}</span>
+                      <span>{item.name}{label ? ` (${label})` : ""} ×{qty}</span>
+                      <span>${(price * qty).toFixed(2)}</span>
                     </div>
                   );
                 })}
@@ -1809,7 +1848,7 @@ function OrderPage({ onBack }) {
   const [mobileCartOpen, setMobileCartOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
 
-  const cartCount = Object.values(cart).reduce((a, b) => a + b, 0);
+  const cartCount = Object.values(cart).reduce((a, v) => a + (v?.qty || 0), 0);
 
   useEffect(() => {
     const observers = [];
@@ -1825,21 +1864,24 @@ function OrderPage({ onBack }) {
     return () => observers.forEach(o => o.disconnect());
   }, []);
 
-  const addItem = useCallback((id, flavour) => {
-    const key = flavour ? `${id}|${flavour}` : String(id);
-    setCart(c => ({ ...c, [key]: (c[key] || 0) + 1 }));
+  const addItem = useCallback((id, flavour, size) => {
+    const sizeTag = size ? `sz:${size.label}` : null;
+    const key = [String(id), flavour || null, sizeTag].filter(Boolean).join("|");
+    const price = size ? size.price : (getItem(String(id))?.price || 0);
+    setCart(c => ({ ...c, [key]: { qty: ((c[key]?.qty) || 0) + 1, price } }));
   }, []);
-  const removeItem = useCallback((id, flavour) => {
-    const key = flavour ? `${id}|${flavour}` : String(id);
+  const removeItem = useCallback((id, flavour, size) => {
+    const sizeTag = size ? `sz:${size.label}` : null;
+    const key = [String(id), flavour || null, sizeTag].filter(Boolean).join("|");
     setCart(c => {
       const n = { ...c };
-      if (n[key] > 1) n[key]--;
+      if (!n[key]) return n;
+      if (n[key].qty > 1) n[key] = { ...n[key], qty: n[key].qty - 1 };
       else delete n[key];
       return n;
     });
   }, []);
-  const removeItemFull = useCallback((id, flavour) => {
-    const key = flavour ? `${id}|${flavour}` : String(id);
+  const removeItemFull = useCallback((key) => {
     setCart(c => { const n = { ...c }; delete n[key]; return n; });
   }, []);
   const clearCart = () => setCart({});
@@ -1882,7 +1924,7 @@ function OrderPage({ onBack }) {
               </div>
               <div className="order-menu-grid">
                 {cat.items.map(item => (
-                  <MenuCard key={item.id} item={item} qty={cart[item.id] || 0} onAdd={addItem} onRemove={removeItem} />
+                  <MenuCard key={item.id} item={item} cart={cart} onAdd={addItem} onRemove={removeItem} />
                 ))}
               </div>
             </div>
