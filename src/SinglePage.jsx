@@ -21,7 +21,6 @@ const css = `
   @keyframes scrollPulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
   @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
   @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
   .hero-bg-anim { animation: heroZoom 20s ease-in-out infinite alternate; }
   .hero-content-anim { animation: heroFadeUp 1.2s cubic-bezier(0.16,1,0.3,1) both; }
@@ -135,6 +134,7 @@ const css = `
   .hours-table td:last-child { color: #C4882B; font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; text-align: right; }
 
   
+  .about-overlay-img { display: block; }
   .cart-list-scroll { max-height: 320px; overflow-y: auto; }
   .cart-list-scroll::-webkit-scrollbar { width: 4px; }
   .cart-list-scroll::-webkit-scrollbar-thumb { background: rgba(107,26,26,0.2); }
@@ -182,75 +182,165 @@ const css = `
     .nav-desktop-item { display: none !important; }
     .nav-order-btn { display: none !important; }
     .hamburger-btn { display: flex !important; }
+    .about-overlay-img { display: none !important; }
+    .testimonials-grid { grid-template-columns: 1fr !important; }
+    .menu-home-tab-row { flex-direction: column !important; align-items: flex-start !important; }
+    .popup-header-row { flex-wrap: wrap !important; gap: 0.8rem !important; }
   }
 
   @media(max-width: 600px) {
     .section-pad { padding: 4rem 1.2rem; }
     .about-stats { grid-template-columns: repeat(3,1fr); gap: 0.8rem; }
     .menu-home-grid { grid-template-columns: 1fr; }
-    .photo-grid { grid-template-columns: 1fr; }
-    .photo-grid img { height: 240px; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-grid img { height: 160px; }
+    .photo-grid img:first-child { grid-row: span 1; }
     .delivery-btns { flex-direction: column; width: 100%; }
     .delivery-btns a, .delivery-btns button { width: 100%; text-align: center; justify-content: center; }
     .order-hero-info { flex-direction: column; align-items: center; gap: 0.5rem; }
-    .order-nav-kitchen { display: none !important; }
+    .hero-buttons { flex-direction: column !important; align-items: stretch !important; }
+    .hero-buttons > * { width: 100% !important; text-align: center; }
+    .cta-buttons { flex-direction: column !important; align-items: stretch !important; }
+    .cta-buttons > * { width: 100% !important; text-align: center; justify-content: center !important; }
+    .menu-popup-grid { grid-template-columns: 1fr !important; }
+    .order-menu-grid { grid-template-columns: 1fr !important; }
+    .popup-footer-row { flex-direction: column !important; gap: 0.8rem !important; align-items: stretch !important; }
+    .popup-footer-row > * { width: 100% !important; text-align: center; }
+    .hours-table td { font-size: 0.82rem; padding: 0.7rem 0; }
+    .visit-grid iframe { height: 280px !important; }
     .order-nav-pickup { display: none !important; }
-    .kitchen-grid { grid-template-columns: 1fr !important; }
+    .delivery-inner { gap: 1.5rem; }
+  }
+
+  @media(max-width: 400px) {
+    .section-pad { padding: 3rem 1rem; }
+    .about-stats { grid-template-columns: repeat(3,1fr); gap: 0.5rem; }
+    .photo-grid { grid-template-columns: 1fr; }
+    .photo-grid img { height: 200px; }
+    .mobile-menu a, .mobile-menu button.mobile-nav-link { font-size: 1.6rem; }
   }
 `;
 
 const MENU = [
-  { category: "🍜 Pho Noodle Soup", id: "pho", items: [
-    { id: 1, name: "Pho Dac Biet — House Special Combo", desc: "Rare beef, brisket, meatballs & tendon in rich bone broth", price: 17.50, tags: ["pop"] },
-    { id: 2, name: "Pho Tai — Rare Beef", desc: "Sliced rare beef in classic bone broth with rice noodles", price: 16.50 },
-    { id: 3, name: "Pho Tai Nam — Rare Beef & Brisket", desc: "Rare beef with slow-cooked brisket", price: 17.00, tags: ["pop"] },
-    { id: 4, name: "Pho Bo Vien — Beef Meatballs", desc: "House-made beef meatballs in savory broth", price: 15.50 },
-    { id: 5, name: "Pho Ga — Chicken Noodle Soup", desc: "Tender shredded chicken in light aromatic broth", price: 16.00 },
-    { id: 6, name: "Pho Chay — Vegetarian Pho", desc: "Tofu & vegetables in vegetable broth", price: 15.00, tags: ["veg"] },
-    { id: 7, name: "Medium-Rare Steak & Triple Noodle Pho", desc: "House specialty — seared steak, three noodle types, rich broth", price: 19.00, tags: ["pop", "spicy"] },
+  { category: "🥗 Món Khai Vị — Appetizers", id: "appetizers", items: [
+    { id: 101, name: "A1 — Crispy Shrimp in Delicate Batter (8 pcs)", desc: "Tôm Chiên Bột — Lightly battered crispy shrimp served with dipping sauce", price: 9.95, tags: ["pop"] },
+    { id: 102, name: "A2 — Beef Sate Skewers (3 skewers)", desc: "Bò Lụi — Marinated beef on skewers with sate sauce", price: 8.95 },
+    { id: 103, name: "A3 — Grilled Prawn Skewers (12 shrimps)", desc: "Tôm Lụi — Chargrilled tiger prawns on skewers", price: 9.95, tags: ["pop"] },
+    { id: 104, name: "A4 — Combo: 2 Beef Sate & 1 Prawn Skewer", desc: "Bò và Tôm Lụi — Best of both skewers", price: 9.25, tags: ["pop"] },
+    { id: 105, name: "A5 — Deep Fried Squid", desc: "Mực Chiên Dòn — Golden crispy calamari with dipping sauce", price: 9.50 },
+    { id: 106, name: "A6 — Deep Fried Wontons", desc: "Hoành Thánh Chiên Dòn — Crispy pork wontons served with sweet sauce", price: 7.95 },
+    { id: 107, name: "A7 — Marinated Pork Ball (3 skewers)", desc: "Nem Nướng Viên — Grilled house-made pork meatballs on skewers", price: 7.95 },
+    { id: 108, name: "A8 — Pork Ball (1) & Beef Skewers (2)", desc: "Nem Nướng Viên và Bò Lụi — Combo of pork meatball and beef skewers", price: 8.95 },
+    { id: 109, name: "A9 — Fried Fish Cake", desc: "Chả Cá — Crispy golden fish cakes with house dipping sauce", price: 9.25 },
+    { id: 110, name: "A10 — Fried Fish Cake, Pork Ball & Beef Skewer", desc: "Chả Cá, Nem Nướng Viên và Bò Lụi — Combination platter", price: 9.95, tags: ["pop"] },
+    { id: 111, name: "A11 — Papaya Salad", desc: "Gỏi Đu Đủ — Shredded green papaya with fresh herbs and tangy lime dressing", price: 8.95, tags: ["veg"] },
+    { id: 112, name: "17 — Deep Fried Spring Rolls (4 pcs)", desc: "Chả Giò — Crispy pork and vegetable spring rolls with sweet dipping sauce", price: 8.25, tags: ["pop"] },
+    { id: 113, name: "17A — Deep Fried Vegetarian Spring Rolls (4 pcs)", desc: "Chả Giò Chay — Crispy vegetarian spring rolls", price: 8.25, tags: ["veg"] },
+    { id: 114, name: "18 — Shrimp Salad Rolls (3 pcs)", desc: "Gỏi Cuốn Tôm — Fresh rice paper rolls with shrimp, herbs and peanut sauce", price: 8.25, tags: ["pop"] },
+    { id: 115, name: "18A — Vegetarian Salad Rolls (3 pcs)", desc: "Gỏi Cuốn Chay — Fresh rice paper rolls with tofu and vegetables", price: 7.25, tags: ["veg"] },
+    { id: 116, name: "18B — Chicken Salad Rolls (3 pcs)", desc: "Gỏi Cuốn Gà — Fresh rice paper rolls with chicken, herbs and peanut sauce", price: 8.25 },
+    { id: 117, name: "19 — Chicken Wings (8 pcs)", desc: "Cánh Gà Chiên — BBQ, Honey Garlic, Salt & Pepper, Crispy, or Hot Wings", price: 8.95, tags: ["pop"] },
   ]},
-  { category: "🍚 Rice Dishes (Com)", id: "rice", items: [
-    { id: 8, name: "Grilled Beef Lemon with Steamed Rice", desc: "Our signature — lemongrass grilled beef on fragrant steamed rice", price: 18.50, tags: ["pop"] },
-    { id: 9, name: "Grilled Pork Chop with Steamed Rice", desc: "Marinated pork chop, egg, shredded pork skin, steamed rice", price: 17.50 },
-    { id: 10, name: "Grilled Chicken with Steamed Rice", desc: "Lemongrass chicken with pickled vegetables and rice", price: 17.00 },
-    { id: 11, name: "Shrimp & Pork Fried Rice", desc: "Wok-tossed rice with shrimp, pork, egg and vegetables", price: 16.50 },
-    { id: 12, name: "Vegetarian Fried Rice", desc: "Wok-fried rice with tofu, egg and seasonal vegetables", price: 14.50, tags: ["veg"] },
+  { category: "🥖 Bánh Mì — Vietnamese Sub", id: "banhmi", items: [
+    { id: 201, name: "S1 — Sate Beef & Chicken Sub", desc: "Bánh Mì Gà, Bò Saté — Sate beef and chicken in a toasted baguette with mayo, cheese, pickled carrot, cucumber and cilantro", price: 10.75, tags: ["pop", "spicy"] },
+    { id: 202, name: "S2 — Sate Chicken Sub", desc: "Bánh Mì Gà Saté — Spicy sate chicken with house toppings", price: 9.75, tags: ["spicy"] },
+    { id: 203, name: "S3 — Sate Beef Sub", desc: "Bánh Mì Bò Saté — Spicy sate beef with house toppings", price: 9.75, tags: ["spicy"] },
+    { id: 204, name: "S4 — Charbroiled Pork Sub", desc: "Bánh Mì Heo Nướng — Charbroiled BBQ pork with house toppings", price: 9.75 },
+    { id: 205, name: "S5 — Marinated Pork Patty Sub", desc: "Bánh Mì Nem Nướng — Grilled marinated pork patty with house toppings", price: 9.75, tags: ["pop"] },
+    { id: 206, name: "S6 — Grilled Beef Skewers Sub", desc: "Bánh Mì Bò Lụi — Grilled beef skewers with house toppings", price: 9.95 },
+    { id: 207, name: "S7 — Grilled Prawn Skewers Sub", desc: "Bánh Mì Tôm Nướng — Chargrilled prawn skewers with house toppings", price: 11.75, tags: ["pop"] },
   ]},
-  { category: "🍝 Vermicelli Bowls (Bun)", id: "bun", items: [
-    { id: 13, name: "Bun Thit Nuong — Grilled Pork Vermicelli", desc: "Cold vermicelli with grilled pork, herbs, bean sprouts, peanut sauce", price: 16.50, tags: ["pop"] },
-    { id: 14, name: "Bun Bo Xao — Lemongrass Beef Vermicelli", desc: "Stir-fried lemongrass beef on cold rice noodles with fresh herbs", price: 17.50 },
-    { id: 15, name: "Bun Ga Nuong — Grilled Chicken Vermicelli", desc: "Grilled chicken thighs on vermicelli with hoisin-peanut dressing", price: 16.50 },
-    { id: 16, name: "Bun Tom — Shrimp Vermicelli", desc: "Chilled vermicelli with tiger shrimp, fresh herbs and nuoc cham", price: 17.00 },
-    { id: 17, name: "Bun Chay — Veggie Vermicelli", desc: "Tofu & vegetables on vermicelli with peanut sauce", price: 14.50, tags: ["veg"] },
+  { category: "🍜 Phở — Beef Noodle Soup", id: "pho", items: [
+    { id: 301, name: "1 — Huong Viet Sate Beef Noodle Soup (Spicy)", desc: "Phở Bò Sate — House signature spicy sate beef in rich bone broth. Sm $14.25 / Lg $15.25", price: 14.25, tags: ["pop", "spicy"] },
+    { id: 302, name: "1A — Seafood Sate Noodle Soup", desc: "Phở Sate Đồ Biển — Shrimp, squid and artificial crab in spicy sate broth. One size only", price: 16.25, tags: ["spicy"] },
+    { id: 303, name: "2 — Chicken Noodle Soup", desc: "Phở Gà — Tender chicken breast in light fragrant broth. Sm $13.95 / Lg $14.95", price: 13.95 },
+    { id: 304, name: "2A — Sate Chicken Noodle Soup (Spicy)", desc: "Phở Gà Sate — Chicken breast in spicy sate broth. Sm $14.25 / Lg $15.25", price: 14.25, tags: ["spicy"] },
+    { id: 305, name: "2B — Curry Chicken Noodle Soup", desc: "Phở Gà Cà Ri — Chicken breast in aromatic curry broth", price: 15.25 },
+    { id: 306, name: "3 — Huong Viet's Special Noodle Soup", desc: "Phở Đặc Biệt — Rare beef, beef ball, tendon, flank and tripe. Sm $14.95 / Lg $15.95", price: 14.95, tags: ["pop"] },
+    { id: 307, name: "4 — Rare Beef Noodle Soup", desc: "Phở Tái — Sliced rare beef in classic bone broth. Sm $13.95 / Lg $14.95", price: 13.95 },
+    { id: 308, name: "5 — Rare Beef & Flank Noodle Soup", desc: "Phở Tái Nạm — Rare beef with slow-cooked flank. Sm $13.95 / Lg $14.95", price: 13.95, tags: ["pop"] },
+    { id: 309, name: "6 — Rare Beef & Tripe Noodle Soup", desc: "Phở Tái Sách — Rare beef with honeycomb tripe. Sm $13.95 / Lg $14.95", price: 13.95 },
+    { id: 310, name: "7 — Rare Beef & Tendon Noodle Soup", desc: "Phở Tái Gân — Rare beef with slow-cooked tendon. Sm $13.95 / Lg $14.95", price: 13.95 },
+    { id: 311, name: "8 — Well Done Flank Noodle Soup", desc: "Phở Nạm — Well-done slow-cooked flank in bone broth. Sm $13.95 / Lg $14.95", price: 13.95 },
+    { id: 312, name: "9 — Rare Beef & Beef Ball Noodle Soup", desc: "Phở Tái Bò Viên — Rare beef with house-made beef balls. Sm $13.95 / Lg $14.95", price: 13.95 },
+    { id: 313, name: "10 — Rare Beef, Flank & Tripe Noodle Soup", desc: "Phở Tái Nạm Sách — Sm $13.95 / Lg $14.95", price: 13.95 },
+    { id: 314, name: "11 — Rare Beef, Flank, Tendon & Tripe", desc: "Phở Tái Nạm Gân Sách — The full combination. Sm $13.95 / Lg $14.95", price: 13.95, tags: ["pop"] },
+    { id: 315, name: "12 — Well Done Flank, Tendon & Tripe", desc: "Phở Nạm Gân Sách — Well-done combination. Sm $13.95 / Lg $14.95", price: 13.95 },
+    { id: 316, name: "13 — Beef Ball Noodle Soup", desc: "Phở Bò Viên — House-made beef balls in bone broth. Sm $13.95 / Lg $14.95", price: 13.95 },
+    { id: 317, name: "14 — Vegetables Noodle Soup", desc: "Phở Rau Củ — Fresh vegetables in beef or vegetarian broth. Sm $13.95 / Lg $14.95", price: 13.95, tags: ["veg"] },
+    { id: 318, name: "15 — Bún Bò Huế (Hue Style Spicy Noodle Soup)", desc: "Flank, rare beef, pork roll and beef ball in spicy shrimp paste broth. Sm $14.95 / Lg $15.95", price: 14.95, tags: ["spicy"] },
+    { id: 319, name: "15A — Pork Ball Sate Noodle Soup", desc: "Phở Heo Viên Sate — Pork balls in spicy sate broth. Sm $13.95 / Lg $14.95", price: 13.95, tags: ["spicy"] },
+    { id: 320, name: "★ Beef Ribs Phở (NEW)", desc: "Short ribs, beef balls and flank in our savoury bone broth with rice noodles", price: 19.95, tags: ["pop"] },
+    { id: 321, name: "16A — Wonton Soup (8 wontons)", desc: "Hoành Thánh Soup — Handmade wontons in chicken broth", price: 10.95 },
+    { id: 322, name: "16C — Special Wor Wonton Soup", desc: "Mì Hoành Thánh Đặc Biệt — Chicken breast, egg noodle, wontons and veggies", price: 16.25, tags: ["pop"] },
+    { id: 323, name: "16D — Beef Stew (Bò Kho)", desc: "Slow-braised beef stew — choice of noodle or baguette", price: 16.25, tags: ["pop"] },
   ]},
-  { category: "🥗 Starters & Salads", id: "starters", items: [
-    { id: 18, name: "Cha Gio — Spring Rolls (4 pcs)", desc: "Crispy pork & vegetable spring rolls with sweet dipping sauce", price: 9.50, tags: ["pop"] },
-    { id: 19, name: "Goi Cuon — Fresh Salad Rolls (2 pcs)", desc: "Rice paper rolls with shrimp, pork, herbs and peanut sauce", price: 8.50 },
-    { id: 20, name: "Papaya Salad", desc: "Shredded green papaya, shrimp, fresh herbs, lime fish sauce dressing", price: 13.50, tags: ["pop", "spicy"] },
-    { id: 21, name: "Chicken Wings (6 pcs)", desc: "Glazed with house lemongrass chili sauce", price: 13.00, tags: ["spicy"] },
-    { id: 22, name: "Calamari", desc: "Lightly battered squid with sriracha mayo", price: 12.50 },
+  { category: "🍝 Bún — Vermicelli Bowls", id: "bun", items: [
+    { id: 401, name: "B1 — BBQ Pork & Spring Rolls on Vermicelli", desc: "Bún Thịt Nướng Chả Giò — Grilled BBQ pork and crispy spring rolls on rice vermicelli with veggies", price: 14.95 },
+    { id: 402, name: "B2 — Combo Three: BBQ Pork, Pork Patty & Spring Rolls", desc: "Bún Thịt Nướng, Nem Nướng Chả Giò — Three-item combo on vermicelli", price: 15.75, tags: ["pop"] },
+    { id: 403, name: "B3 — Lemongrass BBQ Chicken & Spring Rolls", desc: "Bún Gà Nướng Chả Giò — Chargrilled lemongrass chicken on vermicelli", price: 14.95 },
+    { id: 404, name: "B4 — Lemongrass Shredded Beef & Spring Rolls", desc: "Bún Bò Xào Sả Chả Giò — Stir-fried lemongrass beef on vermicelli", price: 14.95, tags: ["pop"] },
+    { id: 405, name: "B5 — Special Combo: BBQ Chicken, Shredded Beef & Spring Rolls", desc: "Bún Thịt Nướng, Nem Nướng Chả Giò — Three-item special combo", price: 15.95, tags: ["pop"] },
+    { id: 406, name: "B6 — Shrimp Paste Patty, BBQ Pork & Spring Rolls", desc: "Bún Thịt Nướng, Nem Nướng Chả Giò — Unique shrimp patty combo", price: 16.25 },
+    { id: 407, name: "B7 — Beef Sate Skewers & Spring Rolls", desc: "Bún Thịt Nướng, Nem Nướng Chả Giò — Sate beef skewers on vermicelli", price: 15.95, tags: ["spicy"] },
+    { id: 408, name: "B8 — Super Combo Four (Bún Thập Cẩm)", desc: "BBQ Chicken, BBQ Pork, Charbroiled Prawn Skewers & Spring Rolls on vermicelli", price: 17.95, tags: ["pop"] },
+    { id: 409, name: "B10 — Combo Three: BBQ Pork, Shredded Pork & Spring Rolls", desc: "Bún Bì, Thịt Nướng Chả Giò — Classic three-item combo", price: 15.75 },
+    { id: 410, name: "B11 — Combo Four: Pork Patty, BBQ Pork, Shredded Pork & Spring Rolls", desc: "Bún Bì, Thịt Nướng, Nem Nướng Chả Giò — Four-item vermicelli bowl", price: 16.25, tags: ["pop"] },
+    { id: 411, name: "B12 — Deep Fried Spring Rolls on Vermicelli", desc: "Bún Chả Giò — Crispy spring rolls on rice vermicelli with veggies", price: 14.50 },
+    { id: 412, name: "B14 — Fish Cake, Prawn Skewers & Spring Rolls on Vermicelli", desc: "Bún Chả Cá, Tôm Chả Giò — Seafood combo on vermicelli", price: 16.95, tags: ["pop"] },
+    { id: 413, name: "B15 — Grilled Beef in Wild Betel Leaf & Spring Rolls", desc: "Bún Bò Lá Lốt Chả Giò — Aromatic beef wrapped in betel leaf on vermicelli", price: 15.95, tags: ["pop"] },
+    { id: 414, name: "B16 — Beef Ribs & Spring Rolls on Vermicelli", desc: "Bún Sườn Bò Chả Giò — Beef ribs on rice vermicelli with veggies", price: 16.95 },
+    { id: 415, name: "B23 — Charbroiled Prawns & Spring Rolls on Vermicelli", desc: "Bún Tôm Nướng Chả Giò — Chargrilled prawns on vermicelli", price: 16.50 },
+    { id: 416, name: "B13 — Vegetarian Spring Rolls on Vermicelli", desc: "Bún Chả Giò Chay — Vegetarian deep fried spring rolls on rice noodle", price: 14.50, tags: ["veg"] },
+    { id: 417, name: "★ Hanoi Style Vermicelli (NEW)", desc: "Grilled pork meatball, shredded pork, spring rolls with veggies and special sauce on vermicelli", price: 16.95, tags: ["pop"] },
   ]},
-  { category: "🍛 Sautéed & Stir-Fry", id: "stirfry", items: [
-    { id: 23, name: "Stir-Fried Veg & Tofu on Egg Noodles", desc: "Seasonal veg & tofu in garlic oyster sauce on crispy egg noodles", price: 16.00, tags: ["veg", "pop"] },
-    { id: 24, name: "Lemongrass Chili Beef on Egg Noodles", desc: "Tender wok-tossed beef in aromatic lemongrass chili sauce", price: 17.50, tags: ["spicy"] },
-    { id: 25, name: "Shrimp & Cashew Stir-Fry", desc: "Jumbo shrimp with cashews, bell peppers, hoisin sauce", price: 18.00 },
-    { id: 26, name: "Sate Chicken Sub / Banh Mi Ga Sate", desc: "House-made sate chicken in toasted Vietnamese baguette with pickled daikon", price: 12.00, tags: ["pop", "spicy"] },
+  { category: "🍝 Mì Xào — Stir Fried Egg Noodle", id: "noodles", items: [
+    { id: 501, name: "24 — Stir Fried Tofu & Veggies with Lemongrass", desc: "Mì Xào Sate TOFU Chay — Tofu and vegetables in lemongrass sauce on egg noodles", price: 15.95, tags: ["veg"] },
+    { id: 502, name: "25 — Stir Fried Chicken Breast with Lemongrass", desc: "Mì Xào Sate Gà — Chicken breast and veggies in lemongrass sauce on egg noodles", price: 16.25, tags: ["pop"] },
+    { id: 503, name: "26 — Stir Fried Beef with Lemongrass", desc: "Mì Xào Sate Bò — Beef and veggies in lemongrass sauce on egg noodles", price: 16.25, tags: ["pop"] },
+    { id: 504, name: "26A — Stir Fried Seafood with Lemongrass", desc: "Mì Xào Sate Đồ Biển — Shrimp, squid and artificial crab in lemongrass sauce on egg noodles", price: 17.25, tags: ["pop"] },
   ]},
-  { category: "🥤 Drinks & Desserts", id: "drinks", items: [
-    { id: 27, name: "Vietnamese Iced Coffee (Ca Phe Sua Da)", desc: "Strong drip coffee with sweetened condensed milk over ice", price: 5.50, tags: ["pop"] },
-    { id: 28, name: "Thai Iced Tea", desc: "Creamy orange Thai tea with condensed milk", price: 5.50 },
-    { id: 29, name: "Soda (Can)", desc: "Coke, Diet Coke, Sprite, Ginger Ale", price: 2.50 },
-    { id: 30, name: "Sparkling Water", desc: "San Pellegrino 500ml", price: 3.00 },
-    { id: 31, name: "Che Ba Mau — Three Colour Dessert", desc: "Layered jellies, red beans, mung bean, coconut cream over shaved ice", price: 7.50 },
-    { id: 32, name: "Mango Pudding", desc: "Silky mango pudding with whipped cream", price: 6.50 },
+  { category: "🍚 Cơm — Rice Dishes", id: "rice", items: [
+    { id: 601, name: "C1 — Stir Fried Curry Chicken Breast with Veggies on Rice", desc: "Cơm Gà Xào Cà Ri — Mildly spicy curry chicken stir fry on steamed rice", price: 16.25, tags: ["spicy"] },
+    { id: 602, name: "C2 — Stir Fried Curry Beef with Veggies on Rice", desc: "Cơm Bò Xào Cà Ri — Mildly spicy curry beef stir fry on steamed rice", price: 16.25, tags: ["spicy"] },
+    { id: 603, name: "C3 — Stir Fried Curry Seafood with Veggies on Rice", desc: "Cơm Đồ Biển Xào Cà Ri — Mildly spicy curry seafood on steamed rice", price: 17.25, tags: ["spicy"] },
+    { id: 604, name: "C27 — Grilled Beef Lemongrass with Veggies on Rice", desc: "Cơm Bò Xào Sả Ớt — Our signature lemongrass beef on fragrant steamed rice", price: 16.25, tags: ["pop"] },
+    { id: 605, name: "C28 — BBQ Chicken with Veggies on Steamed Rice", desc: "Cơm Gà — Mild spicy BBQ chicken with prepared sauce on steamed rice", price: 15.95, tags: ["pop"] },
+    { id: 606, name: "C29 — Charbroiled BBQ Pork Chop, Shredded Pork & Fried Egg on Rice", desc: "Cơm Sườn Bì Trứng — Classic Vietnamese pork chop rice plate", price: 16.25, tags: ["pop"] },
+    { id: 607, name: "C30 — Shrimp Paste Patty, Meat Pie & Shredded Pork on Rice", desc: "Cơm Chạo Tôm Bì Trứng — Unique Vietnamese shrimp patty rice plate", price: 16.95 },
+    { id: 608, name: "C31 — Fried Fish Cake, Meat Pie & Shredded Pork on Rice", desc: "Cơm Chả Cá Bì Trứng — Vietnamese fish cake rice plate", price: 16.95 },
+    { id: 609, name: "C32 — Beef Ribs & Fried Egg on Steamed Rice", desc: "Cơm Sườn Bò — Beef ribs with fried egg on steamed rice", price: 16.95, tags: ["pop"] },
+    { id: 610, name: "C4 — Stir Fried Curry Tofu with Veggies on Rice", desc: "Cơm Chay Xào Cà Ri — Vegetarian curry tofu stir fry on rice", price: 16.25, tags: ["veg"] },
+    { id: 611, name: "★ Golden Fried Chicken Rice (NEW)", desc: "Crispy chicken with special sauce on coconut rice", price: 16.25, tags: ["pop"] },
+    { id: 612, name: "★ Vietnamese Sizzling Crispy Crepes (NEW)", desc: "Bánh Xèo — Savoury crispy crepes filled with seafood, ground pork or beef, onion and bean sprouts", price: 17.95, tags: ["pop"] },
+  ]},
+  { category: "🥤 Giải Khát — Beverages & Desserts", id: "drinks", items: [
+    { id: 701, name: "31 — Hot Chocolate", desc: "Sữa Chocolate Nóng — Rich hot chocolate", price: 3.95 },
+    { id: 702, name: "31B — Vietnamese Hot Honey Lemon", desc: "Chanh Mật Ong Nóng — Soothing hot honey lemon drink", price: 4.50 },
+    { id: 703, name: "32 — Hot Vietnamese Coffee with Condensed Milk", desc: "Cà Phê Sữa Nóng — Dark roast Vietnamese coffee with sweetened condensed milk", price: 4.75 },
+    { id: 704, name: "33 — Iced Vietnamese Coffee with Condensed Milk", desc: "Cà Phê Sữa Đá — Dark roast Vietnamese coffee over ice with condensed milk", price: 4.75, tags: ["pop"] },
+    { id: 705, name: "34 — Pop", desc: "Nước Ngọt — Choose your flavour", price: 2.95, selectLabel: "Choose flavour", selectOptions: ["C Plus", "Pepsi", "Coke", "Ginger Ale", "Sprite", "Nestea", "Rootbeer"] },
+    { id: 706, name: "35 — Fresh Lemon Juice", desc: "Đá Chanh — Freshly squeezed lemon juice over ice", price: 4.75 },
+    { id: 707, name: "36 — Fresh Orange Juice", desc: "Cam Vắt — Freshly squeezed orange juice", price: 5.95 },
+    { id: 708, name: "37 — Fresh Coconut Juice", desc: "Nước Dừa — Fresh coconut water", price: 6.25 },
+    { id: 709, name: "39 — Triple Scoop Vanilla Ice Cream", desc: "Kem Tráng Miệng — Triple scoop of vanilla ice cream with peanut and condensed milk", price: 4.50 },
+    { id: 710, name: "40 — Deep Fried Banana with Double Scoop Ice Cream", desc: "Kem Chuối Chiên Sữa Đậu Phộng — Crispy fried banana with vanilla ice cream", price: 5.75, tags: ["pop"] },
+    { id: 711, name: "41 — Deep Fried Banana with Peanut & Condensed Milk", desc: "Chuối Chiên Sữa Đậu Phộng — Crispy fried banana drizzled with peanut sauce", price: 5.75 },
+    { id: 713, name: "43 — Three Colour Dessert (Chè Ba Màu)", desc: "Mung bean, red bean, pandan jelly and coconut sauce over shaved ice", price: 7.25, tags: ["pop"] },
+    { id: 714, name: "Bubble Tea", desc: "Choose your flavour — made with chewy tapioca pearls", price: 6.50, tags: ["pop"], selectLabel: "Choose flavour", selectOptions: ["Mango", "Orange", "Avocado", "Pineapple", "Strawberry", "Taro", "Lychee", "Watermelon", "Green Tea", "Peach", "Papaya", "Banana", "Passion Fruit", "Blueberry", "Coconut", "Mocha"] },
   ]},
 ];
 
 function getItem(id) {
+  const numId = Number(String(id).split("|")[0]);
   for (const cat of MENU) {
-    const f = cat.items.find(i => i.id === id);
+    const f = cat.items.find(i => i.id === numId);
     if (f) return f;
   }
+}
+function getItemFlavour(key) {
+  const parts = String(key).split("|");
+  return parts.length > 1 ? parts[1] : null;
 }
 function useReveal() {
   const ref = useRef(null);
@@ -304,7 +394,7 @@ function HomeNav({ onOrderClick }) {
 
   const navBase = {
     position: "fixed", top: 0, left: 0, right: 0, zIndex: 150,
-    padding: "1rem 2rem",
+    padding: "1rem clamp(1rem, 4vw, 2rem)",
     display: "flex", alignItems: "center", justifyContent: "space-between",
     transition: "all 0.4s ease",
     background: scrolled ? "rgba(251,246,238,0.97)" : "transparent",
@@ -733,7 +823,7 @@ function HeroCanvas() {
     </div>
   );
 }
-function HomeHero({ onOrderClick }) {
+function HomeHero({ onOrderClick, onMenuClick }) {
   return (
     <section style={{ position: "relative", height: "100vh", minHeight: 700, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
       
@@ -752,11 +842,11 @@ function HomeHero({ onOrderClick }) {
         <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1rem,2.2vw,1.4rem)", fontStyle: "italic", color: "rgba(245,237,216,0.75)", margin: "1.2rem 0 2.5rem", fontWeight: 300 }}>
           Over 20 years of authentic Vietnamese flavours on 17 Ave SW, Calgary
         </p>
-        <div style={{ display: "flex", gap: "1.2rem", justifyContent: "center", flexWrap: "wrap" }}>
-          <a href="#menu" style={{ background: "#C4882B", color: "white", padding: "1rem 2.4rem", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.14em", textTransform: "uppercase", textDecoration: "none", transition: "all 0.3s", display: "inline-block" }}
+        <div className="hero-buttons" style={{ display: "flex", gap: "1.2rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <button onClick={onMenuClick} style={{ background: "#C4882B", color: "white", padding: "1rem 2.4rem", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.14em", textTransform: "uppercase", border: "none", cursor: "pointer", transition: "all 0.3s", display: "inline-block" }}
             onMouseEnter={e => { e.target.style.background = "#6B1A1A"; e.target.style.transform = "translateY(-2px)"; }}
             onMouseLeave={e => { e.target.style.background = "#C4882B"; e.target.style.transform = "translateY(0)"; }}
-          >Explore Our Menu</a>
+          >Explore Our Menu</button>
           <button onClick={onOrderClick} style={{ background: "transparent", color: "#F5EDD8", padding: "1rem 2.4rem", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.14em", textTransform: "uppercase", border: "1px solid rgba(245,237,216,0.45)", cursor: "pointer", transition: "all 0.3s" }}
             onMouseEnter={e => { e.target.style.borderColor = "#D4A843"; e.target.style.color = "#D4A843"; }}
             onMouseLeave={e => { e.target.style.borderColor = "rgba(245,237,216,0.45)"; e.target.style.color = "#F5EDD8"; }}
@@ -814,13 +904,13 @@ function AboutSection() {
             ))}
           </div>
         </div>
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative", paddingBottom: "3rem" }}>
           <div style={{ position: "absolute", top: "-1.5rem", right: "-1.5rem", width: 110, height: 110, background: "#6B1A1A", borderRadius: "50%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: "#F5EDD8", boxShadow: "0 8px 30px rgba(107,26,26,0.3)", zIndex: 2 }}>
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.8rem", fontWeight: 700, lineHeight: 1 }}>★ 4.3</div>
             <div style={{ fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.75, textAlign: "center" }}>Guest<br />Rated</div>
           </div>
-          <img src="https://phohuongviet17.com/wp-content/uploads/2023/10/native.jpg" alt="Restaurant" style={{ width: "100%", height: 540, objectFit: "cover", display: "block" }} onError={e => e.target.src = "https://images.unsplash.com/photo-1503764654157-72d979d9af2f?w=700&q=80"} />
-          <img src="https://phohuongviet17.com/wp-content/uploads/2024/04/photo6.jpg" alt="Vietnamese food" style={{ position: "absolute", bottom: "-3rem", left: "-3rem", width: "52%", height: 200, objectFit: "cover", border: "6px solid #FBF6EE", boxShadow: "0 20px 60px rgba(30,20,16,0.18)" }} onError={e => e.target.src = "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=500&q=80"} />
+          <img src="/phodacbiet.jpg" alt="Restaurant" style={{ width: "100%", height: "clamp(280px, 50vw, 540px)", objectFit: "cover", display: "block" }} />
+          <img src="/comtam.jpg" alt="Vietnamese food" className="about-overlay-img" style={{ position: "absolute", bottom: "-3rem", left: "-3rem", width: "52%", height: 200, objectFit: "cover", border: "6px solid #FBF6EE", boxShadow: "0 20px 60px rgba(30,20,16,0.18)" }} />
         </div>
       </div>
     </section>
@@ -867,26 +957,26 @@ function MenuSection() {
   const tabsRef = useReveal();
   const homeTabs = [
     { id: "pho", label: "Pho & Soups", items: [
-      { name: "Special Beef Pho", viet: "Phở Đặc Biệt", desc: "Beef, beef ball, tendon, flank and tripe with rice noodles in our signature savoury beef broth.", price: "From $15", tag: "House Special", img: "https://phohuongviet17.com/wp-content/uploads/2024/04/photo5.jpg", fallback: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=600&q=80" },
-      { name: "Sate Beef Noodle Soup", viet: "Phở Bò Sate", desc: "Mildly spicy sate beef with rice noodles in a rich savoury beef broth.", price: "From $15", tag: "Fan Favourite", img: "https://phohuongviet17.com/wp-content/uploads/2024/04/photo4.jpg", fallback: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" },
-      { name: "Chicken Noodle Soup", viet: "Phở Gà", desc: "Tender chicken with rice or egg noodles in our fragrant, golden chicken broth.", price: "From $14", tag: "Light & Delicate", img: "https://phohuongviet17.com/wp-content/uploads/2024/04/photo7.jpg", fallback: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&q=80" },
+      { name: "Huong Viet Special Pho", viet: "Phở Đặc Biệt", desc: "Rare beef, beef ball, tendon, flank and tripe in our signature savoury bone broth.", price: "From $14.95", tag: "House Special", img: "/phodacbiet.jpg", fallback: "/phodacbiet.jpg" },
+      { name: "Beef Ribs Phở", viet: "Phở Sườn Bò", desc: "Short ribs, beef balls and flank with rice noodles in a savoury beef broth. New item!", price: "$19.95", tag: "NEW", img: "/beefrib.jpg", fallback: "/beefrib.jpg"},
+      { name: "Hủ Tiếu Nam Vang", viet: "Hủ Tiếu Nam Vang", desc: "Vietnamese noodle bowl with rice and egg noodles, veggies, with Pork Ribs or Seafood in pork broth.", price: "From $17.95", tag: "Classic", img: "/hutieu.jpg", fallback: "/hutieu.jpg" },
     ]},
-    { id: "mains", label: "Mains & Subs", items: [
-      { name: "Grilled Beef Lemon with Rice", viet: "Cơm Bò Nướng Chanh", desc: "Lemon-marinated beef chargrilled and served over steamed rice.", price: "From $16", tag: "Signature", img: "https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80", fallback: "https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80" },
-      { name: "Sate Chicken Sub", viet: "Bánh Mì Gà Sate", desc: "Vietnamese baguette with sate chicken, mayo, pickled carrot, cucumbers and cilantro.", price: "From $10", tag: "Must Try", img: "https://images.unsplash.com/photo-1562802378-063ec186a863?w=600&q=80", fallback: "https://images.unsplash.com/photo-1562802378-063ec186a863?w=600&q=80" },
-      { name: "Stir-Fried Veg & Tofu", viet: "Mì Xào Rau Đậu Hủ", desc: "Wok-tossed vegetables and tofu on golden egg noodles. Vegetarian favourite.", price: "From $14", tag: "Vegetarian", img: "https://images.unsplash.com/photo-1552611052-33e04de081de?w=600&q=80", fallback: "https://images.unsplash.com/photo-1552611052-33e04de081de?w=600&q=80" },
+    { id: "mains", label: "Rice & Noodles", items: [
+      { name: "Grilled Beef Lemongrass Rice", viet: "Cơm Bò Xào Sả", desc: "Lemongrass grilled beef with veggies on fragrant steamed rice. A customer favourite.", price: "$16.25", tag: "Signature", img: "/boxao.jpg", fallback: "/boxao.jpg" },
+      { name: "Bánh Xèo — Crispy Crepe", viet: "Bánh Xèo", desc: "Savoury crispy crepe filled with seafood, ground pork, onion and bean sprouts.", price: "$17.95", tag: "NEW", img: "/banhxeo.jpg", fallback: "/banhxeo.jpg"},
+      { name: "Golden Fried Chicken Rice", viet: "Cơm Gà Chiên Vàng", desc: "Crispy chicken with special sauce on coconut rice.", price: "$16.25", tag: "NEW", img: "/comga.jpg", fallback: "/comga.jpg" },
     ]},
-    { id: "drinks", label: "Drinks", items: [
-      { name: "Vietnamese Iced Coffee", viet: "Cà Phê Sữa Đá", desc: "Vietnamese dark-roast dripped through a French filter with condensed milk over ice.", price: "~$5", tag: "Classic", img: "https://images.unsplash.com/photo-1559181567-c3190ca9be39?w=600&q=80", fallback: "https://images.unsplash.com/photo-1559181567-c3190ca9be39?w=600&q=80" },
-      { name: "Bubble Tea", viet: "Trà Sữa Trân Châu", desc: "Bubble tea with chewy tapioca pearls. Available in multiple flavours.", price: "~$6", tag: "Refreshing", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", fallback: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" },
-      { name: "Fresh Squeezed Juices", viet: "Nước Trái Cây Tươi", desc: "Freshly squeezed lemon or orange juice made to order. Fresh coconut water available.", price: "~$4", tag: "Fresh Daily", img: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=600&q=80", fallback: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=600&q=80" },
+    { id: "drinks", label: "Drinks & Desserts", items: [
+      { name: "Caramel Coffee", viet: "Cà Phê Caramel", desc: "Smooth Vietnamese coffee swirled with golden caramel, served over ice for a rich indulgent sip.", price: "~$6", tag: "NEW", img: "/caramelcoffee.jpg", fallback: "/caramelcoffee.jpg" },
+      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "Vietnamese coffee blended with creamy coconut milk — cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.webp", fallback: "/coconutcoffee.webp" },
+      { name: "Sparkling Lychee Drink", viet: "Nước Vải Có Ga", desc: "Refreshing sparkling lychee drink with a fruity floral finish. Perfect to cool down.", price: "~$6", tag: "NEW", img: "/lycheedrink.webp", fallback: "/lycheedrink.webp" },
     ]},
   ];
   const active = homeTabs.find(t => t.id === activeTab);
   return (
     <div id="menu" className="section-pad" style={{ background: "#1E1410", position: "relative", overflow: "hidden" }}>
       <div style={{ position: "absolute", top: -200, right: -200, width: 600, height: 600, background: "radial-gradient(circle,rgba(107,26,26,0.25) 0%,transparent 70%)", pointerEvents: "none" }} />
-      <div ref={tabsRef} className="reveal" style={{ maxWidth: 1300, margin: "0 auto 4rem", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1.5rem" }}>
+      <div ref={tabsRef} className="reveal menu-home-tab-row" style={{ maxWidth: 1300, margin: "0 auto 4rem", display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "1.5rem" }}>
         <div>
           <div style={{ fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.3em", textTransform: "uppercase", color: "#D4A843", marginBottom: "1rem" }}>What We Serve</div>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem,5vw,3.5rem)", fontWeight: 400, lineHeight: 1.15, color: "#F5EDD8" }}>
@@ -908,14 +998,14 @@ function MenuSection() {
           ))}
         </div>
       </div>
-      <div ref={ref} className="reveal" style={{ maxWidth: 1300, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "2px" }}>
+      <div ref={ref} className="reveal" style={{ maxWidth: 1300, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "2px" }}>
         {active && active.items.map(item => (
           <div key={item.name} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(245,237,216,0.07)", overflow: "hidden", transition: "all 0.4s", cursor: "pointer" }}
             onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.07)"; e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 20px 60px rgba(0,0,0,0.4)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.03)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
           >
-            <div style={{ overflow: "hidden", height: 210 }}>
-              <img src={item.img} alt={item.name} style={{ width: "100%", height: 210, objectFit: "cover", display: "block", transition: "transform 0.6s" }}
+            <div style={{ overflow: "hidden", height: 320 }}>
+              <img src={item.img} alt={item.name} style={{ width: "100%", height: 320, objectFit: "cover", objectPosition: item.imgPos || "center center", display: "block", transition: "transform 0.6s" }}
                 onError={e => e.target.src = item.fallback}
                 onMouseEnter={e => e.target.style.transform = "scale(1.07)"}
                 onMouseLeave={e => e.target.style.transform = "scale(1)"}
@@ -940,11 +1030,11 @@ function MenuSection() {
 function GallerySection() {
   const ref = useReveal();
   const photos = [
-    { src: "https://phohuongviet17.com/wp-content/uploads/2023/10/FullSizeRender-45-1-768x1024.jpg", fb: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" },
-    { src: "https://phohuongviet17.com/wp-content/uploads/2024/04/photo4.jpg", fb: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=600&q=80" },
-    { src: "https://phohuongviet17.com/wp-content/uploads/2023/10/279451493_158886583254675_4425778237888570373_n-768x768.jpg", fb: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80" },
-    { src: "https://phohuongviet17.com/wp-content/uploads/2024/04/photo7.jpg", fb: "https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80" },
-    { src: "https://phohuongviet17.com/wp-content/uploads/2025/03/IMG_4272.jpg", fb: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" },
+    { src: "/comsuonbo.webp", fb: "/comsuonbo.webp" },
+    { src: "/chickenwings.jpg", fb: "/chickenwings.jpg" },
+    { src: "/hutieu.jpg", fb: "/hutieu.jpg" },
+    { src: "/bokho.webp", fb: "/bokho.webp" },
+    { src: "/crispynoodle.jpg", fb: "/crispynoodle.jpg" },
   ];
   return (
     <section id="gallery" className="section-pad" style={{ background: "#F5EDD8" }}>
@@ -959,6 +1049,68 @@ function GallerySection() {
           {photos.map((p, i) => (
             <img key={i} src={p.src} alt={`Pho Huong Viet ${i + 1}`} onError={e => e.target.src = p.fb} />
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const VIDEO_SRC = "video.mp4";
+
+function FeaturedVideoSection() {
+  const ref = useReveal();
+  const videoRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+
+  const togglePlay = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) { v.play(); setPlaying(true); }
+    else { v.pause(); setPlaying(false); }
+  };
+
+  return (
+    <section className="section-pad" style={{ background: "#1E1410" }}>
+      <div className="section-inner">
+        <div ref={ref} className="reveal" style={{ textAlign: "center", marginBottom: "3rem" }}>
+          <div style={{ fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.3em", textTransform: "uppercase", color: "#D4A843", marginBottom: "1rem" }}>Our Kitchen</div>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem,5vw,3.5rem)", fontWeight: 400, color: "#F5EDD8" }}>
+            Authentic <em style={{ color: "#D4A843" }}>Vietnamese taste</em>
+          </h2>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1rem,2vw,1.25rem)", color: "rgba(245,237,216,0.6)", fontStyle: "italic", marginTop: "1rem", maxWidth: 540, margin: "1rem auto 0" }}>
+            Over 20 years of crafting genuine Vietnamese flavours on 17 Ave SW, Calgary
+          </p>
+        </div>
+
+        <div ref={useReveal()} className="reveal" style={{ maxWidth: 520, margin: "0 auto", position: "relative", cursor: "pointer" }} onClick={togglePlay}>
+          <video
+            ref={videoRef}
+            src={VIDEO_SRC}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{ width: "100%", display: "block", borderRadius: 4, boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}
+            onPlay={() => setPlaying(true)}
+            onPause={() => setPlaying(false)}
+          />
+          {!playing && (
+            <div style={{
+              position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
+              background: "rgba(0,0,0,0.35)", borderRadius: 4
+            }}>
+              <div style={{
+                width: 70, height: 70, borderRadius: "50%", background: "rgba(196,136,43,0.9)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
+                transition: "transform 0.2s"
+              }}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="white" style={{ marginLeft: 4 }}>
+                  <polygon points="5,3 19,12 5,21" />
+                </svg>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
@@ -981,9 +1133,9 @@ function TestimonialsSection() {
             What our <em style={{ color: "#D4A843" }}>customers say</em>
           </h2>
         </div>
-        <div ref={ref} className="reveal" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1.5rem" }}>
+        <div ref={ref} className="reveal testimonials-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "1.5rem" }}>
           {reviews.map(r => (
-            <div key={r.author} style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(245,237,216,0.1)", padding: "2.5rem" }}>
+            <div key={r.author} style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(245,237,216,0.1)", padding: "clamp(1.5rem, 4vw, 2.5rem)" }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "4rem", color: "#D4A843", opacity: 0.4, lineHeight: 0.8, marginBottom: "1rem" }}>"</div>
               <div style={{ color: "#D4A843", fontSize: "0.85rem", marginBottom: "1rem", letterSpacing: "0.1em" }}>★★★★★</div>
               <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem", lineHeight: 1.8, color: "rgba(245,237,216,0.8)", fontStyle: "italic", marginBottom: "1.5rem" }}>{r.text}</p>
@@ -1007,7 +1159,7 @@ function VisitSection({ onOrderClick }) {
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2509.0!2d-114.1450!3d51.0390!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x537170144939363b%3A0x7d68671f6f9c0a50!2sPho%20Huong%20Viet%20Noodle%20House!5e0!3m2!1sen!2sca!4v1"
             title="Pho Huong Viet location"
             allowFullScreen loading="lazy"
-            style={{ width: "100%", height: 400, border: "none", display: "block" }}
+            style={{ width: "100%", height: "clamp(260px, 45vw, 400px)", border: "none", display: "block" }}
           />
           <div style={{ background: "#6B1A1A", padding: "1.4rem 1.8rem" }}>
             <strong style={{ color: "#D4A843", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", display: "block", marginBottom: "0.35rem" }}>📍 Find Us</strong>
@@ -1059,7 +1211,7 @@ function OrderCTASection({ onOrderClick }) {
   });
   return (
     <div className="section-pad" style={{ background: "#1E1410", position: "relative", overflow: "hidden" }}>
-      <div style={{ position: "absolute", top: "-4rem", right: "-2rem", fontFamily: "'Playfair Display', serif", fontSize: "20rem", color: "rgba(255,255,255,0.02)", pointerEvents: "none", lineHeight: 1, userSelect: "none" }}>"PHỞ"</div>
+      <div style={{ position: "absolute", top: "-4rem", right: "-2rem", fontFamily: "'Playfair Display', serif", fontSize: "clamp(8rem, 20vw, 20rem)", color: "rgba(255,255,255,0.02)", pointerEvents: "none", lineHeight: 1, userSelect: "none" }}>"PHỞ"</div>
       <div ref={ref} className="reveal" style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
         <div style={{ fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.3em", textTransform: "uppercase", color: "#D4A843", marginBottom: "1rem" }}>Ready to Eat?</div>
         <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem,5vw,3.5rem)", fontWeight: 400, color: "#F5EDD8", marginBottom: "1.5rem" }}>
@@ -1068,7 +1220,7 @@ function OrderCTASection({ onOrderClick }) {
         <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.2rem", color: "rgba(245,237,216,0.55)", fontStyle: "italic", marginBottom: "3rem" }}>
           Dine in, pick up, or have it delivered right to your door
         </p>
-        <div style={{ display: "flex", gap: "1.2rem", justifyContent: "center", flexWrap: "wrap", marginBottom: "1.5rem" }}>
+        <div className="cta-buttons" style={{ display: "flex", gap: "1.2rem", justifyContent: "center", flexWrap: "wrap", marginBottom: "1.5rem" }}>
           <a href="https://www.skipthedishes.com/pho-huong-viet" target="_blank" rel="noreferrer" style={btnStyle("#E8344D")}
             onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 10px 35px rgba(0,0,0,0.4)"; }}
             onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
@@ -1093,7 +1245,7 @@ function OrderCTASection({ onOrderClick }) {
 
 function HomeFooter({ onOrderClick }) {
   return (
-    <footer style={{ background: "#120C08", padding: "4rem 2rem", textAlign: "center" }}>
+    <footer style={{ background: "#120C08", padding: "clamp(2.5rem, 6vw, 4rem) clamp(1.2rem, 5vw, 2rem)", textAlign: "center" }}>
       <img src={LOGO_SRC} alt="Pho Huong Viet" style={{ height: 60, margin: "0 auto 0.5rem", display: "block", opacity: 0.85 }} onError={e => e.target.style.display = "none"} />
       <div style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", color: "rgba(245,237,216,0.35)", fontSize: "0.95rem", marginBottom: "2.5rem" }}>
         Authentic Vietnamese Kitchen · Over 20 Years · Calgary, AB
@@ -1126,13 +1278,104 @@ function HomeFooter({ onOrderClick }) {
   );
 }
 
+function MenuPopup({ open, onClose, onOrderClick }) {
+  const [activeTab, setActiveTab] = useState(MENU[0].id);
+  const activeCat = MENU.find(c => c.id === activeTab);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  if (!open) return null;
+
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 500, display: "flex", alignItems: "flex-end", justifyContent: "center", padding: "0" }}>
+      {/* Backdrop */}
+      <div onClick={onClose} style={{ position: "absolute", inset: 0, background: "rgba(14,8,3,0.85)", backdropFilter: "blur(4px)" }} />
+
+      {/* Modal */}
+      <div style={{ position: "relative", background: "#FBF6EE", width: "100%", maxWidth: 900, maxHeight: "96vh", display: "flex", flexDirection: "column", boxShadow: "0 40px 100px rgba(0,0,0,0.5)", overflow: "hidden", borderRadius: "12px 12px 0 0" }}>
+
+        {/* Header */}
+        <div style={{ background: "#1E1410", padding: "1rem 1.2rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: "1px solid rgba(212,168,67,0.15)", flexWrap: "wrap", gap: "0.8rem" }}>
+          <div>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", color: "#F5EDD8", fontWeight: 400 }}>
+              Our <em style={{ fontStyle: "italic", color: "#D4A843" }}>Menu</em>
+            </div>
+            <div style={{ fontSize: "0.68rem", color: "rgba(212,168,67,0.55)", letterSpacing: "0.18em", textTransform: "uppercase", marginTop: "0.2rem" }}>
+              Pho Huong Viet · 17 Ave SW, Calgary
+            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
+            <button onClick={() => { onClose(); onOrderClick(); }} style={{ background: "#C4882B", color: "white", border: "none", padding: "0.6rem 1.4rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.2s" }}
+              onMouseEnter={e => e.target.style.background = "#6B1A1A"}
+              onMouseLeave={e => e.target.style.background = "#C4882B"}
+            >Order Now</button>
+            <button onClick={onClose} style={{ background: "none", border: "1px solid rgba(245,237,216,0.2)", color: "rgba(245,237,216,0.6)", width: 34, height: 34, fontSize: "1rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = "#D4A843"; e.currentTarget.style.color = "#D4A843"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(245,237,216,0.2)"; e.currentTarget.style.color = "rgba(245,237,216,0.6)"; }}
+            >✕</button>
+          </div>
+        </div>
+
+        {/* Category tabs */}
+        <div style={{ background: "#F5EDD8", borderBottom: "1px solid rgba(107,26,26,0.12)", padding: "0.8rem 1.5rem", display: "flex", gap: "0.4rem", flexWrap: "wrap", flexShrink: 0 }}>
+          {MENU.map(cat => (
+            <button key={cat.id} onClick={() => setActiveTab(cat.id)} style={{
+              padding: "0.4rem 0.9rem", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.08em",
+              textTransform: "uppercase", border: "1px solid", cursor: "pointer", transition: "all 0.2s",
+              fontFamily: "'DM Sans', sans-serif",
+              borderColor: activeTab === cat.id ? "#6B1A1A" : "rgba(107,26,26,0.18)",
+              background: activeTab === cat.id ? "#6B1A1A" : "transparent",
+              color: activeTab === cat.id ? "#F5EDD8" : "#7A6050",
+            }}>{cat.category}</button>
+          ))}
+        </div>
+
+        {/* Items */}
+        <div style={{ overflowY: "auto", padding: "1.2rem", flex: 1 }}>
+          <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontWeight: 600, color: "#1E1410", paddingBottom: "0.8rem", marginBottom: "1.2rem", borderBottom: "2px solid rgba(107,26,26,0.14)", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            {activeCat?.category}
+          </div>
+          <div className="menu-popup-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "0.8rem" }}>
+            {activeCat?.items.map(item => (
+              <div key={item.id} style={{ background: "white", border: "1px solid rgba(107,26,26,0.1)", padding: "1rem 1.2rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.9rem", fontWeight: 600, color: "#2A1A0E", lineHeight: 1.3 }}>
+                  {item.name}
+                  {(item.tags || []).map(t => <Tag key={t} type={t} />)}
+                </div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.88rem", color: "#6A5040", lineHeight: 1.55, flex: 1, fontWeight: 300 }}>{item.desc}</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontWeight: 700, color: "#6B1A1A", marginTop: "0.3rem" }}>${item.price.toFixed(2)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div style={{ background: "#1E1410", padding: "0.9rem 1.2rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderTop: "1px solid rgba(212,168,67,0.1)", flexWrap: "wrap", gap: "0.6rem" }}>
+          <p style={{ fontSize: "0.78rem", color: "rgba(245,237,216,0.35)" }}>
+            Allergies? Call <a href="tel:+14036863799" style={{ color: "#D4A843", textDecoration: "none" }}>(403) 686-3799</a>
+          </p>
+          <button onClick={() => { onClose(); onOrderClick(); }} style={{ background: "#C4882B", color: "white", border: "none", padding: "0.65rem 1.4rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.2s" }}
+            onMouseEnter={e => e.target.style.background = "#6B1A1A"}
+            onMouseLeave={e => e.target.style.background = "#C4882B"}
+          >🥡 Order Pick Up</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HomePage({ onOrderClick }) {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div>
       <HomeNav onOrderClick={onOrderClick} />
-      <HomeHero onOrderClick={onOrderClick} />
+      <HomeHero onOrderClick={onOrderClick} onMenuClick={() => setMenuOpen(true)} />
       <Marquee />
       <AboutSection />
+      <FeaturedVideoSection />
       <DeliveryBanner onOrderClick={onOrderClick} />
       <MenuSection />
       <GallerySection />
@@ -1140,6 +1383,7 @@ function HomePage({ onOrderClick }) {
       <VisitSection onOrderClick={onOrderClick} />
       <OrderCTASection onOrderClick={onOrderClick} />
       <HomeFooter onOrderClick={onOrderClick} />
+      <MenuPopup open={menuOpen} onClose={() => setMenuOpen(false)} onOrderClick={onOrderClick} />
     </div>
   );
 }
@@ -1168,100 +1412,28 @@ async function publishOrderToKitchen(order) {
   }
 }
 
-function KitchenSettingsModal({ open, onClose }) {
-  const [testing, setTesting] = useState(false);
-  const [testResult, setTestResult] = useState(null);
-
-  const testConnection = async () => {
-    setTesting(true); setTestResult(null);
-    try {
-      const res = await fetch("https://rest.ably.io/channels/pho-kitchen-orders/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Authorization": "Basic " + btoa(ABLY_API_KEY) },
-        body: JSON.stringify({ name: "ping", data: "test" }),
-      });
-      setTestResult(res.ok ? "ok" : "fail");
-    } catch { setTestResult("fail"); }
-    setTesting(false);
-  };
-
-  if (!open) return null;
-  return (
-    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.75)", zIndex: 400, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}>
-      <div style={{ background: "#1A0A06", border: "1px solid rgba(212,168,67,0.2)", width: "100%", maxWidth: 420, boxShadow: "0 30px 80px rgba(0,0,0,0.6)" }}>
-        <div style={{ padding: "1.3rem 1.6rem", borderBottom: "1px solid rgba(212,168,67,0.12)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div>
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", color: "#F5EDD8" }}>
-              🍜 Kitchen App <em style={{ color: "#D4A843" }}>Status</em>
-            </div>
-            <div style={{ fontSize: "0.68rem", color: "rgba(212,168,67,0.55)", letterSpacing: "0.14em", textTransform: "uppercase", marginTop: "0.2rem" }}>
-              Ably Realtime · pho-kitchen-orders
-            </div>
-          </div>
-          <button onClick={onClose} style={{ background: "none", border: "none", color: "rgba(245,237,216,0.4)", fontSize: "1.2rem", cursor: "pointer" }}>✕</button>
-        </div>
-        <div style={{ padding: "1.6rem" }}>
-          
-          <div style={{ display: "flex", alignItems: "center", gap: "0.9rem", background: "rgba(39,174,96,0.08)", border: "1px solid rgba(39,174,96,0.22)", padding: "1rem 1.2rem", marginBottom: "1.4rem" }}>
-            <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#27AE60", flexShrink: 0, boxShadow: "0 0 8px rgba(39,174,96,0.6)" }} />
-            <div>
-              <div style={{ fontSize: "0.82rem", fontWeight: 600, color: "#27AE60", marginBottom: "0.2rem" }}>Live — Orders Active</div>
-              <div style={{ fontSize: "0.72rem", color: "rgba(245,237,216,0.4)", lineHeight: 1.5 }}>
-                Orders placed on this website go directly to the <strong style={{ color: "rgba(245,237,216,0.6)" }}>Pho Kitchen App</strong> on your phone in real time.
-              </div>
-            </div>
-          </div>
-
-          
-          {testResult && (
-            <div style={{ padding: "0.65rem 1rem", marginBottom: "1rem", fontSize: "0.82rem", fontWeight: 500, background: testResult === "ok" ? "rgba(39,174,96,0.1)" : "rgba(192,57,43,0.12)", border: `1px solid ${testResult === "ok" ? "rgba(39,174,96,0.3)" : "rgba(192,57,43,0.3)"}`, color: testResult === "ok" ? "#27AE60" : "#E74C3C" }}>
-              {testResult === "ok" ? "✅ Connected — kitchen app will receive orders" : "❌ Connection failed — check your internet connection"}
-            </div>
-          )}
-
-          <div style={{ display: "flex", gap: "0.7rem" }}>
-            <button onClick={testConnection} disabled={testing} style={{ flex: 1, padding: "0.75rem", background: "transparent", border: "1px solid rgba(212,168,67,0.3)", color: "#D4A843", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "all 0.2s" }}>
-              {testing ? "Testing…" : "Test Connection"}
-            </button>
-            <button onClick={onClose} style={{ flex: 1, padding: "0.75rem", background: "#6B1A1A", border: "none", color: "white", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.2s" }}
-              onMouseEnter={e => e.target.style.background = "#C4882B"}
-              onMouseLeave={e => e.target.style.background = "#6B1A1A"}
-            >Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function OrderNav({ onBack, cartCount, onCartOpen, onSettingsOpen, ablyConnected }) {
+function OrderNav({ onBack, cartCount, onCartOpen }) {
   return (
     <header style={{ background: "#1E1410", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 4px 30px rgba(0,0,0,0.35)", borderBottom: "1px solid rgba(212,168,67,0.12)" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "1rem 2.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <button onClick={onBack} style={{ color: "rgba(245,237,216,0.45)", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 500, background: "none", border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif", transition: "color 0.3s" }}
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0.8rem 1.2rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.8rem", flexWrap: "nowrap" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", minWidth: 0, overflow: "hidden" }}>
+          <button onClick={onBack} style={{ color: "rgba(245,237,216,0.45)", fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 500, background: "none", border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif", transition: "color 0.3s", flexShrink: 0 }}
             onMouseEnter={e => e.target.style.color = "#D4A843"}
             onMouseLeave={e => e.target.style.color = "rgba(245,237,216,0.45)"}
           >← Home</button>
-          <div style={{ width: 1, height: 24, background: "rgba(212,168,67,0.2)" }} />
-          <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
-            <img src={LOGO_SRC} alt="" style={{ height: 40, width: "auto" }} onError={e => e.target.style.display = "none"} />
-            <div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", color: "#F5EDD8" }}>Pho Huong Viet</div>
-              <div style={{ fontSize: "0.65rem", color: "rgba(212,168,67,0.7)", letterSpacing: "0.18em", textTransform: "uppercase" }}>17 Ave SW · Calgary</div>
+          <div style={{ width: 1, height: 24, background: "rgba(212,168,67,0.2)", flexShrink: 0 }} />
+          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", minWidth: 0, overflow: "hidden" }}>
+            <img src={LOGO_SRC} alt="" style={{ height: 34, width: "auto", flexShrink: 0 }} onError={e => e.target.style.display = "none"} />
+            <div style={{ minWidth: 0, overflow: "hidden" }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", color: "#F5EDD8", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>Pho Huong Viet</div>
+              <div style={{ fontSize: "0.6rem", color: "rgba(212,168,67,0.7)", letterSpacing: "0.14em", textTransform: "uppercase" }}>17 Ave SW · Calgary</div>
             </div>
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
           
-          <button onClick={onSettingsOpen} title="Kitchen App Settings" style={{ display: "flex", alignItems: "center", gap: "0.45rem", background: ablyConnected ? "rgba(39,174,96,0.1)" : "rgba(245,237,216,0.05)", border: `1px solid ${ablyConnected ? "rgba(39,174,96,0.3)" : "rgba(245,237,216,0.12)"}`, color: ablyConnected ? "#27AE60" : "rgba(245,237,216,0.4)", padding: "0.35rem 0.8rem", fontSize: "0.68rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "all 0.25s", fontFamily: "'DM Sans', sans-serif" }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = "#D4A843"; e.currentTarget.style.color = "#D4A843"; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = ablyConnected ? "rgba(39,174,96,0.3)" : "rgba(245,237,216,0.12)"; e.currentTarget.style.color = ablyConnected ? "#27AE60" : "rgba(245,237,216,0.4)"; }}
-          >
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: ablyConnected ? "#27AE60" : "rgba(245,237,216,0.25)", display: "inline-block", flexShrink: 0 }} />
-            {ablyConnected ? "Kitchen Live" : "Kitchen ⚙"}
-          </button>
-          <span style={{ background: "rgba(196,136,43,0.15)", border: "1px solid rgba(196,136,43,0.3)", color: "#D4A843", padding: "0.35rem 0.9rem", fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase" }}>
+
+          <span className="order-nav-pickup" style={{ background: "rgba(196,136,43,0.15)", border: "1px solid rgba(196,136,43,0.3)", color: "#D4A843", padding: "0.35rem 0.9rem", fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase" }}>
             🥡 Pick Up Only
           </span>
           <button onClick={onCartOpen} style={{ background: "#C4882B", color: "white", border: "none", padding: "0.6rem 1.3rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.6rem", transition: "background 0.3s" }}
@@ -1279,7 +1451,7 @@ function OrderNav({ onBack, cartCount, onCartOpen, onSettingsOpen, ablyConnected
 
 function OrderHero() {
   return (
-    <div style={{ background: "#1E1410", position: "relative", overflow: "hidden", padding: "3.5rem 2.5rem", textAlign: "center" }}>
+    <div style={{ background: "#1E1410", position: "relative", overflow: "hidden", padding: "clamp(2rem, 6vw, 3.5rem) clamp(1rem, 5vw, 2.5rem)", textAlign: "center" }}>
       <div style={{ position: "absolute", inset: 0, backgroundImage: PATTERN_BG, pointerEvents: "none" }} />
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 1, background: "linear-gradient(to right,transparent,rgba(212,168,67,0.25),transparent)" }} />
       <div style={{ fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.3em", textTransform: "uppercase", color: "#D4A843", marginBottom: "0.8rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.8rem" }}>
@@ -1304,6 +1476,10 @@ function OrderHero() {
 
 function MenuCard({ item, qty, onAdd, onRemove }) {
   const [hovered, setHovered] = useState(false);
+  const [selected, setSelected] = useState("");
+
+  const canAdd = !item.selectOptions || selected !== "";
+
   return (
     <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} style={{
       background: "white", border: "1px solid rgba(107,26,26,0.14)",
@@ -1318,18 +1494,38 @@ function MenuCard({ item, qty, onAdd, onRemove }) {
         {(item.tags || []).map(t => <Tag key={t} type={t} />)}
       </div>
       <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem", lineHeight: 1.6, flex: 1, color: "#6A5040", fontWeight: 300 }}>{item.desc}</div>
+      {item.selectOptions && (
+        <select
+          value={selected}
+          onChange={e => setSelected(e.target.value)}
+          style={{
+            width: "100%", padding: "0.5rem 0.7rem",
+            border: `1px solid ${selected ? "rgba(107,26,26,0.3)" : "rgba(107,26,26,0.18)"}`,
+            fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem",
+            color: selected ? "#2A1A0E" : "#7A6050",
+            background: "#FBF6EE", outline: "none", cursor: "pointer",
+            borderRadius: 2,
+          }}
+        >
+          <option value="">— {item.selectLabel} —</option>
+          {item.selectOptions.map(opt => (
+            <option key={opt} value={opt}>{opt}</option>
+          ))}
+        </select>
+      )}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "0.3rem", paddingTop: "0.7rem", borderTop: "1px solid rgba(107,26,26,0.08)" }}>
         <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontWeight: 700, color: "#6B1A1A" }}>${item.price.toFixed(2)}</span>
         {qty === 0 ? (
-          <button onClick={() => onAdd(item.id)} style={{ background: "#6B1A1A", color: "white", border: "none", width: 32, height: 32, fontSize: "1.2rem", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}
-            onMouseEnter={e => e.target.style.background = "#C4882B"}
-            onMouseLeave={e => e.target.style.background = "#6B1A1A"}
+          <button onClick={() => { if (canAdd) onAdd(item.id, selected); }} style={{ background: canAdd ? "#6B1A1A" : "#ccc", color: "white", border: "none", width: 32, height: 32, fontSize: "1.2rem", fontWeight: 700, cursor: canAdd ? "pointer" : "not-allowed", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}
+            onMouseEnter={e => { if (canAdd) e.target.style.background = "#C4882B"; }}
+            onMouseLeave={e => { if (canAdd) e.target.style.background = "#6B1A1A"; }}
+            title={!canAdd ? `Please ${item.selectLabel?.toLowerCase()} first` : ""}
           >+</button>
         ) : (
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <button onClick={() => onRemove(item.id)} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s", color: "#2A1A0E" }}>−</button>
             <span style={{ fontWeight: 700, minWidth: 20, textAlign: "center", fontSize: "0.95rem", color: "#6B1A1A" }}>{qty}</span>
-            <button onClick={() => onAdd(item.id)} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s", color: "#2A1A0E" }}>+</button>
+            <button onClick={() => onAdd(item.id, selected)} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s", color: "#2A1A0E" }}>+</button>
           </div>
         )}
       </div>
@@ -1338,7 +1534,7 @@ function MenuCard({ item, qty, onAdd, onRemove }) {
 }
 
 function SideCart({ cart, onAdd, onRemove, onRemoveFull, onCheckout }) {
-  const total = Object.entries(cart).reduce((s, [id, qty]) => s + (getItem(Number(id))?.price || 0) * qty, 0);
+  const total = Object.entries(cart).reduce((s, [id, qty]) => s + (getItem(id)?.price || 0) * qty, 0);
   const count = Object.values(cart).reduce((a, b) => a + b, 0);
   return (
     <div style={{ position: "sticky", top: 80, maxHeight: "calc(100vh - 100px)", display: "flex", flexDirection: "column" }}>
@@ -1353,15 +1549,19 @@ function SideCart({ cart, onAdd, onRemove, onRemoveFull, onCheckout }) {
               Your cart is empty.<br />Add items from the menu.
             </div>
           ) : (
-            Object.entries(cart).map(([id, qty]) => {
-              const item = getItem(Number(id));
+            Object.entries(cart).map(([key, qty]) => {
+              const item = getItem(key);
+              const flavour = getItemFlavour(key);
               if (!item) return null;
               return (
-                <div key={id} style={{ display: "flex", alignItems: "center", gap: "0.6rem", padding: "0.7rem 0", borderBottom: "1px solid rgba(107,26,26,0.07)", fontSize: "0.82rem" }}>
-                  <div style={{ flex: 1, fontWeight: 500, lineHeight: 1.3, color: "#2A1A0E" }}>{item.name}</div>
+                <div key={key} style={{ display: "flex", alignItems: "center", gap: "0.6rem", padding: "0.7rem 0", borderBottom: "1px solid rgba(107,26,26,0.07)", fontSize: "0.82rem" }}>
+                  <div style={{ flex: 1, fontWeight: 500, lineHeight: 1.3, color: "#2A1A0E" }}>
+                    {item.name}
+                    {flavour && <div style={{ fontSize: "0.72rem", color: "#C4882B", fontWeight: 400 }}>{flavour}</div>}
+                  </div>
                   <div style={{ color: "#7A6050", fontSize: "0.75rem" }}>×{qty}</div>
                   <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, color: "#6B1A1A", whiteSpace: "nowrap", fontSize: "0.9rem" }}>${(item.price * qty).toFixed(2)}</div>
-                  <button onClick={() => onRemoveFull(Number(id))} style={{ background: "none", border: "none", color: "rgba(107,26,26,0.3)", cursor: "pointer", fontSize: "0.9rem", padding: "2px 4px", transition: "color 0.15s" }}
+                  <button onClick={() => onRemoveFull(key)} style={{ background: "none", border: "none", color: "rgba(107,26,26,0.3)", cursor: "pointer", fontSize: "0.9rem", padding: "2px 4px", transition: "color 0.15s" }}
                     onMouseEnter={e => e.target.style.color = "#6B1A1A"}
                     onMouseLeave={e => e.target.style.color = "rgba(107,26,26,0.3)"}
                   >✕</button>
@@ -1388,7 +1588,7 @@ function SideCart({ cart, onAdd, onRemove, onRemoveFull, onCheckout }) {
 }
 
 function MobileCartDrawer({ open, onClose, cart, onAdd, onRemove, onRemoveFull, onCheckout }) {
-  const total = Object.entries(cart).reduce((s, [id, qty]) => s + (getItem(Number(id))?.price || 0) * qty, 0);
+  const total = Object.entries(cart).reduce((s, [id, qty]) => s + (getItem(id)?.price || 0) * qty, 0);
   const count = Object.values(cart).reduce((a, b) => a + b, 0);
   return (
     <>
@@ -1403,15 +1603,19 @@ function MobileCartDrawer({ open, onClose, cart, onAdd, onRemove, onRemoveFull, 
             <div style={{ textAlign: "center", color: "#7A6050", padding: "1.5rem", fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>Your cart is empty.</div>
           ) : (
             <>
-              {Object.entries(cart).map(([id, qty]) => {
-                const item = getItem(Number(id));
+              {Object.entries(cart).map(([key, qty]) => {
+                const item = getItem(key);
+                const flavour = getItemFlavour(key);
                 if (!item) return null;
                 return (
-                  <div key={id} style={{ display: "flex", alignItems: "center", gap: "0.6rem", padding: "0.7rem 0", borderBottom: "1px solid rgba(107,26,26,0.07)", fontSize: "0.82rem" }}>
-                    <div style={{ flex: 1, fontWeight: 500 }}>{item.name}</div>
+                  <div key={key} style={{ display: "flex", alignItems: "center", gap: "0.6rem", padding: "0.7rem 0", borderBottom: "1px solid rgba(107,26,26,0.07)", fontSize: "0.82rem" }}>
+                    <div style={{ flex: 1, fontWeight: 500, lineHeight: 1.3 }}>
+                      {item.name}
+                      {flavour && <div style={{ fontSize: "0.72rem", color: "#C4882B", fontWeight: 400 }}>{flavour}</div>}
+                    </div>
                     <div style={{ color: "#7A6050" }}>×{qty}</div>
                     <div style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, color: "#6B1A1A" }}>${(item.price * qty).toFixed(2)}</div>
-                    <button onClick={() => onRemoveFull(Number(id))} style={{ background: "none", border: "none", color: "#7A6050", cursor: "pointer" }}>✕</button>
+                    <button onClick={() => onRemoveFull(key)} style={{ background: "none", border: "none", color: "#7A6050", cursor: "pointer" }}>✕</button>
                   </div>
                 );
               })}
@@ -1442,7 +1646,7 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
   const [placing, setPlacing] = useState(false);
   const [kitchenStatus, setKitchenStatus] = useState(null); 
 
-  const total = Object.entries(cart).reduce((s, [id, qty]) => s + (getItem(Number(id))?.price || 0) * qty, 0);
+  const total = Object.entries(cart).reduce((s, [id, qty]) => s + (getItem(id)?.price || 0) * qty, 0);
 
   const handlePlace = async () => {
     if (!name.trim() || !phone.trim() || !email.trim()) { alert("Please fill in your name, phone and email."); return; }
@@ -1458,9 +1662,10 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
       type: "PICKUP",
       customer: { name: name.trim(), phone: phone.trim(), email: email.trim() },
       specialInstructions: notes.trim() || "None",
-      items: Object.entries(cart).map(([itemId, qty]) => {
-        const item = getItem(Number(itemId));
-        return { id: Number(itemId), name: item.name, qty, unitPrice: item.price, subtotal: item.price * qty };
+      items: Object.entries(cart).map(([key, qty]) => {
+        const item = getItem(key);
+        const flavour = getItemFlavour(key);
+        return { id: Number(String(key).split("|")[0]), name: item.name + (flavour ? ` (${flavour})` : ""), qty, unitPrice: item.price, subtotal: item.price * qty };
       }),
       total,
       restaurant: "Pho Huong Viet 17Ave SW",
@@ -1507,8 +1712,8 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
   };
 
   return (
-    <div style={{ position: "fixed", inset: 0, background: "rgba(26,8,0,0.7)", zIndex: 300, display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}>
-      <div style={{ background: "white", width: "100%", maxWidth: 520, maxHeight: "92vh", overflowY: "auto", boxShadow: "0 30px 80px rgba(0,0,0,0.4)" }}>
+    <div style={{ position: "fixed", inset: 0, background: "rgba(26,8,0,0.7)", zIndex: 300, display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+      <div style={{ background: "white", width: "100%", maxWidth: 520, maxHeight: "94vh", overflowY: "auto", boxShadow: "0 30px 80px rgba(0,0,0,0.4)", borderRadius: "12px 12px 0 0" }}>
         <div style={{ background: "#1E1410", color: "#F5EDD8", padding: "1.4rem 1.6rem", fontFamily: "'Playfair Display', serif", fontSize: "1.15rem", fontWeight: 400, display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(212,168,67,0.15)" }}>
           Complete Your <em style={{ fontStyle: "italic", color: "#D4A843", marginLeft: 6 }}>Order</em>
           <button onClick={handleClose} style={{ background: "none", border: "none", color: "rgba(245,237,216,0.6)", fontSize: "1.3rem", cursor: "pointer", transition: "color 0.2s" }}
@@ -1516,7 +1721,7 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
             onMouseLeave={e => e.target.style.color = "rgba(245,237,216,0.6)"}
           >✕</button>
         </div>
-        <div style={{ padding: "1.8rem" }}>
+        <div style={{ padding: "clamp(1rem, 4vw, 1.8rem)" }}>
           {success ? (
             <div style={{ textAlign: "center", padding: "2.5rem 2rem" }}>
               <div style={{ fontSize: "3.5rem", marginBottom: "1.2rem" }}>🎉</div>
@@ -1547,12 +1752,13 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
             <>
               <div style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", padding: "1.2rem", marginBottom: "1.5rem" }}>
                 <h4 style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.9rem", fontWeight: 600, marginBottom: "0.8rem", color: "#1E1410", letterSpacing: "0.05em", textTransform: "uppercase" }}>Order Summary</h4>
-                {Object.entries(cart).map(([id, qty]) => {
-                  const item = getItem(Number(id));
+                {Object.entries(cart).map(([key, qty]) => {
+                  const item = getItem(key);
+                  const flavour = getItemFlavour(key);
                   if (!item) return null;
                   return (
-                    <div key={id} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem", padding: "0.3rem 0", color: "#2A1A0E" }}>
-                      <span>{item.name} ×{qty}</span>
+                    <div key={key} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem", padding: "0.3rem 0", color: "#2A1A0E" }}>
+                      <span>{item.name}{flavour ? ` (${flavour})` : ""} ×{qty}</span>
                       <span>${(item.price * qty).toFixed(2)}</span>
                     </div>
                   );
@@ -1602,24 +1808,39 @@ function OrderPage({ onBack }) {
   const [activeTab, setActiveTab] = useState("pho");
   const [mobileCartOpen, setMobileCartOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [kitchenSettingsOpen, setKitchenSettingsOpen] = useState(false);
-  const [ablyConnected, setAblyConnected] = useState(() => !!ABLY_API_KEY);
 
   const cartCount = Object.values(cart).reduce((a, b) => a + b, 0);
 
-  const addItem = useCallback((id) => {
-    setCart(c => ({ ...c, [id]: (c[id] || 0) + 1 }));
+  useEffect(() => {
+    const observers = [];
+    MENU.forEach(cat => {
+      const el = document.getElementById(`sec-${cat.id}`);
+      if (!el) return;
+      const obs = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) setActiveTab(cat.id);
+      }, { threshold: 0.25 });
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach(o => o.disconnect());
   }, []);
-  const removeItem = useCallback((id) => {
+
+  const addItem = useCallback((id, flavour) => {
+    const key = flavour ? `${id}|${flavour}` : String(id);
+    setCart(c => ({ ...c, [key]: (c[key] || 0) + 1 }));
+  }, []);
+  const removeItem = useCallback((id, flavour) => {
+    const key = flavour ? `${id}|${flavour}` : String(id);
     setCart(c => {
       const n = { ...c };
-      if (n[id] > 1) n[id]--;
-      else delete n[id];
+      if (n[key] > 1) n[key]--;
+      else delete n[key];
       return n;
     });
   }, []);
-  const removeItemFull = useCallback((id) => {
-    setCart(c => { const n = { ...c }; delete n[id]; return n; });
+  const removeItemFull = useCallback((id, flavour) => {
+    const key = flavour ? `${id}|${flavour}` : String(id);
+    setCart(c => { const n = { ...c }; delete n[key]; return n; });
   }, []);
   const clearCart = () => setCart({});
 
@@ -1629,8 +1850,6 @@ function OrderPage({ onBack }) {
         onBack={onBack}
         cartCount={cartCount}
         onCartOpen={() => setMobileCartOpen(true)}
-        onSettingsOpen={() => setKitchenSettingsOpen(true)}
-        ablyConnected={ablyConnected}
       />
       <OrderHero />
       <div className="order-layout">
@@ -1638,7 +1857,11 @@ function OrderPage({ onBack }) {
           
           <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", marginBottom: "1.8rem" }}>
             {MENU.map(cat => (
-              <button key={cat.id} onClick={() => setActiveTab(cat.id)} style={{
+              <button key={cat.id} onClick={() => {
+                setActiveTab(cat.id);
+                const el = document.getElementById(`sec-${cat.id}`);
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+              }} style={{
                 padding: "0.5rem 1.1rem", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.08em",
                 textTransform: "uppercase", border: "1px solid",
                 borderColor: activeTab === cat.id ? "#6B1A1A" : "rgba(107,26,26,0.14)",
@@ -1652,7 +1875,7 @@ function OrderPage({ onBack }) {
           </div>
           
           {MENU.map(cat => (
-            <div key={cat.id} id={`sec-${cat.id}`} style={{ marginBottom: "3rem", display: activeTab === cat.id ? "block" : "block" }}>
+            <div key={cat.id} id={`sec-${cat.id}`} style={{ marginBottom: "3rem" }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.25rem", fontWeight: 600, color: "#1E1410", paddingBottom: "0.8rem", marginBottom: "0.2rem", borderBottom: "2px solid rgba(107,26,26,0.14)", display: "flex", alignItems: "center", gap: "0.6rem" }}>
                 <span>{cat.category.split(" ")[0]}</span>
                 {cat.category.replace(/^[^\s]+\s/, "")}
@@ -1679,360 +1902,6 @@ function OrderPage({ onBack }) {
       </footer>
       <MobileCartDrawer open={mobileCartOpen} onClose={() => setMobileCartOpen(false)} cart={cart} onAdd={addItem} onRemove={removeItem} onRemoveFull={removeItemFull} onCheckout={() => { setMobileCartOpen(false); setCheckoutOpen(true); }} />
       <CheckoutModal open={checkoutOpen} onClose={() => setCheckoutOpen(false)} cart={cart} onSuccess={clearCart} />
-      <KitchenSettingsModal open={kitchenSettingsOpen} onClose={() => { setKitchenSettingsOpen(false); setAblyConnected(!!ABLY_API_KEY); }} />
-    </div>
-  );
-}
-
-const KITCHEN_PRINT_CSS = `
-@keyframes kpFadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
-.kp-entry { animation: kpFadeIn 0.35s ease both; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-.kp-pulse { animation: pulse 1.4s ease-in-out infinite; }
-@media print {
-  body > *:not(#kp-print-frame) { display: none !important; }
-  #kp-print-frame { display: block !important; position: fixed; inset: 0; width: 100%; height: 100%; border: none; }
-}
-`;
-
-function buildReceiptHTML(order, prepMins) {
-  const now = new Date().toLocaleString("en-CA", { dateStyle: "medium", timeStyle: "short" });
-  const itemRows = order.items.map(item =>
-    `<tr><td class="qty">${item.qty}×</td><td class="name">${item.name}</td><td class="price">$${item.subtotal.toFixed(2)}</td></tr>`
-  ).join("");
-  const special = (order.specialInstructions && order.specialInstructions !== "None")
-    ? `<p class="special"><strong>⚠ Special Instructions:</strong><br>${order.specialInstructions}</p>` : "";
-  return `<!DOCTYPE html><html><head><meta charset="UTF-8">
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Courier New',monospace;font-size:13pt;color:#000;padding:12px;max-width:320px;margin:0 auto}
-  .hdr{text-align:center;border-bottom:2px dashed #000;padding-bottom:12px;margin-bottom:12px}
-  .hdr h1{font-size:16pt;font-weight:bold}.hdr p{font-size:9pt;margin-top:3px}
-  .badge{display:inline-block;background:#000;color:#fff;padding:4px 14px;font-size:9pt;letter-spacing:2px;margin-top:8px}
-  .oid{text-align:center;font-size:11pt;margin:10px 0 2px;font-weight:bold}
-  .ts{text-align:center;font-size:8pt;color:#555;margin-bottom:10px}
-  .sec{margin:10px 0}.sec-t{font-size:8pt;text-transform:uppercase;letter-spacing:2px;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:8px}
-  table{width:100%;border-collapse:collapse}
-  td{padding:4px 0;font-size:10pt;vertical-align:top}
-  td.qty{width:30px;font-weight:bold}td.price{text-align:right;white-space:nowrap}
-  hr{border:none;border-top:1px dashed #000;margin:10px 0}
-  .tot{display:flex;justify-content:space-between;font-weight:bold;font-size:13pt;margin-top:8px}
-  .special{font-size:9pt;border:2px solid #000;padding:7px;margin:8px 0;line-height:1.5}
-  .prep{text-align:center;margin:12px 0}.prep strong{font-size:20pt;display:block;margin-top:4px}
-  .ftr{text-align:center;font-size:8pt;margin-top:16px;border-top:2px dashed #000;padding-top:12px;line-height:2}
-</style></head><body>
-<div class="hdr"><h1>PHO HUONG VIET</h1><p>#3855 17 Ave SW, Calgary, AB</p><p>(403) 686-3799</p><div class="badge">PICK-UP ORDER</div></div>
-<div class="oid">Order #${order.orderId}</div><div class="ts">${now}</div><hr>
-<div class="sec"><div class="sec-t">Customer</div><p><strong>${order.customer.name}</strong></p><p>${order.customer.phone}</p></div><hr>
-<div class="sec"><div class="sec-t">Items</div><table>${itemRows}</table></div><hr>
-<div class="tot"><span>TOTAL</span><span>$${order.total.toFixed(2)}</span></div>
-${special}<hr>
-<div class="prep">Ready In:<strong>${prepMins ? prepMins + " min" : "—"}</strong></div><hr>
-<div class="ftr"><strong>Thank You!</strong><br>Please wait for your name<br>(403) 686-3799</div>
-</body></html>`;
-}
-
-function silentPrint(html) {
-  
-  let frame = document.getElementById("kp-print-frame");
-  if (!frame) {
-    frame = document.createElement("iframe");
-    frame.id = "kp-print-frame";
-    frame.style.cssText = "position:fixed;top:-9999px;left:-9999px;width:320px;height:600px;border:none;visibility:hidden";
-    document.body.appendChild(frame);
-  }
-  frame.srcdoc = html;
-  frame.onload = () => {
-    try {
-      frame.contentWindow.focus();
-      frame.contentWindow.print();
-    } catch (e) {
-      
-      const w = window.open("", "_blank");
-      if (w) { w.document.write(html); w.document.close(); w.print(); }
-    }
-  };
-}
-
-function KitchenPrintPage({ onBack }) {
-  const [status, setStatus] = useState("disconnected");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [autoPrint, setAutoPrint] = useState(true);
-  const [printOnNew, setPrintOnNew] = useState(false);
-  const [log, setLog] = useState([]);
-  const wsRef = useRef(null);
-  const reconnTimerRef = useRef(null);
-
-  const addLog = (order, printed, trigger) => {
-    setLog(prev => [{
-      order,
-      time: new Date().toLocaleTimeString("en-CA", { hour: "2-digit", minute: "2-digit" }),
-      printed,
-      trigger, 
-      id: order.orderId + Date.now(),
-    }, ...prev].slice(0, 40));
-  };
-
-  const handleOrder = useCallback((order, prepMins, isArrival = false) => {
-    const html = buildReceiptHTML(order, prepMins);
-    const shouldPrint = autoPrint;
-    if (shouldPrint) silentPrint(html);
-    addLog(order, shouldPrint, isArrival ? "arrived" : "confirmed");
-  }, [autoPrint]);
-
-  const connect = useCallback(() => {
-    const key = ABLY_API_KEY;
-    if (!key) return;
-    if (wsRef.current) { wsRef.current.onclose = null; wsRef.current.close(); }
-    clearTimeout(reconnTimerRef.current);
-    setStatus("connecting"); setErrorMsg("");
-
-    const ws = new WebSocket(
-      `wss://realtime.ably.io/?key=${encodeURIComponent(key)}&format=json&heartbeats=true&v=1.2&agent=js-1.2`
-    );
-    wsRef.current = ws;
-
-    const timeout = setTimeout(() => {
-      if (ws.readyState !== WebSocket.OPEN) { ws.close(); setStatus("error"); setErrorMsg("Connection timed out"); }
-    }, 10000);
-
-    ws.onmessage = (e) => {
-      try {
-        const msg = JSON.parse(e.data);
-        if (msg.action === 4) { 
-          clearTimeout(timeout);
-          setStatus("connected"); setErrorMsg("");
-          ws.send(JSON.stringify({ action: 10, channel: "pho-kitchen-orders" }));
-        }
-        if (msg.action === 15 && msg.channel === "pho-kitchen-orders") {
-          (msg.messages || []).forEach(m => {
-            try {
-              const data = typeof m.data === "string" ? JSON.parse(m.data) : m.data;
-              
-              if (data?.type === "PRINT_ORDER" && data?.order) {
-                handleOrder(data.order, data.prepMins ?? null);
-              }
-              
-              if (data?.type === "NEW_ORDER" && data?.order && printOnNew) {
-                handleOrder(data.order, null, true );
-              }
-            } catch {}
-          });
-        }
-        if (msg.action === 9) {
-          clearTimeout(timeout);
-          const code = msg.error?.code;
-          setErrorMsg(code === 40101 || code === 40102 ? "Invalid API key" : (msg.error?.message || "Ably error"));
-          setStatus("error");
-        }
-      } catch {}
-    };
-    ws.onerror = () => { clearTimeout(timeout); setStatus("error"); setErrorMsg("WebSocket error"); };
-    ws.onclose = (e) => {
-      clearTimeout(timeout);
-      if (e.code !== 1000) {
-        setStatus("error"); setErrorMsg("Disconnected — retrying in 5s…");
-        reconnTimerRef.current = setTimeout(connect, 5000);
-      }
-    };
-  }, [handleOrder, printOnNew]);
-
-  const disconnect = () => {
-    clearTimeout(reconnTimerRef.current);
-    if (wsRef.current) { wsRef.current.onclose = null; wsRef.current.close(); wsRef.current = null; }
-    setStatus("disconnected");
-  };
-
-  useEffect(() => () => { disconnect(); }, []);
-
-  const statusCfg = {
-    disconnected: { dot: "rgba(245,237,216,0.2)",   label: "Not connected",   bg: "transparent" },
-    connecting:   { dot: "#F39C12",                 label: "Connecting…",     bg: "rgba(243,156,18,0.08)" },
-    connected:    { dot: "#27AE60",                 label: "Live — listening for orders", bg: "rgba(39,174,96,0.08)" },
-    error:        { dot: "#C0392B",                 label: errorMsg || "Error", bg: "rgba(192,57,43,0.08)" },
-  };
-  const sc = statusCfg[status];
-
-  return (
-    <div style={{ minHeight: "100vh", background: "#0E0806", color: "#F5EDD8", display: "flex", flexDirection: "column" }}>
-      <style>{KITCHEN_PRINT_CSS}</style>
-
-      
-      <header style={{ background: "#120A06", borderBottom: "1px solid rgba(212,168,67,0.12)", padding: "1rem 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 10 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "1.2rem" }}>
-          <button onClick={onBack} style={{ color: "rgba(245,237,216,0.4)", fontSize: "0.75rem", letterSpacing: "0.12em", textTransform: "uppercase", background: "none", border: "none", cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}
-            onMouseEnter={e => e.target.style.color = "#D4A843"} onMouseLeave={e => e.target.style.color = "rgba(245,237,216,0.4)"}
-          >← Back</button>
-          <div style={{ width: 1, height: 20, background: "rgba(212,168,67,0.15)" }} />
-          <div>
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", color: "#F5EDD8" }}>🖨 Kitchen Print Station</div>
-            <div style={{ fontSize: "0.62rem", color: "rgba(212,168,67,0.55)", letterSpacing: "0.18em", textTransform: "uppercase", marginTop: "0.1rem" }}>
-              Auto-prints orders via any USB / Wi-Fi printer
-            </div>
-          </div>
-        </div>
-        
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", padding: "0.4rem 1rem", background: sc.bg, border: `1px solid ${sc.dot}30`, borderRadius: 2 }}>
-          <div style={{ width: 8, height: 8, borderRadius: "50%", background: sc.dot, flexShrink: 0 }} className={status === "connecting" ? "kp-pulse" : ""} />
-          <span style={{ fontSize: "0.72rem", color: sc.dot, fontWeight: 500, letterSpacing: "0.08em" }}>{sc.label}</span>
-        </div>
-      </header>
-
-      <div className="kitchen-grid" style={{ flex: 1, display: "grid", gridTemplateColumns: "min(360px, 100%) 1fr", maxWidth: 1200, margin: "0 auto", width: "100%", padding: "2rem 1rem", gap: "1.5rem", alignItems: "start" }}>
-
-        
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-
-          
-          <div style={{ background: "rgba(212,168,67,0.05)", border: "1px solid rgba(212,168,67,0.14)", padding: "1.1rem 1.2rem" }}>
-            <div style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "#D4A843", marginBottom: "0.7rem" }}>How it works</div>
-            {[
-              ["1", "Open this page on the PC/Mac that has your printer (USB or same Wi-Fi)"],
-              ["2", "Set that printer as the Default Printer in your computer's settings"],
-              ["3", "Connect below — keep this tab open in the background"],
-              ["4", "Kitchen app confirms order → receipt prints instantly, no dialog"],
-            ].map(([n, t]) => (
-              <div key={n} style={{ display: "flex", gap: "0.7rem", marginBottom: "0.6rem", fontSize: "0.8rem", color: "rgba(245,237,216,0.55)", lineHeight: 1.5 }}>
-                <span style={{ background: "#6B1A1A", color: "#D4A843", width: 18, height: 18, borderRadius: "50%", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{n}</span>
-                {t}
-              </div>
-            ))}
-            <div style={{ marginTop: "0.8rem", padding: "0.65rem 0.8rem", background: "rgba(39,174,96,0.07)", border: "1px solid rgba(39,174,96,0.2)", fontSize: "0.75rem", color: "rgba(39,174,96,0.85)", lineHeight: 1.6 }}>
-              ✅ No EPOS required · No USB relay script · Works with any printer
-            </div>
-          </div>
-
-          
-          <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(212,168,67,0.12)", padding: "1.3rem" }}>
-            <div style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "#D4A843", marginBottom: "1rem" }}>Connection</div>
-            <div style={{ display: "flex", gap: "0.6rem" }}>
-              {status !== "connected" ? (
-                <button onClick={connect} style={{ flex: 1, padding: "0.7rem", background: "#6B1A1A", color: "white", border: "none", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.2s" }}
-                  onMouseEnter={e => e.target.style.background = "#C4882B"}
-                  onMouseLeave={e => e.target.style.background = "#6B1A1A"}
-                >
-                  {status === "connecting" ? "Connecting…" : status === "error" ? "Retry" : "Connect"}
-                </button>
-              ) : (
-                <button onClick={disconnect} style={{ flex: 1, padding: "0.7rem", background: "rgba(192,57,43,0.15)", color: "#E74C3C", border: "1px solid rgba(192,57,43,0.3)", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer" }}>
-                  Disconnect
-                </button>
-              )}
-            </div>
-          </div>
-
-          
-          <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(212,168,67,0.12)", padding: "1.3rem" }}>
-            <div style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "#D4A843", marginBottom: "1rem" }}>Print Settings</div>
-
-            
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", paddingBottom: "1rem", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-              <div>
-                <div style={{ fontSize: "0.8rem", fontWeight: 500, color: "#F5EDD8" }}>Print on Confirm</div>
-                <div style={{ fontSize: "0.68rem", color: "rgba(245,237,216,0.35)", marginTop: "0.2rem" }}>Prints when kitchen staff confirms the order</div>
-              </div>
-              <div onClick={() => setAutoPrint(v => !v)} style={{ width: 42, height: 24, background: autoPrint ? "#27AE60" : "rgba(255,255,255,0.1)", borderRadius: 12, cursor: "pointer", position: "relative", transition: "background 0.25s", flexShrink: 0 }}>
-                <div style={{ position: "absolute", top: 3, left: autoPrint ? 21 : 3, width: 18, height: 18, borderRadius: "50%", background: "white", transition: "left 0.25s", boxShadow: "0 1px 4px rgba(0,0,0,0.3)" }} />
-              </div>
-            </div>
-
-            
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
-              <div>
-                <div style={{ fontSize: "0.8rem", fontWeight: 500, color: "#F5EDD8" }}>Also Print on Arrival</div>
-                <div style={{ fontSize: "0.68rem", color: "rgba(245,237,216,0.35)", marginTop: "0.2rem" }}>Extra copy when order is first received</div>
-              </div>
-              <div onClick={() => setPrintOnNew(v => !v)} style={{ width: 42, height: 24, background: printOnNew ? "#2980B9" : "rgba(255,255,255,0.1)", borderRadius: 12, cursor: "pointer", position: "relative", transition: "background 0.25s", flexShrink: 0 }}>
-                <div style={{ position: "absolute", top: 3, left: printOnNew ? 21 : 3, width: 18, height: 18, borderRadius: "50%", background: "white", transition: "left 0.25s", boxShadow: "0 1px 4px rgba(0,0,0,0.3)" }} />
-              </div>
-            </div>
-
-            <button onClick={() => {
-              const testOrder = {
-                orderId: "PHV-TEST",
-                customer: { name: "Test Customer", phone: "(403) 555-0000", email: "test@test.com" },
-                items: [
-                  { qty: 1, name: "Pho Dac Biet — House Special Combo", unitPrice: 17.50, subtotal: 17.50 },
-                  { qty: 2, name: "Vietnamese Iced Coffee", unitPrice: 5.50, subtotal: 11.00 },
-                ],
-                total: 28.50,
-                specialInstructions: "No bean sprouts",
-                timestamp: new Date().toLocaleString(),
-              };
-              silentPrint(buildReceiptHTML(testOrder, 15));
-              addLog(testOrder, true, "confirmed");
-            }} style={{ width: "100%", padding: "0.65rem", background: "transparent", border: "1px solid rgba(212,168,67,0.25)", color: "#D4A843", fontFamily: "'DM Sans', sans-serif", fontSize: "0.75rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "all 0.2s" }}
-              onMouseEnter={e => { e.currentTarget.style.background = "rgba(212,168,67,0.1)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}
-            >🖨 Print Test Receipt</button>
-          </div>
-
-          
-          <div style={{ background: "rgba(41,128,185,0.07)", border: "1px solid rgba(41,128,185,0.2)", padding: "1rem 1.1rem", fontSize: "0.75rem", color: "rgba(245,237,216,0.5)", lineHeight: 1.7 }}>
-            <strong style={{ color: "#2980B9", display: "block", marginBottom: "0.3rem" }}>💡 Tip: Skip the print dialog</strong>
-            In Chrome, go to <strong style={{ color: "rgba(245,237,216,0.7)" }}>Settings → Printing → Skip print preview</strong>, or launch Chrome with:
-            <code style={{ display: "block", marginTop: "0.4rem", padding: "0.3rem 0.5rem", background: "rgba(0,0,0,0.3)", fontFamily: "monospace", fontSize: "0.7rem", letterSpacing: "0.05em" }}>--kiosk-printing</code>
-            to print silently every time.
-          </div>
-        </div>
-
-        
-        <div>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
-            <div>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", color: "#F5EDD8" }}>
-                Live Order <em style={{ color: "#D4A843" }}>Log</em>
-              </div>
-              <div style={{ fontSize: "0.68rem", color: "rgba(245,237,216,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", marginTop: "0.2rem" }}>
-                {log.length} order{log.length !== 1 ? "s" : ""} this session
-              </div>
-            </div>
-            {log.length > 0 && (
-              <button onClick={() => setLog([])} style={{ fontSize: "0.7rem", color: "rgba(245,237,216,0.3)", background: "none", border: "1px solid rgba(245,237,216,0.08)", padding: "0.3rem 0.7rem", cursor: "pointer", letterSpacing: "0.1em", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif" }}>
-                Clear
-              </button>
-            )}
-          </div>
-
-          {log.length === 0 ? (
-            <div style={{ padding: "4rem 2rem", textAlign: "center", border: "1px dashed rgba(212,168,67,0.12)", color: "rgba(245,237,216,0.2)" }}>
-              <div style={{ fontSize: "2.5rem", marginBottom: "0.8rem", opacity: 0.4 }}>🍜</div>
-              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: "1.05rem" }}>
-                Waiting for orders…
-              </div>
-              <div style={{ fontSize: "0.72rem", marginTop: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                {status === "connected" ? "Connected — ready to receive" : "Connect above to start listening"}
-              </div>
-            </div>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-              {log.map(entry => (
-                <div key={entry.id} className="kp-entry" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(212,168,67,0.1)", padding: "1rem 1.2rem", display: "flex", alignItems: "center", gap: "1.2rem" }}>
-                  <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", color: "#D4A843", flexShrink: 0 }}>#{entry.order.orderId}</div>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontWeight: 500, fontSize: "0.88rem", color: "#F5EDD8" }}>{entry.order.customer.name}</div>
-                    <div style={{ fontSize: "0.75rem", color: "rgba(245,237,216,0.4)", marginTop: "0.15rem" }}>
-                      {entry.order.items.length} item{entry.order.items.length !== 1 ? "s" : ""} · ${entry.order.total.toFixed(2)} · {entry.time}
-                      {entry.trigger && <span style={{ marginLeft: "0.5rem", fontSize: "0.65rem", padding: "0.1rem 0.45rem", borderRadius: 2, background: entry.trigger === "confirmed" ? "rgba(39,174,96,0.12)" : "rgba(41,128,185,0.12)", color: entry.trigger === "confirmed" ? "#27AE60" : "#2980B9", border: `1px solid ${entry.trigger === "confirmed" ? "rgba(39,174,96,0.25)" : "rgba(41,128,185,0.25)"}` }}>{entry.trigger === "confirmed" ? "✓ Confirmed" : "↓ Arrived"}</span>}
-                    </div>
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
-                    {entry.printed
-                      ? <span style={{ fontSize: "0.68rem", color: "#27AE60", background: "rgba(39,174,96,0.1)", border: "1px solid rgba(39,174,96,0.25)", padding: "0.2rem 0.6rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>✓ Printed</span>
-                      : <span style={{ fontSize: "0.68rem", color: "#F39C12", background: "rgba(243,156,18,0.08)", border: "1px solid rgba(243,156,18,0.25)", padding: "0.2rem 0.6rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>Skipped</span>
-                    }
-                    <button onClick={() => { silentPrint(buildReceiptHTML(entry.order, null)); setLog(l => l.map(e => e.id === entry.id ? {...e, printed: true} : e)); }}
-                      style={{ fontSize: "0.68rem", color: "rgba(212,168,67,0.6)", background: "none", border: "1px solid rgba(212,168,67,0.18)", padding: "0.2rem 0.6rem", cursor: "pointer", letterSpacing: "0.08em", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif", transition: "all 0.2s" }}
-                      onMouseEnter={e => { e.currentTarget.style.background = "rgba(212,168,67,0.1)"; e.currentTarget.style.color = "#D4A843"; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = "none"; e.currentTarget.style.color = "rgba(212,168,67,0.6)"; }}
-                    >Re-print</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
     </div>
   );
 }
@@ -2053,10 +1922,8 @@ export default function App() {
 
   const goOrder = () => setPage("order");
   const goHome = () => setPage("home");
-  const goKitchenPrint = () => setPage("kitchen-print");
 
-  if (page === "kitchen-print") return <KitchenPrintPage onBack={goHome} />;
   return page === "home"
     ? <HomePage onOrderClick={goOrder} />
-    : <OrderPage onBack={goHome} onKitchenPrint={goKitchenPrint} />;
+    : <OrderPage onBack={goHome} />;
 }
