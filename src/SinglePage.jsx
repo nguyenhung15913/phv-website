@@ -210,6 +210,10 @@ const css = `
     .visit-grid iframe { height: 280px !important; }
     .order-nav-pickup { display: none !important; }
     .delivery-inner { gap: 1.5rem; }
+    .menu-cat-dropdown { display: block !important; }
+    .menu-cat-tabs { display: none !important; }
+    .order-cat-dropdown { display: block !important; }
+    .order-cat-tabs { display: none !important; }
   }
 
   @media(max-width: 400px) {
@@ -337,6 +341,10 @@ function getItem(id) {
     const f = cat.items.find(i => i.id === numId);
     if (f) return f;
   }
+}
+function getItemFlavour(key) {
+  const parts = String(key).split("|");
+  return parts.length > 1 ? parts[1] : null;
 }
 function useReveal() {
   const ref = useRef(null);
@@ -964,7 +972,7 @@ function MenuSection() {
     ]},
     { id: "drinks", label: "Drinks & Desserts", items: [
       { name: "Caramel Coffee", viet: "Cà Phê Caramel", desc: "Smooth Vietnamese coffee swirled with golden caramel, served over ice for a rich indulgent sip.", price: "~$6", tag: "NEW", img: "/caramelcoffee.jpg", fallback: "/caramelcoffee.jpg" },
-      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "Vietnamese coffee blended with creamy coconut milk — cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.jpeg", fallback: "/coconutcoffee.jpeg" },
+      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "Vietnamese coffee blended with creamy coconut milk — cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.webp", fallback: "/coconutcoffee.webp" },
       { name: "Sparkling Lychee Drink", viet: "Nước Vải Có Ga", desc: "Refreshing sparkling lychee drink with a fruity floral finish. Perfect to cool down.", price: "~$6", tag: "NEW", img: "/lycheedrink.webp", fallback: "/lycheedrink.webp" },
     ]},
   ];
@@ -1086,6 +1094,7 @@ function FeaturedVideoSection() {
             muted
             loop
             playsInline
+            poster="/phodacbiet.jpg"
             style={{ width: "100%", display: "block", borderRadius: 4, boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
@@ -1277,6 +1286,7 @@ function HomeFooter({ onOrderClick }) {
 function MenuPopup({ open, onClose, onOrderClick }) {
   const [activeTab, setActiveTab] = useState(MENU[0].id);
   const activeCat = MENU.find(c => c.id === activeTab);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 700;
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -1286,15 +1296,15 @@ function MenuPopup({ open, onClose, onOrderClick }) {
   if (!open) return null;
 
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 500, display: "flex", alignItems: "flex-end", justifyContent: "center", padding: "0" }}>
+    <div style={{ position: "fixed", inset: 0, zIndex: 500, display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
       {/* Backdrop */}
       <div onClick={onClose} style={{ position: "absolute", inset: 0, background: "rgba(14,8,3,0.85)", backdropFilter: "blur(4px)" }} />
 
-      {/* Modal */}
-      <div style={{ position: "relative", background: "#FBF6EE", width: "100%", maxWidth: 900, maxHeight: "96vh", display: "flex", flexDirection: "column", boxShadow: "0 40px 100px rgba(0,0,0,0.5)", overflow: "hidden", borderRadius: "12px 12px 0 0" }}>
+      {/* Modal — full screen height on mobile */}
+      <div style={{ position: "relative", background: "#FBF6EE", width: "100%", maxWidth: 900, height: "100dvh", maxHeight: "100dvh", display: "flex", flexDirection: "column", boxShadow: "0 40px 100px rgba(0,0,0,0.5)", overflow: "hidden", borderRadius: 0 }}>
 
         {/* Header */}
-        <div style={{ background: "#1E1410", padding: "1rem 1.2rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: "1px solid rgba(212,168,67,0.15)", flexWrap: "wrap", gap: "0.8rem" }}>
+        <div style={{ background: "#1E1410", padding: "1rem 1.2rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: "1px solid rgba(212,168,67,0.15)", gap: "0.8rem" }}>
           <div>
             <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", color: "#F5EDD8", fontWeight: 400 }}>
               Our <em style={{ fontStyle: "italic", color: "#D4A843" }}>Menu</em>
@@ -1304,33 +1314,50 @@ function MenuPopup({ open, onClose, onOrderClick }) {
             </div>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-            <button onClick={() => { onClose(); onOrderClick(); }} style={{ background: "#C4882B", color: "white", border: "none", padding: "0.6rem 1.4rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.2s" }}
-              onMouseEnter={e => e.target.style.background = "#6B1A1A"}
-              onMouseLeave={e => e.target.style.background = "#C4882B"}
-            >Order Now</button>
-            <button onClick={onClose} style={{ background: "none", border: "1px solid rgba(245,237,216,0.2)", color: "rgba(245,237,216,0.6)", width: 34, height: 34, fontSize: "1rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = "#D4A843"; e.currentTarget.style.color = "#D4A843"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(245,237,216,0.2)"; e.currentTarget.style.color = "rgba(245,237,216,0.6)"; }}
+            <button onClick={() => { onClose(); onOrderClick(); }} style={{ background: "#C4882B", color: "white", border: "none", padding: "0.6rem 1.2rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer" }}>Order Now</button>
+            {/* Big, easy-to-tap close button */}
+            <button onClick={onClose} style={{ background: "rgba(245,237,216,0.12)", border: "2px solid rgba(245,237,216,0.35)", color: "#F5EDD8", width: 44, height: 44, fontSize: "1.3rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 6, flexShrink: 0, transition: "all 0.2s" }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#6B1A1A"; e.currentTarget.style.borderColor = "#6B1A1A"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "rgba(245,237,216,0.12)"; e.currentTarget.style.borderColor = "rgba(245,237,216,0.35)"; }}
             >✕</button>
           </div>
         </div>
 
-        {/* Category tabs */}
-        <div style={{ background: "#F5EDD8", borderBottom: "1px solid rgba(107,26,26,0.12)", padding: "0.8rem 1.5rem", display: "flex", gap: "0.4rem", flexWrap: "wrap", flexShrink: 0 }}>
-          {MENU.map(cat => (
-            <button key={cat.id} onClick={() => setActiveTab(cat.id)} style={{
-              padding: "0.4rem 0.9rem", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.08em",
-              textTransform: "uppercase", border: "1px solid", cursor: "pointer", transition: "all 0.2s",
-              fontFamily: "'DM Sans', sans-serif",
-              borderColor: activeTab === cat.id ? "#6B1A1A" : "rgba(107,26,26,0.18)",
-              background: activeTab === cat.id ? "#6B1A1A" : "transparent",
-              color: activeTab === cat.id ? "#F5EDD8" : "#7A6050",
-            }}>{cat.category}</button>
-          ))}
+        {/* Category selector — dropdown on mobile, tabs on desktop */}
+        <div style={{ background: "#F5EDD8", borderBottom: "1px solid rgba(107,26,26,0.12)", padding: "0.75rem 1rem", flexShrink: 0 }}>
+          {/* Mobile: dropdown */}
+          <select
+            value={activeTab}
+            onChange={e => setActiveTab(e.target.value)}
+            style={{
+              display: "none",
+              width: "100%", padding: "0.65rem 1rem",
+              border: "1px solid rgba(107,26,26,0.25)", borderRadius: 4,
+              fontFamily: "'DM Sans', sans-serif", fontSize: "0.9rem",
+              color: "#2A1A0E", background: "white", cursor: "pointer",
+              appearance: "auto",
+            }}
+            className="menu-cat-dropdown"
+          >
+            {MENU.map(cat => <option key={cat.id} value={cat.id}>{cat.category}</option>)}
+          </select>
+          {/* Desktop: tab pills */}
+          <div className="menu-cat-tabs" style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+            {MENU.map(cat => (
+              <button key={cat.id} onClick={() => setActiveTab(cat.id)} style={{
+                padding: "0.4rem 0.9rem", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.08em",
+                textTransform: "uppercase", border: "1px solid", cursor: "pointer", transition: "all 0.2s",
+                fontFamily: "'DM Sans', sans-serif",
+                borderColor: activeTab === cat.id ? "#6B1A1A" : "rgba(107,26,26,0.18)",
+                background: activeTab === cat.id ? "#6B1A1A" : "transparent",
+                color: activeTab === cat.id ? "#F5EDD8" : "#7A6050",
+              }}>{cat.category}</button>
+            ))}
+          </div>
         </div>
 
-        {/* Items */}
-        <div style={{ overflowY: "auto", padding: "1.2rem", flex: 1 }}>
+        {/* Items — scrollable */}
+        <div style={{ overflowY: "auto", padding: "1.2rem", flex: 1, WebkitOverflowScrolling: "touch" }}>
           <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontWeight: 600, color: "#1E1410", paddingBottom: "0.8rem", marginBottom: "1.2rem", borderBottom: "2px solid rgba(107,26,26,0.14)", display: "flex", alignItems: "center", gap: "0.5rem" }}>
             {activeCat?.category}
           </div>
@@ -1342,7 +1369,9 @@ function MenuPopup({ open, onClose, onOrderClick }) {
                   {(item.tags || []).map(t => <Tag key={t} type={t} />)}
                 </div>
                 <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.88rem", color: "#6A5040", lineHeight: 1.55, flex: 1, fontWeight: 300 }}>{item.desc}</div>
-                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontWeight: 700, color: "#6B1A1A", marginTop: "0.3rem" }}>${item.price.toFixed(2)}</div>
+                <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontWeight: 700, color: "#6B1A1A", marginTop: "0.3rem" }}>
+                  {item.sizes ? item.sizes.map(s => `${s.label} $${s.price.toFixed(2)}`).join(" / ") : `$${item.price.toFixed(2)}`}
+                </div>
               </div>
             ))}
           </div>
@@ -1353,10 +1382,7 @@ function MenuPopup({ open, onClose, onOrderClick }) {
           <p style={{ fontSize: "0.78rem", color: "rgba(245,237,216,0.35)" }}>
             Allergies? Call <a href="tel:+14036863799" style={{ color: "#D4A843", textDecoration: "none" }}>(403) 686-3799</a>
           </p>
-          <button onClick={() => { onClose(); onOrderClick(); }} style={{ background: "#C4882B", color: "white", border: "none", padding: "0.65rem 1.4rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.2s" }}
-            onMouseEnter={e => e.target.style.background = "#6B1A1A"}
-            onMouseLeave={e => e.target.style.background = "#C4882B"}
-          >🥡 Order Pick Up</button>
+          <button onClick={() => { onClose(); onOrderClick(); }} style={{ background: "#C4882B", color: "white", border: "none", padding: "0.65rem 1.4rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer" }}>🥡 Order Pick Up</button>
         </div>
       </div>
     </div>
@@ -1897,23 +1923,44 @@ function OrderPage({ onBack }) {
       <div className="order-layout">
         <div style={{ minWidth: 0 }}>
           
-          <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", marginBottom: "1.8rem" }}>
-            {MENU.map(cat => (
-              <button key={cat.id} onClick={() => {
-                setActiveTab(cat.id);
-                const el = document.getElementById(`sec-${cat.id}`);
+          {/* Mobile: dropdown — Desktop: tab pills */}
+          <div style={{ marginBottom: "1.8rem" }}>
+            <select
+              className="order-cat-dropdown"
+              value={activeTab}
+              onChange={e => {
+                setActiveTab(e.target.value);
+                const el = document.getElementById(`sec-${e.target.value}`);
                 if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }} style={{
-                padding: "0.5rem 1.1rem", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.08em",
-                textTransform: "uppercase", border: "1px solid",
-                borderColor: activeTab === cat.id ? "#6B1A1A" : "rgba(107,26,26,0.14)",
-                background: activeTab === cat.id ? "#6B1A1A" : "white",
-                color: activeTab === cat.id ? "#F5EDD8" : "#7A6050",
-                cursor: "pointer", transition: "all 0.25s", fontFamily: "'DM Sans', sans-serif",
-              }}>
-                {cat.category}
-              </button>
-            ))}
+              }}
+              style={{
+                display: "none", width: "100%", padding: "0.75rem 1rem",
+                border: "1px solid rgba(107,26,26,0.25)", borderRadius: 4,
+                fontFamily: "'DM Sans', sans-serif", fontSize: "0.95rem",
+                color: "#2A1A0E", background: "white", cursor: "pointer",
+                appearance: "auto", marginBottom: 0,
+              }}
+            >
+              {MENU.map(cat => <option key={cat.id} value={cat.id}>{cat.category}</option>)}
+            </select>
+            <div className="order-cat-tabs" style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+              {MENU.map(cat => (
+                <button key={cat.id} onClick={() => {
+                  setActiveTab(cat.id);
+                  const el = document.getElementById(`sec-${cat.id}`);
+                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }} style={{
+                  padding: "0.5rem 1.1rem", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.08em",
+                  textTransform: "uppercase", border: "1px solid",
+                  borderColor: activeTab === cat.id ? "#6B1A1A" : "rgba(107,26,26,0.14)",
+                  background: activeTab === cat.id ? "#6B1A1A" : "white",
+                  color: activeTab === cat.id ? "#F5EDD8" : "#7A6050",
+                  cursor: "pointer", transition: "all 0.25s", fontFamily: "'DM Sans', sans-serif",
+                }}>
+                  {cat.category}
+                </button>
+              ))}
+            </div>
           </div>
           
           {MENU.map(cat => (
