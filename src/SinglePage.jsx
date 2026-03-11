@@ -223,6 +223,10 @@ const css = `
     .photo-grid img { height: 200px; }
     .mobile-menu a, .mobile-menu button.mobile-nav-link { font-size: 1.6rem; }
   }
+
+  @media(min-width: 861px) {
+    .mobile-cart-bar { display: none !important; }
+  }
 `;
 
 const MENU = [
@@ -972,7 +976,7 @@ function MenuSection() {
     ]},
     { id: "drinks", label: "Drinks & Desserts", items: [
       { name: "Caramel Coffee", viet: "Cà Phê Caramel", desc: "Smooth Vietnamese coffee swirled with golden caramel, served over ice for a rich indulgent sip.", price: "~$6", tag: "NEW", img: "/caramelcoffee.jpg", fallback: "/caramelcoffee.jpg" },
-      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "Vietnamese coffee blended with creamy coconut milk — cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.webp", fallback: "/coconutcoffee.webp" },
+      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "Vietnamese coffee blended with creamy coconut milk — cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.jpeg", fallback: "/coconutcoffee.jpeg" },
       { name: "Sparkling Lychee Drink", viet: "Nước Vải Có Ga", desc: "Refreshing sparkling lychee drink with a fruity floral finish. Perfect to cool down.", price: "~$6", tag: "NEW", img: "/lycheedrink.webp", fallback: "/lycheedrink.webp" },
     ]},
   ];
@@ -1990,6 +1994,57 @@ function OrderPage({ onBack }) {
         </p>
       </footer>
       <MobileCartDrawer open={mobileCartOpen} onClose={() => setMobileCartOpen(false)} cart={cart} onAdd={addItem} onRemove={removeItem} onRemoveFull={removeItemFull} onCheckout={() => { setMobileCartOpen(false); setCheckoutOpen(true); }} />
+      {/* Mobile sticky cart bar — shows when cart has items and drawer is closed */}
+      {cartCount > 0 && !mobileCartOpen && (
+        <div
+          className="mobile-cart-bar"
+          onClick={() => setMobileCartOpen(true)}
+          style={{
+            position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 199,
+            background: "#6B1A1A", color: "white",
+            padding: "0 1rem", height: 64,
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            cursor: "pointer", boxShadow: "0 -4px 24px rgba(107,26,26,0.35)",
+            borderTop: "1px solid rgba(255,255,255,0.08)",
+          }}
+        >
+          {/* Left: item count badge */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
+            <div style={{
+              background: "#C4882B", color: "white", borderRadius: "50%",
+              width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: "0.82rem", fontWeight: 700, flexShrink: 0,
+            }}>{cartCount}</div>
+            <div>
+              <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", fontWeight: 600, letterSpacing: "0.05em", lineHeight: 1.2 }}>
+                {cartCount === 1 ? "1 item" : `${cartCount} items`} in your order
+              </div>
+              {/* Show last added item name */}
+              {(() => {
+                const entries = Object.entries(cart);
+                if (!entries.length) return null;
+                const [lastKey, lastV] = entries[entries.length - 1];
+                const lastItem = getItem(lastKey);
+                const parts = lastKey.split("|").slice(1);
+                const sizeLabel = (parts.find(p => p.startsWith("sz:")) || "").replace("sz:", "");
+                if (!lastItem) return null;
+                return (
+                  <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.55)", marginTop: 1, maxWidth: 180, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {lastItem.name}{sizeLabel ? ` · ${sizeLabel}` : ""}
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
+          {/* Right: total + arrow */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+            <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.05rem", fontWeight: 700 }}>
+              ${Object.entries(cart).reduce((s, [, v]) => s + (v?.price || 0) * (v?.qty || 0), 0).toFixed(2)}
+            </span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+      )}
       <CheckoutModal open={checkoutOpen} onClose={() => setCheckoutOpen(false)} cart={cart} onSuccess={clearCart} />
     </div>
   );
