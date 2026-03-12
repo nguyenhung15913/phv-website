@@ -973,7 +973,7 @@ function MenuSection() {
     ]},
     { id: "drinks", label: "Drinks & Desserts", items: [
       { name: "Caramel Coffee", viet: "Cà Phê Caramel", desc: "Smooth Vietnamese coffee swirled with golden caramel, served over ice for a rich indulgent sip.", price: "~$6", tag: "NEW", img: "/caramelcoffee.jpg", fallback: "/caramelcoffee.jpg" },
-      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "Vietnamese coffee blended with creamy coconut milk — cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.jpeg", fallback: "/coconutcoffee.jpeg" },
+      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "Vietnamese coffee blended with creamy coconut milk — cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.webp", fallback: "/coconutcoffee.webp" },
       { name: "Sparkling Lychee Drink", viet: "Nước Vải Có Ga", desc: "Refreshing sparkling lychee drink with a fruity floral finish. Perfect to cool down.", price: "~$6", tag: "NEW", img: "/lycheedrink.webp", fallback: "/lycheedrink.webp" },
     ]},
   ];
@@ -1070,9 +1070,23 @@ function FeaturedVideoSection() {
   const togglePlay = () => {
     const v = videoRef.current;
     if (!v) return;
-    if (v.paused) { v.play(); setPlaying(true); }
-    else { v.pause(); setPlaying(false); }
+    if (v.paused) {
+      const p = v.play();
+      if (p !== undefined) p.then(() => setPlaying(true)).catch(() => setPlaying(false));
+      else setPlaying(true);
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
   };
+
+  // Try autoplay on mount (needed for some mobile browsers)
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const p = v.play();
+    if (p !== undefined) p.then(() => setPlaying(true)).catch(() => setPlaying(false));
+  }, []);
 
   return (
     <section className="section-pad" style={{ background: "#1E1410" }}>
@@ -1087,7 +1101,7 @@ function FeaturedVideoSection() {
           </p>
         </div>
 
-        <div ref={useReveal()} className="reveal" style={{ maxWidth: 520, margin: "0 auto", position: "relative", cursor: "pointer" }} onClick={togglePlay}>
+        <div style={{ maxWidth: 520, margin: "0 auto", position: "relative", cursor: "pointer" }} onClick={togglePlay}>
           <video
             ref={videoRef}
             src={VIDEO_SRC}
@@ -1099,6 +1113,13 @@ function FeaturedVideoSection() {
             style={{ width: "100%", display: "block", borderRadius: 4, boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
+            onCanPlay={() => {
+              const v = videoRef.current;
+              if (v && v.paused) {
+                const p = v.play();
+                if (p !== undefined) p.then(() => setPlaying(true)).catch(() => {});
+              }
+            }}
           />
           {!playing && (
             <div style={{
@@ -1922,15 +1943,28 @@ function OrderPage({ onBack }) {
       <div className="order-layout">
         <div style={{ minWidth: 0 }}>
           
-          {/* Mobile: dropdown — Desktop: tab pills */}
-          <div style={{ marginBottom: "1.8rem" }}>
+          {/* Mobile: dropdown — Desktop: tab pills — STICKY */}
+          <div style={{
+            position: "sticky", top: 58, zIndex: 90,
+            background: "#FBF6EE", marginBottom: "1.8rem",
+            padding: "0.75rem 0",
+            borderBottom: "1px solid rgba(107,26,26,0.1)",
+            marginLeft: "calc(-1 * clamp(1rem, 4vw, 2.5rem))",
+            marginRight: "calc(-1 * clamp(1rem, 4vw, 2.5rem))",
+            paddingLeft: "clamp(1rem, 4vw, 2.5rem)",
+            paddingRight: "clamp(1rem, 4vw, 2.5rem)",
+            boxShadow: "0 4px 16px rgba(107,26,26,0.06)",
+          }}>
             <select
               className="order-cat-dropdown"
               value={activeTab}
               onChange={e => {
                 setActiveTab(e.target.value);
                 const el = document.getElementById(`sec-${e.target.value}`);
-                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                if (el) {
+                  const offset = el.getBoundingClientRect().top + window.scrollY - 120;
+                  window.scrollTo({ top: offset, behavior: "smooth" });
+                }
               }}
               style={{
                 display: "none", width: "100%", padding: "0.75rem 1rem",
@@ -1947,7 +1981,10 @@ function OrderPage({ onBack }) {
                 <button key={cat.id} onClick={() => {
                   setActiveTab(cat.id);
                   const el = document.getElementById(`sec-${cat.id}`);
-                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  if (el) {
+                    const offset = el.getBoundingClientRect().top + window.scrollY - 120;
+                    window.scrollTo({ top: offset, behavior: "smooth" });
+                  }
                 }} style={{
                   padding: "0.5rem 1.1rem", fontSize: "0.78rem", fontWeight: 500, letterSpacing: "0.08em",
                   textTransform: "uppercase", border: "1px solid",
