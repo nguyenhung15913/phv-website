@@ -1060,10 +1060,12 @@ function GallerySection() {
   );
 }
 
-const VIDEO_SRC = "video.mp4";
 
 function FeaturedVideoSection() {
   const ref = useReveal();
+  // Replace YOUR_YOUTUBE_VIDEO_ID with your actual YouTube video ID
+  // e.g. if your URL is https://youtube.com/watch?v=abc123, the ID is abc123
+  const YOUTUBE_ID = "qQ0C4N5nwOY";
 
   return (
     <section className="section-pad" style={{ background: "#1E1410" }}>
@@ -1078,17 +1080,18 @@ function FeaturedVideoSection() {
           </p>
         </div>
 
-        <div style={{ maxWidth: 520, margin: "0 auto", borderRadius: 4, overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}>
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/phodacbiet.jpg"
-            style={{ width: "100%", display: "block" }}
-          >
-            <source src={VIDEO_SRC} type="video/mp4" />
-          </video>
+        <div style={{ maxWidth: 360, margin: "0 auto", borderRadius: 4, overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}>
+          {/* 9:16 vertical ratio for Shorts */}
+          <div style={{ position: "relative", paddingBottom: "177.78%", height: 0 }}>
+            <iframe
+              src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_ID}&controls=0&playsinline=1&rel=0`}
+              title="Pho Huong Viet Kitchen"
+              frameBorder="0"
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowFullScreen
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+            />
+          </div>
         </div>
       </div>
     </section>
