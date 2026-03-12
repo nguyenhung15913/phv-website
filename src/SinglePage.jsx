@@ -1070,12 +1070,8 @@ function FeaturedVideoSection() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    // SO fix: set muted via JS property AND attribute for cross-browser compat
     v.muted = true;
-    v.setAttribute("muted", "");
-    v.setAttribute("playsinline", "");
-    v.setAttribute("webkit-playsinline", "");
-    v.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    v.play();
   }, []);
 
   const togglePlay = (e) => {
@@ -1107,6 +1103,7 @@ function FeaturedVideoSection() {
           <video
             ref={videoRef}
             src={VIDEO_SRC}
+            autoPlay
             muted
             loop
             playsInline
