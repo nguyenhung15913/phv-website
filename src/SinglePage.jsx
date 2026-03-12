@@ -1070,7 +1070,11 @@ function FeaturedVideoSection() {
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
+    // SO fix: set muted via JS property AND attribute for cross-browser compat
     v.muted = true;
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
+    v.setAttribute("webkit-playsinline", "");
     v.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
   }, []);
 
@@ -1106,6 +1110,8 @@ function FeaturedVideoSection() {
             muted
             loop
             playsInline
+            webkit-playsinline="true"
+            x5-playsinline="true"
             poster="/phodacbiet.jpg"
             style={{ width: "100%", display: "block", borderRadius: 4, boxShadow: "0 20px 60px rgba(0,0,0,0.6)", cursor: "pointer" }}
             onPlay={() => setPlaying(true)}
