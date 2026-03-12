@@ -1064,27 +1064,6 @@ const VIDEO_SRC = "video.mp4";
 
 function FeaturedVideoSection() {
   const ref = useReveal();
-  const videoRef = useRef(null);
-  const [playing, setPlaying] = useState(true);
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = true;
-    v.play();
-  }, []);
-
-  const togglePlay = (e) => {
-    e.stopPropagation();
-    const v = videoRef.current;
-    if (!v) return;
-    if (v.paused) {
-      v.play().then(() => setPlaying(true)).catch(() => {});
-    } else {
-      v.pause();
-      setPlaying(false);
-    }
-  };
 
   return (
     <section className="section-pad" style={{ background: "#1E1410" }}>
@@ -1099,54 +1078,17 @@ function FeaturedVideoSection() {
           </p>
         </div>
 
-        <div style={{ maxWidth: 520, margin: "0 auto", position: "relative" }} onClick={togglePlay}>
+        <div style={{ maxWidth: 520, margin: "0 auto", borderRadius: 4, overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}>
           <video
-            ref={videoRef}
-            src={VIDEO_SRC}
             autoPlay
             muted
             loop
             playsInline
-            webkit-playsinline="true"
-            x5-playsinline="true"
             poster="/phodacbiet.jpg"
-            style={{ width: "100%", display: "block", borderRadius: 4, boxShadow: "0 20px 60px rgba(0,0,0,0.6)", cursor: "pointer" }}
-            onPlay={() => setPlaying(true)}
-            onPause={() => setPlaying(false)}
-          />
-          {!playing && (
-            <div style={{
-              position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
-              background: "rgba(0,0,0,0.35)", borderRadius: 4, cursor: "pointer",
-            }}>
-              <div style={{
-                width: 70, height: 70, borderRadius: "50%", background: "rgba(196,136,43,0.9)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
-              }}>
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="white" style={{ marginLeft: 4 }}>
-                  <polygon points="5,3 19,12 5,21" />
-                </svg>
-              </div>
-            </div>
-          )}
-          {!playing && (
-            <div style={{
-              position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
-              background: "rgba(0,0,0,0.35)", borderRadius: 4
-            }}>
-              <div style={{
-                width: 70, height: 70, borderRadius: "50%", background: "rgba(196,136,43,0.9)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
-                transition: "transform 0.2s"
-              }}>
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="white" style={{ marginLeft: 4 }}>
-                  <polygon points="5,3 19,12 5,21" />
-                </svg>
-              </div>
-            </div>
-          )}
+            style={{ width: "100%", display: "block" }}
+          >
+            <source src={VIDEO_SRC} type="video/mp4" />
+          </video>
         </div>
       </div>
     </section>
