@@ -346,10 +346,7 @@ function getItem(id) {
     if (f) return f;
   }
 }
-function getItemFlavour(key) {
-  const parts = String(key).split("|");
-  return parts.length > 1 ? parts[1] : null;
-}
+
 function useReveal() {
   const ref = useRef(null);
   useEffect(() => {
@@ -1290,8 +1287,6 @@ function HomeFooter({ onOrderClick }) {
 function MenuPopup({ open, onClose, onOrderClick }) {
   const [activeTab, setActiveTab] = useState(MENU[0].id);
   const activeCat = MENU.find(c => c.id === activeTab);
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 700;
-
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -2023,7 +2018,7 @@ function OrderPage({ onBack }) {
               {(() => {
                 const entries = Object.entries(cart);
                 if (!entries.length) return null;
-                const [lastKey, lastV] = entries[entries.length - 1];
+                const [lastKey] = entries[entries.length - 1];
                 const lastItem = getItem(lastKey);
                 const parts = lastKey.split("|").slice(1);
                 const sizeLabel = (parts.find(p => p.startsWith("sz:")) || "").replace("sz:", "");
