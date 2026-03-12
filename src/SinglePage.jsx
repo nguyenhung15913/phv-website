@@ -1065,28 +1065,26 @@ const VIDEO_SRC = "video.mp4";
 function FeaturedVideoSection() {
   const ref = useReveal();
   const videoRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
 
-  const togglePlay = () => {
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+  }, []);
+
+  const togglePlay = (e) => {
+    e.stopPropagation();
     const v = videoRef.current;
     if (!v) return;
     if (v.paused) {
-      const p = v.play();
-      if (p !== undefined) p.then(() => setPlaying(true)).catch(() => setPlaying(false));
-      else setPlaying(true);
+      v.play().then(() => setPlaying(true)).catch(() => {});
     } else {
       v.pause();
       setPlaying(false);
     }
   };
-
-  // Try autoplay on mount (needed for some mobile browsers)
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const p = v.play();
-    if (p !== undefined) p.then(() => setPlaying(true)).catch(() => setPlaying(false));
-  }, []);
 
   return (
     <section className="section-pad" style={{ background: "#1E1410" }}>
@@ -1101,26 +1099,34 @@ function FeaturedVideoSection() {
           </p>
         </div>
 
-        <div style={{ maxWidth: 520, margin: "0 auto", position: "relative", cursor: "pointer" }} onClick={togglePlay}>
+        <div style={{ maxWidth: 520, margin: "0 auto", position: "relative" }} onClick={togglePlay}>
           <video
             ref={videoRef}
             src={VIDEO_SRC}
-            autoPlay
             muted
             loop
             playsInline
             poster="/phodacbiet.jpg"
-            style={{ width: "100%", display: "block", borderRadius: 4, boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}
+            style={{ width: "100%", display: "block", borderRadius: 4, boxShadow: "0 20px 60px rgba(0,0,0,0.6)", cursor: "pointer" }}
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
-            onCanPlay={() => {
-              const v = videoRef.current;
-              if (v && v.paused) {
-                const p = v.play();
-                if (p !== undefined) p.then(() => setPlaying(true)).catch(() => {});
-              }
-            }}
           />
+          {!playing && (
+            <div style={{
+              position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
+              background: "rgba(0,0,0,0.35)", borderRadius: 4, cursor: "pointer",
+            }}>
+              <div style={{
+                width: 70, height: 70, borderRadius: "50%", background: "rgba(196,136,43,0.9)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
+              }}>
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="white" style={{ marginLeft: 4 }}>
+                  <polygon points="5,3 19,12 5,21" />
+                </svg>
+              </div>
+            </div>
+          )}
           {!playing && (
             <div style={{
               position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
