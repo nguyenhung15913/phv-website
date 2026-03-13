@@ -13,7 +13,7 @@ const css = `
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: #FBF6EE; color: #2A1A0E; overflow-x: hidden; }
+  body { font-family: 'DM Sans', sans-serif; background: #FBF6EE; color: #2A1A0E; overflow-x: hidden; font-size: 16px; }
 
   
   @keyframes heroZoom { from{transform:scale(1.05)} to{transform:scale(1.12)} }
@@ -230,112 +230,112 @@ const css = `
 `;
 
 const MENU = [
-  { category: "🥗 Món Khai Vị — Appetizers", id: "appetizers", items: [
-    { id: 101, name: "A1 — Crispy Shrimp in Delicate Batter (8 pcs)", desc: "Tôm Chiên Bột — Lightly battered crispy shrimp served with dipping sauce", price: 9.95, tags: ["pop"] },
-    { id: 102, name: "A2 — Beef Sate Skewers (3 skewers)", desc: "Bò Lụi — Marinated beef on skewers with sate sauce", price: 8.95 },
-    { id: 103, name: "A3 — Grilled Prawn Skewers (12 shrimps)", desc: "Tôm Lụi — Chargrilled tiger prawns on skewers", price: 9.95, tags: ["pop"] },
-    { id: 104, name: "A4 — Combo: 2 Beef Sate & 1 Prawn Skewer", desc: "Bò và Tôm Lụi — Best of both skewers", price: 9.25, tags: ["pop"] },
-    { id: 105, name: "A5 — Deep Fried Squid", desc: "Mực Chiên Dòn — Golden crispy calamari with dipping sauce", price: 9.50 },
-    { id: 106, name: "A6 — Deep Fried Wontons", desc: "Hoành Thánh Chiên Dòn — Crispy pork wontons served with sweet sauce", price: 7.95 },
-    { id: 107, name: "A7 — Marinated Pork Ball (3 skewers)", desc: "Nem Nướng Viên — Grilled house-made pork meatballs on skewers", price: 7.95 },
-    { id: 108, name: "A8 — Pork Ball (1) & Beef Skewers (2)", desc: "Nem Nướng Viên và Bò Lụi — Combo of pork meatball and beef skewers", price: 8.95 },
-    { id: 109, name: "A9 — Fried Fish Cake", desc: "Chả Cá — Crispy golden fish cakes with house dipping sauce", price: 9.25 },
-    { id: 110, name: "A10 — Fried Fish Cake, Pork Ball & Beef Skewer", desc: "Chả Cá, Nem Nướng Viên và Bò Lụi — Combination platter", price: 9.95, tags: ["pop"] },
-    { id: 111, name: "A11 — Papaya Salad", desc: "Gỏi Đu Đủ — Shredded green papaya with fresh herbs and tangy lime dressing", price: 8.95, tags: ["veg"] },
-    { id: 112, name: "17 — Deep Fried Spring Rolls (4 pcs)", desc: "Chả Giò — Crispy pork and vegetable spring rolls with sweet dipping sauce", price: 8.25, tags: ["pop"] },
-    { id: 113, name: "17A — Deep Fried Vegetarian Spring Rolls (4 pcs)", desc: "Chả Giò Chay — Crispy vegetarian spring rolls", price: 8.25, tags: ["veg"] },
-    { id: 114, name: "18 — Shrimp Salad Rolls (3 pcs)", desc: "Gỏi Cuốn Tôm — Fresh rice paper rolls with shrimp, herbs and peanut sauce", price: 8.25, tags: ["pop"] },
-    { id: 115, name: "18A — Vegetarian Salad Rolls (3 pcs)", desc: "Gỏi Cuốn Chay — Fresh rice paper rolls with tofu and vegetables", price: 7.25, tags: ["veg"] },
-    { id: 116, name: "18B — Chicken Salad Rolls (3 pcs)", desc: "Gỏi Cuốn Gà — Fresh rice paper rolls with chicken, herbs and peanut sauce", price: 8.25 },
-    { id: 117, name: "19 — Chicken Wings (8 pcs)", desc: "Cánh Gà Chiên — BBQ, Honey Garlic, Salt & Pepper, Crispy, or Hot Wings", price: 8.95, tags: ["pop"] },
+  { category: "🥗 Appetizers", id: "appetizers", items: [
+    { id: 101, name: "A1 — Crispy Shrimp in Delicate Batter (8 pcs)", desc: "Lightly battered crispy shrimp served with dipping sauce", price: 9.95, tags: ["pop"] , isApp: true },
+    { id: 102, name: "A2 — Beef Sate Skewers (3 skewers)", desc: "Marinated beef on skewers with sate sauce", price: 8.95 , isApp: true },
+    { id: 103, name: "A3 — Grilled Prawn Skewers (12 shrimps)", desc: "Chargrilled tiger prawns on skewers", price: 9.95, tags: ["pop"] , isApp: true },
+    { id: 104, name: "A4 — Combo: 2 Beef Sate & 1 Prawn Skewer", desc: "Best of both skewers", price: 9.25, tags: ["pop"] , isApp: true },
+    { id: 105, name: "A5 — Deep Fried Squid", desc: "Golden crispy calamari with dipping sauce", price: 9.50 , isApp: true },
+    { id: 106, name: "A6 — Deep Fried Wontons", desc: "Crispy pork wontons served with sweet sauce", price: 7.95 , isApp: true },
+    { id: 107, name: "A7 — Marinated Pork Ball (3 skewers)", desc: "Grilled house-made pork meatballs on skewers", price: 7.95 , isApp: true },
+    { id: 108, name: "A8 — Pork Ball (1) & Beef Skewers (2)", desc: "Combo of pork meatball and beef skewers", price: 8.95 , isApp: true },
+    { id: 109, name: "A9 — Fried Fish Cake", desc: "Crispy golden fish cakes with house dipping sauce", price: 9.25 , isApp: true },
+    { id: 110, name: "A10 — Fried Fish Cake, Pork Ball & Beef Skewer", desc: "Combination platter", price: 9.95, tags: ["pop"] , isApp: true },
+    { id: 111, name: "A11 — Papaya Salad", desc: "Shredded green papaya with fresh herbs and tangy lime dressing", price: 8.95, tags: ["veg"] , isApp: true },
+    { id: 112, name: "17 — Deep Fried Spring Rolls (4 pcs)", desc: "Crispy pork and vegetable spring rolls with sweet dipping sauce", price: 8.25, tags: ["pop"] , isApp: true },
+    { id: 113, name: "17A — Deep Fried Vegetarian Spring Rolls (4 pcs)", desc: "Crispy vegetarian spring rolls", price: 8.25, tags: ["veg"] , isApp: true },
+    { id: 114, name: "18 — Shrimp Salad Rolls (3 pcs)", desc: "Fresh rice paper rolls with shrimp, herbs and peanut sauce", price: 8.25, tags: ["pop"] , isApp: true },
+    { id: 115, name: "18A — Vegetarian Salad Rolls (3 pcs)", desc: "Fresh rice paper rolls with tofu and vegetables", price: 7.25, tags: ["veg"] , isApp: true },
+    { id: 116, name: "18B — Chicken Salad Rolls (3 pcs)", desc: "Fresh rice paper rolls with chicken, herbs and peanut sauce", price: 8.25 , isApp: true },
+    { id: 117, name: "19 — Chicken Wings (8 pcs)", desc: "BBQ, Honey Garlic, Salt & Pepper, Crispy, or Hot Wings", price: 8.95, tags: ["pop"] , isApp: true },
   ]},
-  { category: "🥖 Bánh Mì — Vietnamese Sub", id: "banhmi", items: [
-    { id: 201, name: "S1 — Sate Beef & Chicken Sub", desc: "Bánh Mì Gà, Bò Saté — Sate beef and chicken in a toasted baguette with mayo, cheese, pickled carrot, cucumber and cilantro", price: 10.75, tags: ["pop", "spicy"] },
-    { id: 202, name: "S2 — Sate Chicken Sub", desc: "Bánh Mì Gà Saté — Spicy sate chicken with house toppings", price: 9.75, tags: ["spicy"] },
-    { id: 203, name: "S3 — Sate Beef Sub", desc: "Bánh Mì Bò Saté — Spicy sate beef with house toppings", price: 9.75, tags: ["spicy"] },
-    { id: 204, name: "S4 — Charbroiled Pork Sub", desc: "Bánh Mì Heo Nướng — Charbroiled BBQ pork with house toppings", price: 9.75 },
-    { id: 205, name: "S5 — Marinated Pork Patty Sub", desc: "Bánh Mì Nem Nướng — Grilled marinated pork patty with house toppings", price: 9.75, tags: ["pop"] },
-    { id: 206, name: "S6 — Grilled Beef Skewers Sub", desc: "Bánh Mì Bò Lụi — Grilled beef skewers with house toppings", price: 9.95 },
-    { id: 207, name: "S7 — Grilled Prawn Skewers Sub", desc: "Bánh Mì Tôm Nướng — Chargrilled prawn skewers with house toppings", price: 11.75, tags: ["pop"] },
+  { category: "🥖 Vietnamese Sub", id: "banhmi", items: [
+    { id: 201, name: "S1 — Sate Beef & Chicken Sub", desc: "Sate beef and chicken in a toasted baguette with mayo, cheese, pickled carrot, cucumber and cilantro", price: 10.75, tags: ["pop", "spicy"] , isSub: true },
+    { id: 202, name: "S2 — Sate Chicken Sub", desc: "Spicy sate chicken with house toppings", price: 9.75, tags: ["spicy"] , isSub: true },
+    { id: 203, name: "S3 — Sate Beef Sub", desc: "Spicy sate beef with house toppings", price: 9.75, tags: ["spicy"] , isSub: true },
+    { id: 204, name: "S4 — Charbroiled Pork Sub", desc: "Charbroiled BBQ pork with house toppings", price: 9.75 , isSub: true },
+    { id: 205, name: "S5 — Marinated Pork Patty Sub", desc: "Grilled marinated pork patty with house toppings", price: 9.75, tags: ["pop"] , isSub: true },
+    { id: 206, name: "S6 — Grilled Beef Skewers Sub", desc: "Grilled beef skewers with house toppings", price: 9.95 , isSub: true },
+    { id: 207, name: "S7 — Grilled Prawn Skewers Sub", desc: "Chargrilled prawn skewers with house toppings", price: 11.75, tags: ["pop"] , isSub: true },
   ]},
-  { category: "🍜 Phở — Beef Noodle Soup", id: "pho", items: [
-    { id: 301, name: "1 — Huong Viet Sate Beef Noodle Soup (Spicy)", desc: "Phở Bò Sate — House signature spicy sate beef in rich bone broth.", price: 14.25, tags: ["pop", "spicy"], sizes: [{label:"Sm", price:14.25},{label:"Lg", price:15.25}] },
-    { id: 302, name: "1A — Seafood Sate Noodle Soup", desc: "Phở Sate Đồ Biển — Shrimp, squid and artificial crab in spicy sate broth.", price: 16.25, tags: ["spicy"] },
-    { id: 303, name: "2 — Chicken Noodle Soup", desc: "Phở Gà — Tender chicken breast in light fragrant broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 304, name: "2A — Sate Chicken Noodle Soup (Spicy)", desc: "Phở Gà Sate — Chicken breast in spicy sate broth.", price: 14.25, tags: ["spicy"], sizes: [{label:"Sm", price:14.25},{label:"Lg", price:15.25}] },
-    { id: 305, name: "2B — Curry Chicken Noodle Soup", desc: "Phở Gà Cà Ri — Chicken breast in aromatic curry broth.", price: 15.25 },
-    { id: 306, name: "3 — Huong Viet's Special Noodle Soup", desc: "Phở Đặc Biệt — Rare beef, beef ball, tendon, flank and tripe.", price: 14.95, tags: ["pop"], sizes: [{label:"Sm", price:14.95},{label:"Lg", price:15.95}] },
-    { id: 307, name: "4 — Rare Beef Noodle Soup", desc: "Phở Tái — Sliced rare beef in classic bone broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 308, name: "5 — Rare Beef & Flank Noodle Soup", desc: "Phở Tái Nạm — Rare beef with slow-cooked flank.", price: 13.95, tags: ["pop"], sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 309, name: "6 — Rare Beef & Tripe Noodle Soup", desc: "Phở Tái Sách — Rare beef with honeycomb tripe.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 310, name: "7 — Rare Beef & Tendon Noodle Soup", desc: "Phở Tái Gân — Rare beef with slow-cooked tendon.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 311, name: "8 — Well Done Flank Noodle Soup", desc: "Phở Nạm — Well-done slow-cooked flank in bone broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 312, name: "9 — Rare Beef & Beef Ball Noodle Soup", desc: "Phở Tái Bò Viên — Rare beef with house-made beef balls.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 313, name: "10 — Rare Beef, Flank & Tripe Noodle Soup", desc: "Phở Tái Nạm Sách", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 314, name: "11 — Rare Beef, Flank, Tendon & Tripe", desc: "Phở Tái Nạm Gân Sách — The full combination.", price: 13.95, tags: ["pop"], sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 315, name: "12 — Well Done Flank, Tendon & Tripe", desc: "Phở Nạm Gân Sách — Well-done combination.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 316, name: "13 — Beef Ball Noodle Soup", desc: "Phở Bò Viên — House-made beef balls in bone broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 317, name: "14 — Vegetables Noodle Soup", desc: "Phở Rau Củ — Fresh vegetables in beef or vegetarian broth.", price: 13.95, tags: ["veg"], sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] },
-    { id: 318, name: "15 — Bún Bò Huế (Hue Style Spicy Noodle Soup)", desc: "Flank, rare beef, pork roll and beef ball in spicy shrimp paste broth.", price: 14.95, tags: ["spicy"], sizes: [{label:"Sm", price:14.95},{label:"Lg", price:15.95}] },
+  { category: "🍜 Beef Noodle Soup", id: "pho", items: [
+    { id: 301, name: "1 — Huong Viet Sate Beef Noodle Soup (Spicy)", desc: "House signature spicy sate beef in rich bone broth.", price: 14.25, tags: ["pop", "spicy"], sizes: [{label:"Sm", price:14.25},{label:"Lg", price:15.25}] , isSoup: true },
+    { id: 302, name: "1A — Seafood Sate Noodle Soup", desc: "Shrimp, squid and artificial crab in spicy sate broth.", price: 16.25, tags: ["spicy"] , isSoup: true },
+    { id: 303, name: "2 — Chicken Noodle Soup", desc: "Tender chicken breast in light fragrant broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 304, name: "2A — Sate Chicken Noodle Soup (Spicy)", desc: "Chicken breast in spicy sate broth.", price: 14.25, tags: ["spicy"], sizes: [{label:"Sm", price:14.25},{label:"Lg", price:15.25}] , isSoup: true },
+    { id: 305, name: "2B — Curry Chicken Noodle Soup", desc: "Chicken breast in aromatic curry broth.", price: 15.25 , isSoup: true },
+    { id: 306, name: "3 — Huong Viet's Special Noodle Soup", desc: "Rare beef, beef ball, tendon, flank and tripe.", price: 14.95, tags: ["pop"], sizes: [{label:"Sm", price:14.95},{label:"Lg", price:15.95}] , isSoup: true },
+    { id: 307, name: "4 — Rare Beef Noodle Soup", desc: "Sliced rare beef in classic bone broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 308, name: "5 — Rare Beef & Flank Noodle Soup", desc: "Rare beef with slow-cooked flank.", price: 13.95, tags: ["pop"], sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 309, name: "6 — Rare Beef & Tripe Noodle Soup", desc: "Rare beef with honeycomb tripe.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 310, name: "7 — Rare Beef & Tendon Noodle Soup", desc: "Rare beef with slow-cooked tendon.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 311, name: "8 — Well Done Flank Noodle Soup", desc: "Well-done slow-cooked flank in bone broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 312, name: "9 — Rare Beef & Beef Ball Noodle Soup", desc: "Rare beef with house-made beef balls.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 313, name: "10 — Rare Beef, Flank & Tripe Noodle Soup", desc: "Rare beef, flank and tripe noodle soup.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 314, name: "11 — Rare Beef, Flank, Tendon & Tripe", desc: "The full combination.", price: 13.95, tags: ["pop"], sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 315, name: "12 — Well Done Flank, Tendon & Tripe", desc: "Well-done combination.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 316, name: "13 — Beef Ball Noodle Soup", desc: "House-made beef balls in bone broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 317, name: "14 — Vegetables Noodle Soup", desc: "Fresh vegetables in beef or vegetarian broth.", price: 13.95, tags: ["veg"], sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
+    { id: 318, name: "15 — Hue Style Spicy Noodle Soup", desc: "Flank, rare beef, pork roll and beef ball in spicy shrimp paste broth.", price: 14.95, tags: ["spicy"], sizes: [{label:"Sm", price:14.95},{label:"Lg", price:15.95}] , isSoup: true },
 
-    { id: 320, name: "★ Beef Ribs Phở (NEW)", desc: "Short ribs, beef balls and flank in our savoury bone broth with rice noodles.", price: 19.95, tags: ["pop"] },
-    { id: 321, name: "16A — Wonton Soup (8 wontons)", desc: "Hoành Thánh Soup — Handmade wontons in chicken broth.", price: 10.95 },
-    { id: 322, name: "16C — Special Wor Wonton Soup", desc: "Mì Hoành Thánh Đặc Biệt — Chicken breast, egg noodle, wontons and veggies.", price: 16.25, tags: ["pop"] },
-    { id: 323, name: "16D — Beef Stew (Bò Kho)", desc: "Slow-braised beef stew — choice of noodle or baguette.", price: 16.25, tags: ["pop"] },
+    { id: 320, name: "★ Beef Ribs Noodle Soup (NEW)", desc: "Short ribs, beef balls and flank in our savoury bone broth with rice noodles.", price: 19.95, tags: ["pop"] , isSoup: true },
+    { id: 321, name: "16A — Wonton Soup (8 wontons)", desc: "Handmade wontons in chicken broth.", price: 10.95 , isSoup: true },
+    { id: 322, name: "16C — Special Wor Wonton Soup", desc: "Chicken breast, egg noodle, wontons and veggies.", price: 16.25, tags: ["pop"] , isSoup: true },
+    { id: 323, name: "16D — Beef Stew", desc: "choice of noodle or baguette.", price: 16.25, tags: ["pop"] , isSoup: true },
   ]},
-  { category: "🍝 Bún — Vermicelli Bowls", id: "bun", items: [
-    { id: 401, name: "B1 — BBQ Pork & Spring Rolls on Vermicelli", desc: "Bún Thịt Nướng Chả Giò — Grilled BBQ pork and crispy spring rolls on rice vermicelli with veggies", price: 14.95 },
-    { id: 402, name: "B2 — Combo Three: BBQ Pork, Pork Patty & Spring Rolls", desc: "Bún Thịt Nướng, Nem Nướng Chả Giò — Three-item combo on vermicelli", price: 15.75, tags: ["pop"] },
-    { id: 403, name: "B3 — Lemongrass BBQ Chicken & Spring Rolls", desc: "Bún Gà Nướng Chả Giò — Chargrilled lemongrass chicken on vermicelli", price: 14.95 },
-    { id: 404, name: "B4 — Lemongrass Shredded Beef & Spring Rolls", desc: "Bún Bò Xào Sả Chả Giò — Stir-fried lemongrass beef on vermicelli", price: 14.95, tags: ["pop"] },
-    { id: 405, name: "B5 — Special Combo: BBQ Chicken, Shredded Beef & Spring Rolls", desc: "Bún Thịt Nướng, Nem Nướng Chả Giò — Three-item special combo", price: 15.95, tags: ["pop"] },
-    { id: 406, name: "B6 — Shrimp Paste Patty, BBQ Pork & Spring Rolls", desc: "Bún Thịt Nướng, Nem Nướng Chả Giò — Unique shrimp patty combo", price: 16.25 },
-    { id: 407, name: "B7 — Beef Sate Skewers & Spring Rolls", desc: "Bún Thịt Nướng, Nem Nướng Chả Giò — Sate beef skewers on vermicelli", price: 15.95, tags: ["spicy"] },
-    { id: 408, name: "B8 — Super Combo Four (Bún Thập Cẩm)", desc: "BBQ Chicken, BBQ Pork, Charbroiled Prawn Skewers & Spring Rolls on vermicelli", price: 17.95, tags: ["pop"] },
-    { id: 409, name: "B10 — Combo Three: BBQ Pork, Shredded Pork & Spring Rolls", desc: "Bún Bì, Thịt Nướng Chả Giò — Classic three-item combo", price: 15.75 },
-    { id: 410, name: "B11 — Combo Four: Pork Patty, BBQ Pork, Shredded Pork & Spring Rolls", desc: "Bún Bì, Thịt Nướng, Nem Nướng Chả Giò — Four-item vermicelli bowl", price: 16.25, tags: ["pop"] },
-    { id: 411, name: "B12 — Deep Fried Spring Rolls on Vermicelli", desc: "Bún Chả Giò — Crispy spring rolls on rice vermicelli with veggies", price: 14.50 },
-    { id: 412, name: "B14 — Fish Cake, Prawn Skewers & Spring Rolls on Vermicelli", desc: "Bún Chả Cá, Tôm Chả Giò — Seafood combo on vermicelli", price: 16.95, tags: ["pop"] },
-    { id: 413, name: "B15 — Grilled Beef in Wild Betel Leaf & Spring Rolls", desc: "Bún Bò Lá Lốt Chả Giò — Aromatic beef wrapped in betel leaf on vermicelli", price: 15.95, tags: ["pop"] },
-    { id: 414, name: "B16 — Beef Ribs & Spring Rolls on Vermicelli", desc: "Bún Sườn Bò Chả Giò — Beef ribs on rice vermicelli with veggies", price: 16.95 },
-    { id: 415, name: "B23 — Charbroiled Prawns & Spring Rolls on Vermicelli", desc: "Bún Tôm Nướng Chả Giò — Chargrilled prawns on vermicelli", price: 16.50 },
-    { id: 416, name: "B13 — Vegetarian Spring Rolls on Vermicelli", desc: "Bún Chả Giò Chay — Vegetarian deep fried spring rolls on rice noodle", price: 14.50, tags: ["veg"] },
-    { id: 417, name: "★ Hanoi Style Vermicelli (NEW)", desc: "Grilled pork meatball, shredded pork, spring rolls with veggies and special sauce on vermicelli", price: 16.95, tags: ["pop"] },
+  { category: "🍝 Vermicelli Bowls", id: "bun", items: [
+    { id: 401, name: "B1 — BBQ Pork & Spring Rolls on Vermicelli", desc: "Grilled BBQ pork and crispy spring rolls on rice vermicelli with veggies", price: 14.95  , isBun: true },
+    { id: 402, name: "B2 — Combo Three: BBQ Pork, Pork Patty & Spring Rolls", desc: "Three-item combo on vermicelli", price: 15.75, tags: ["pop"]  , isBun: true },
+    { id: 403, name: "B3 — Lemongrass BBQ Chicken & Spring Rolls", desc: "Chargrilled lemongrass chicken on vermicelli", price: 14.95  , isBun: true },
+    { id: 404, name: "B4 — Lemongrass Shredded Beef & Spring Rolls", desc: "Stir-fried lemongrass beef on vermicelli", price: 14.95, tags: ["pop"]  , isBun: true },
+    { id: 405, name: "B5 — Special Combo: BBQ Chicken, Shredded Beef & Spring Rolls", desc: "Three-item special combo", price: 15.95, tags: ["pop"]  , isBun: true },
+    { id: 406, name: "B6 — Shrimp Paste Patty, BBQ Pork & Spring Rolls", desc: "Unique shrimp patty combo", price: 16.25  , isBun: true },
+    { id: 407, name: "B7 — Beef Sate Skewers & Spring Rolls", desc: "Sate beef skewers on vermicelli", price: 15.95, tags: ["spicy"]  , isBun: true },
+    { id: 408, name: "B8 — Super Combo Four", desc: "BBQ Chicken, BBQ Pork, Charbroiled Prawn Skewers & Spring Rolls on vermicelli", price: 17.95, tags: ["pop"]  , isBun: true },
+    { id: 409, name: "B10 — Combo Three: BBQ Pork, Shredded Pork & Spring Rolls", desc: "Classic three-item combo", price: 15.75  , isBun: true },
+    { id: 410, name: "B11 — Combo Four: Pork Patty, BBQ Pork, Shredded Pork & Spring Rolls", desc: "Four-item vermicelli bowl", price: 16.25, tags: ["pop"]  , isBun: true },
+    { id: 411, name: "B12 — Deep Fried Spring Rolls on Vermicelli", desc: "Crispy spring rolls on rice vermicelli with veggies", price: 14.50  , isBun: true },
+    { id: 412, name: "B14 — Fish Cake, Prawn Skewers & Spring Rolls on Vermicelli", desc: "Seafood combo on vermicelli", price: 16.95, tags: ["pop"]  , isBun: true },
+    { id: 413, name: "B15 — Grilled Beef in Wild Betel Leaf & Spring Rolls", desc: "Aromatic beef wrapped in betel leaf on vermicelli", price: 15.95, tags: ["pop"]  , isBun: true },
+    { id: 414, name: "B16 — Beef Ribs & Spring Rolls on Vermicelli", desc: "Beef ribs on rice vermicelli with veggies", price: 16.95  , isBun: true },
+    { id: 415, name: "B23 — Charbroiled Prawns & Spring Rolls on Vermicelli", desc: "Chargrilled prawns on vermicelli", price: 16.50  , isBun: true },
+    { id: 416, name: "B13 — Vegetarian Spring Rolls on Vermicelli", desc: "Vegetarian deep fried spring rolls on rice noodle", price: 14.50, tags: ["veg"]  , isBun: true },
+    { id: 417, name: "★ Hanoi Style Vermicelli (NEW)", desc: "Grilled pork meatball, shredded pork, spring rolls with veggies and special sauce on vermicelli", price: 16.95, tags: ["pop"]  , isBun: true },
   ]},
-  { category: "🍝 Mì Xào — Stir Fried Egg Noodle", id: "noodles", items: [
-    { id: 501, name: "24 — Stir Fried Tofu & Veggies with Lemongrass", desc: "Mì Xào Sate TOFU Chay — Tofu and vegetables in lemongrass sauce on egg noodles", price: 15.95, tags: ["veg"] },
-    { id: 502, name: "25 — Stir Fried Chicken Breast with Lemongrass", desc: "Mì Xào Sate Gà — Chicken breast and veggies in lemongrass sauce on egg noodles", price: 16.25, tags: ["pop"] },
-    { id: 503, name: "26 — Stir Fried Beef with Lemongrass", desc: "Mì Xào Sate Bò — Beef and veggies in lemongrass sauce on egg noodles", price: 16.25, tags: ["pop"] },
-    { id: 504, name: "26A — Stir Fried Seafood with Lemongrass", desc: "Mì Xào Sate Đồ Biển — Shrimp, squid and artificial crab in lemongrass sauce on egg noodles", price: 17.25, tags: ["pop"] },
+  { category: "🍝 Stir Fried Egg Noodle", id: "noodles", items: [
+    { id: 501, name: "24 — Stir Fried Tofu & Veggies with Lemongrass", desc: "Tofu and vegetables in lemongrass sauce on egg noodles", price: 15.95, tags: ["veg"] , isNoodle: true },
+    { id: 502, name: "25 — Stir Fried Chicken Breast with Lemongrass", desc: "Chicken breast and veggies in lemongrass sauce on egg noodles", price: 16.25, tags: ["pop"] , isNoodle: true },
+    { id: 503, name: "26 — Stir Fried Beef with Lemongrass", desc: "Beef and veggies in lemongrass sauce on egg noodles", price: 16.25, tags: ["pop"] , isNoodle: true },
+    { id: 504, name: "26A — Stir Fried Seafood with Lemongrass", desc: "Shrimp, squid and artificial crab in lemongrass sauce on egg noodles", price: 17.25, tags: ["pop"] , isNoodle: true },
   ]},
-  { category: "🍚 Cơm — Rice Dishes", id: "rice", items: [
-    { id: 601, name: "C1 — Stir Fried Curry Chicken Breast with Veggies on Rice", desc: "Cơm Gà Xào Cà Ri — Mildly spicy curry chicken stir fry on steamed rice", price: 16.25, tags: ["spicy"] },
-    { id: 602, name: "C2 — Stir Fried Curry Beef with Veggies on Rice", desc: "Cơm Bò Xào Cà Ri — Mildly spicy curry beef stir fry on steamed rice", price: 16.25, tags: ["spicy"] },
-    { id: 603, name: "C3 — Stir Fried Curry Seafood with Veggies on Rice", desc: "Cơm Đồ Biển Xào Cà Ri — Mildly spicy curry seafood on steamed rice", price: 17.25, tags: ["spicy"] },
-    { id: 604, name: "C27 — Grilled Beef Lemongrass with Veggies on Rice", desc: "Cơm Bò Xào Sả Ớt — Our signature lemongrass beef on fragrant steamed rice", price: 16.25, tags: ["pop"] },
-    { id: 605, name: "C28 — BBQ Chicken with Veggies on Steamed Rice", desc: "Cơm Gà — Mild spicy BBQ chicken with prepared sauce on steamed rice", price: 15.95, tags: ["pop"] },
-    { id: 606, name: "C29 — Charbroiled BBQ Pork Chop, Shredded Pork & Fried Egg on Rice", desc: "Cơm Sườn Bì Trứng — Classic Vietnamese pork chop rice plate", price: 16.25, tags: ["pop"] },
-    { id: 607, name: "C30 — Shrimp Paste Patty, Meat Pie & Shredded Pork on Rice", desc: "Cơm Chạo Tôm Bì Trứng — Unique Vietnamese shrimp patty rice plate", price: 16.95 },
-    { id: 608, name: "C31 — Fried Fish Cake, Meat Pie & Shredded Pork on Rice", desc: "Cơm Chả Cá Bì Trứng — Vietnamese fish cake rice plate", price: 16.95 },
-    { id: 609, name: "C32 — Beef Ribs & Fried Egg on Steamed Rice", desc: "Cơm Sườn Bò — Beef ribs with fried egg on steamed rice", price: 16.95, tags: ["pop"] },
-    { id: 610, name: "C4 — Stir Fried Curry Tofu with Veggies on Rice", desc: "Cơm Chay Xào Cà Ri — Vegetarian curry tofu stir fry on rice", price: 16.25, tags: ["veg"] },
-    { id: 611, name: "★ Golden Fried Chicken Rice (NEW)", desc: "Crispy chicken with special sauce on coconut rice", price: 16.25, tags: ["pop"] },
-    { id: 612, name: "★ Vietnamese Sizzling Crispy Crepes (NEW)", desc: "Bánh Xèo — Savoury crispy crepes filled with seafood, ground pork or beef, onion and bean sprouts", price: 17.95, tags: ["pop"] },
+  { category: "🍚 Rice Dishes", id: "rice", items: [
+    { id: 601, name: "C1 — Stir Fried Curry Chicken Breast with Veggies on Rice", desc: "Mildly spicy curry chicken stir fry on steamed rice", price: 16.25, tags: ["spicy"] , isRice: true },
+    { id: 602, name: "C2 — Stir Fried Curry Beef with Veggies on Rice", desc: "Mildly spicy curry beef stir fry on steamed rice", price: 16.25, tags: ["spicy"] , isRice: true },
+    { id: 603, name: "C3 — Stir Fried Curry Seafood with Veggies on Rice", desc: "Mildly spicy curry seafood on steamed rice", price: 17.25, tags: ["spicy"] , isRice: true },
+    { id: 604, name: "C27 — Grilled Beef Lemongrass with Veggies on Rice", desc: "Our signature lemongrass beef on fragrant steamed rice", price: 16.25, tags: ["pop"] , isRice: true },
+    { id: 605, name: "C28 — BBQ Chicken with Veggies on Steamed Rice", desc: "Mild spicy BBQ chicken with prepared sauce on steamed rice", price: 15.95, tags: ["pop"] , isRice: true },
+    { id: 606, name: "C29 — Charbroiled BBQ Pork Chop, Shredded Pork & Fried Egg on Rice", desc: "Classic Vietnamese pork chop rice plate", price: 16.25, tags: ["pop"] , isRice: true },
+    { id: 607, name: "C30 — Shrimp Paste Patty, Meat Pie & Shredded Pork on Rice", desc: "Unique Vietnamese shrimp patty rice plate", price: 16.95 , isRice: true },
+    { id: 608, name: "C31 — Fried Fish Cake, Meat Pie & Shredded Pork on Rice", desc: "Vietnamese fish cake rice plate", price: 16.95 , isRice: true },
+    { id: 609, name: "C32 — Beef Ribs & Fried Egg on Steamed Rice", desc: "Beef ribs with fried egg on steamed rice", price: 16.95, tags: ["pop"] , isRice: true },
+    { id: 610, name: "C4 — Stir Fried Curry Tofu with Veggies on Rice", desc: "Vegetarian curry tofu stir fry on rice", price: 16.25, tags: ["veg"] , isRice: true },
+    { id: 611, name: "★ Golden Fried Chicken Rice (NEW)", desc: "Crispy chicken with special sauce on coconut rice", price: 16.25, tags: ["pop"] , isRice: true },
+    { id: 612, name: "★ Vietnamese Sizzling Crispy Crepes (NEW)", desc: "Savoury crispy crepes filled with seafood, ground pork or beef, onion and bean sprouts", price: 17.95, tags: ["pop"] , isRice: true },
   ]},
-  { category: "🥤 Giải Khát — Beverages & Desserts", id: "drinks", items: [
-    { id: 701, name: "31 — Hot Chocolate", desc: "Sữa Chocolate Nóng — Rich hot chocolate", price: 3.95 },
-    { id: 702, name: "31B — Vietnamese Hot Honey Lemon", desc: "Chanh Mật Ong Nóng — Soothing hot honey lemon drink", price: 4.50 },
-    { id: 703, name: "32 — Hot Vietnamese Coffee with Condensed Milk", desc: "Cà Phê Sữa Nóng — Dark roast Vietnamese coffee with sweetened condensed milk", price: 4.75 },
-    { id: 704, name: "33 — Iced Vietnamese Coffee with Condensed Milk", desc: "Cà Phê Sữa Đá — Dark roast Vietnamese coffee over ice with condensed milk", price: 4.75, tags: ["pop"] },
-    { id: 705, name: "34 — Pop", desc: "Nước Ngọt — Choose your flavour", price: 2.95, selectLabel: "Choose flavour", selectOptions: ["C Plus", "Pepsi", "Coke", "Ginger Ale", "Sprite", "Nestea", "Rootbeer"] },
-    { id: 706, name: "35 — Fresh Lemon Juice", desc: "Đá Chanh — Freshly squeezed lemon juice over ice", price: 4.75 },
-    { id: 707, name: "36 — Fresh Orange Juice", desc: "Cam Vắt — Freshly squeezed orange juice", price: 5.95 },
-    { id: 708, name: "37 — Fresh Coconut Juice", desc: "Nước Dừa — Fresh coconut water", price: 6.25 },
-    { id: 709, name: "39 — Triple Scoop Vanilla Ice Cream", desc: "Kem Tráng Miệng — Triple scoop of vanilla ice cream with peanut and condensed milk", price: 4.50 },
-    { id: 710, name: "40 — Deep Fried Banana with Double Scoop Ice Cream", desc: "Kem Chuối Chiên Sữa Đậu Phộng — Crispy fried banana with vanilla ice cream", price: 5.75, tags: ["pop"] },
-    { id: 711, name: "41 — Deep Fried Banana with Peanut & Condensed Milk", desc: "Chuối Chiên Sữa Đậu Phộng — Crispy fried banana drizzled with peanut sauce", price: 5.75 },
-    { id: 713, name: "43 — Three Colour Dessert (Chè Ba Màu)", desc: "Mung bean, red bean, pandan jelly and coconut sauce over shaved ice", price: 7.25, tags: ["pop"] },
-    { id: 714, name: "Bubble Tea", desc: "Choose your flavour — made with chewy tapioca pearls", price: 6.50, tags: ["pop"], selectLabel: "Choose flavour", selectOptions: ["Mango", "Orange", "Avocado", "Pineapple", "Strawberry", "Taro", "Lychee", "Watermelon", "Green Tea", "Peach", "Papaya", "Banana", "Passion Fruit", "Blueberry", "Coconut", "Mocha"] },
+  { category: "🥤 Beverages & Desserts", id: "drinks", items: [
+    { id: 701, name: "31 — Hot Chocolate", desc: "Rich hot chocolate", price: 3.95 },
+    { id: 702, name: "31B — Vietnamese Hot Honey Lemon", desc: "Soothing hot honey lemon drink", price: 4.50 },
+    { id: 703, name: "32 — Hot Vietnamese Coffee with Condensed Milk", desc: "Dark roast Vietnamese coffee with sweetened condensed milk", price: 4.75 },
+    { id: 704, name: "33 — Iced Vietnamese Coffee with Condensed Milk", desc: "Dark roast Vietnamese coffee over ice with condensed milk", price: 4.75, tags: ["pop"] },
+    { id: 705, name: "34 — Pop", desc: "Choose your flavour", price: 2.95, selectLabel: "Choose flavour", selectOptions: ["C Plus", "Pepsi", "Coke", "Ginger Ale", "Sprite", "Nestea", "Rootbeer"] },
+    { id: 706, name: "35 — Fresh Lemon Juice", desc: "Freshly squeezed lemon juice over ice", price: 4.75 },
+    { id: 707, name: "36 — Fresh Orange Juice", desc: "Freshly squeezed orange juice", price: 5.95 },
+    { id: 708, name: "37 — Fresh Coconut Juice", desc: "Fresh coconut water", price: 6.25 },
+    { id: 709, name: "39 — Triple Scoop Vanilla Ice Cream", desc: "Triple scoop of vanilla ice cream with peanut and condensed milk", price: 4.50 },
+    { id: 710, name: "40 — Deep Fried Banana with Double Scoop Ice Cream", desc: "Crispy fried banana with vanilla ice cream", price: 5.75, tags: ["pop"] },
+    { id: 711, name: "41 — Deep Fried Banana with Peanut & Condensed Milk", desc: "Crispy fried banana drizzled with peanut sauce", price: 5.75 },
+    { id: 713, name: "43 — Three Colour Dessert", desc: "Mung bean, red bean, pandan jelly and coconut sauce over shaved ice", price: 7.25, tags: ["pop"] },
+    { id: 714, name: "Bubble Tea", desc: "Choose up to 3 flavours · Pearl or Jelly · Customize your cup", price: 6.50, tags: ["pop"], isBubbleTea: true },
   ]},
 ];
 
@@ -411,7 +411,7 @@ function HomeNav({ onOrderClick }) {
 
   const navLink = (href, label) => (
     <a href={href} className="nav-link" onClick={() => setMobileOpen(false)}
-      style={{ fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none", color: linkColor, transition: "color 0.3s" }}>
+      style={{ fontSize: "0.88rem", fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none", color: linkColor, transition: "color 0.3s" }}>
       {label}
     </a>
   );
@@ -428,13 +428,13 @@ function HomeNav({ onOrderClick }) {
 
         
         <ul style={{ display: "flex", gap: "2.5rem", listStyle: "none", alignItems: "center" }}>
-          {["About", "Menu", "Gallery", "Visit"].map(item => (
-            <li key={item} className="nav-desktop-item" style={{ display: "none" }}>
-              {navLink(`#${item.toLowerCase()}`, item)}
+          {[["About","#about"], ["Featured Dishes","#menu"], ["Gallery","#gallery"], ["Visit","#visit"]].map(([label, href]) => (
+            <li key={label} className="nav-desktop-item" style={{ display: "none" }}>
+              {navLink(href, label)}
             </li>
           ))}
           <li className="nav-order-btn">
-            <button onClick={onOrderClick} style={{ background: "#C4882B", color: "white", border: "none", padding: "0.55rem 1.4rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.3s" }}
+            <button onClick={onOrderClick} style={{ background: "#C4882B", color: "white", border: "none", padding: "0.55rem 1.4rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", transition: "background 0.3s" }}
               onMouseEnter={e => e.target.style.background = "#6B1A1A"}
               onMouseLeave={e => e.target.style.background = "#C4882B"}
             >Order Now</button>
@@ -449,20 +449,19 @@ function HomeNav({ onOrderClick }) {
           </li>
         </ul>
 
-        <style>{`@media(min-width:861px){ .nav-desktop-item { display: list-item !important; } }`}</style>
+        <style>{`
+          @media(min-width:861px){ .nav-desktop-item { display: list-item !important; } }
+          @media(max-width:860px){ .nav-order-btn { display: list-item !important; } .hamburger-btn { display: list-item !important; } }
+        `}</style>
       </nav>
 
       
       <div className={`mobile-menu${mobileOpen ? " open" : ""}`}>
         <button onClick={() => setMobileOpen(false)} style={{ position: "absolute", top: "1.5rem", right: "2rem", background: "none", border: "none", color: "#F5EDD8", fontSize: "1.8rem", cursor: "pointer" }}>✕</button>
         <img src={LOGO_SRC} alt="" style={{ height: 56, opacity: 0.9, marginBottom: "1rem" }} onError={e => e.target.style.display = "none"} />
-        {[["#about","About"], ["#menu","Menu"], ["#gallery","Gallery"], ["#visit","Visit"]].map(([href, label]) => (
+        {[["#about","About"], ["#menu","Featured Dishes"], ["#gallery","Gallery"], ["#visit","Visit"]].map(([href, label]) => (
           <a key={label} href={href} onClick={() => setMobileOpen(false)}>{label}</a>
         ))}
-        <button className="mobile-nav-link" onClick={() => { setMobileOpen(false); onOrderClick(); }}
-          style={{ background: "#C4882B", color: "white", padding: "0.9rem 2.5rem", fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", border: "none", cursor: "pointer", marginTop: "0.5rem" }}>
-          Order Now
-        </button>
       </div>
     </>
   );
@@ -964,16 +963,16 @@ function MenuSection() {
     { id: "pho", label: "Pho & Soups", items: [
       { name: "Huong Viet Special Pho", viet: "Phở Đặc Biệt", desc: "Rare beef, beef ball, tendon, flank and tripe in our signature savoury bone broth.", price: "From $14.95", tag: "House Special", img: "/phodacbiet.jpg", fallback: "/phodacbiet.jpg" },
       { name: "Beef Ribs Phở", viet: "Phở Sườn Bò", desc: "Short ribs, beef balls and flank with rice noodles in a savoury beef broth. New item!", price: "$19.95", tag: "NEW", img: "/beefrib.jpg", fallback: "/beefrib.jpg"},
-      { name: "Hủ Tiếu Nam Vang", viet: "Hủ Tiếu Nam Vang", desc: "Vietnamese noodle bowl with rice and egg noodles, veggies, with Pork Ribs or Seafood in pork broth.", price: "From $17.95", tag: "Classic", img: "/hutieu.jpg", fallback: "/hutieu.jpg" },
+      { name: "Phnom Penh Style Noodle Soup", viet: "Hủ Tiếu Nam Vang", desc: "Vietnamese noodle bowl with rice and egg noodles, veggies, with Pork Ribs or Seafood in pork broth.", price: "From $17.95", tag: "Classic", img: "/hutieu.jpg", fallback: "/hutieu.jpg" },
     ]},
     { id: "mains", label: "Rice & Noodles", items: [
       { name: "Grilled Beef Lemongrass Rice", viet: "Cơm Bò Xào Sả", desc: "Lemongrass grilled beef with veggies on fragrant steamed rice. A customer favourite.", price: "$16.25", tag: "Signature", img: "/boxao.jpg", fallback: "/boxao.jpg" },
-      { name: "Bánh Xèo — Crispy Crepe", viet: "Bánh Xèo", desc: "Savoury crispy crepe filled with seafood, ground pork, onion and bean sprouts.", price: "$17.95", tag: "NEW", img: "/banhxeo.jpg", fallback: "/banhxeo.jpg"},
+      { name: "Vietnamese Sizzling Crispy Crepe", viet: "Bánh Xèo", desc: "Savoury crispy crepe filled with seafood, ground pork, onion and bean sprouts.", price: "$17.95", tag: "NEW", img: "/banhxeo.jpg", fallback: "/banhxeo.jpg"},
       { name: "Golden Fried Chicken Rice", viet: "Cơm Gà Chiên Vàng", desc: "Crispy chicken with special sauce on coconut rice.", price: "$16.25", tag: "NEW", img: "/comga.jpg", fallback: "/comga.jpg" },
     ]},
     { id: "drinks", label: "Drinks & Desserts", items: [
       { name: "Caramel Coffee", viet: "Cà Phê Caramel", desc: "Smooth Vietnamese coffee swirled with golden caramel, served over ice for a rich indulgent sip.", price: "~$6", tag: "NEW", img: "/caramelcoffee.jpg", fallback: "/caramelcoffee.jpg" },
-      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "Vietnamese coffee blended with creamy coconut milk — cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.webp", fallback: "/coconutcoffee.webp" },
+      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.webp", fallback: "/coconutcoffee.webp" },
       { name: "Sparkling Lychee Drink", viet: "Nước Vải Có Ga", desc: "Refreshing sparkling lychee drink with a fruity floral finish. Perfect to cool down.", price: "~$6", tag: "NEW", img: "/lycheedrink.webp", fallback: "/lycheedrink.webp" },
     ]},
   ];
@@ -1018,7 +1017,7 @@ function MenuSection() {
             </div>
             <div style={{ padding: "1.6rem 1.8rem 0.5rem" }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.15rem", color: "#F5EDD8", marginBottom: "0.4rem" }}>{item.name}</div>
-              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.9rem", fontStyle: "italic", color: "#D4A843", marginBottom: "0.8rem", opacity: 0.85 }}>{item.viet}</div>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.9rem", fontStyle: "italic", color: "#D4A843", marginBottom: "0.8rem", opacity: 0.85 }}></div>
               <div style={{ fontSize: "0.84rem", lineHeight: 1.65, color: "rgba(245,237,216,0.5)" }}>{item.desc}</div>
             </div>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem 1.8rem 1.5rem" }}>
@@ -1060,12 +1059,27 @@ function GallerySection() {
   );
 }
 
+const VIDEO_SRC = "video.mp4";
 
 function FeaturedVideoSection() {
   const ref = useReveal();
-  // Replace YOUR_YOUTUBE_VIDEO_ID with your actual YouTube video ID
-  // e.g. if your URL is https://youtube.com/watch?v=abc123, the ID is abc123
-  const YOUTUBE_ID = "qQ0C4N5nwOY";
+  const videoRef = useRef(null);
+  const [started, setStarted] = useState(false);
+
+  // Try autoplay on desktop
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    v.play().then(() => setStarted(true)).catch(() => {});
+  }, []);
+
+  const handlePlay = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    setStarted(true);
+    v.play().catch(() => {});
+  };
 
   return (
     <section className="section-pad" style={{ background: "#1E1410" }}>
@@ -1080,18 +1094,44 @@ function FeaturedVideoSection() {
           </p>
         </div>
 
-        <div style={{ maxWidth: 360, margin: "0 auto", borderRadius: 4, overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}>
-          {/* 9:16 vertical ratio for Shorts */}
-          <div style={{ position: "relative", paddingBottom: "177.78%", height: 0 }}>
-            <iframe
-              src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&mute=1&loop=1&playlist=${YOUTUBE_ID}&controls=0&playsinline=1&rel=0`}
-              title="Pho Huong Viet Kitchen"
-              frameBorder="0"
-              allow="autoplay; encrypted-media; picture-in-picture"
-              allowFullScreen
-              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-            />
-          </div>
+        <div style={{ maxWidth: 400, margin: "0 auto", borderRadius: 4, overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.6)", position: "relative" }}>
+          {/* Actual video (always rendered so autoplay works on desktop) */}
+          <video
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            style={{ width: "100%", display: "block", aspectRatio: "9/16", objectFit: "cover" }}
+          >
+            <source src={VIDEO_SRC} type="video/mp4" />
+          </video>
+
+          {/* Overlay shown on mobile until user taps */}
+          {!started && (
+            <div onClick={handlePlay} style={{
+              position: "absolute", inset: 0, cursor: "pointer",
+              background: "rgba(0,0,0,0.45)",
+              display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1rem"
+            }}>
+              <img src="/phodacbiet.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }} />
+              <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.42)", zIndex: 1 }} />
+              <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
+                <div style={{
+                  width: 76, height: 76, borderRadius: "50%",
+                  background: "rgba(196,136,43,0.92)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
+                }}>
+                  <svg width="30" height="30" viewBox="0 0 24 24" fill="white" style={{ marginLeft: 5 }}>
+                    <polygon points="5,3 19,12 5,21" />
+                  </svg>
+                </div>
+                <span style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.78rem", letterSpacing: "0.18em", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif" }}>
+                  Tap to watch
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
@@ -1233,7 +1273,7 @@ function HomeFooter({ onOrderClick }) {
       </div>
       <div style={{ width: 60, height: 1, background: "rgba(212,168,67,0.3)", margin: "0 auto 2.5rem" }} />
       <div style={{ display: "flex", justifyContent: "center", gap: "2.5rem", marginBottom: "2.5rem", flexWrap: "wrap" }}>
-        {[["About", "#about"], ["Menu", "#menu"], ["Gallery", "#gallery"], ["Visit Us", "#visit"]].map(([label, href]) => (
+        {[["About", "#about"], ["Featured Dishes", "#menu"], ["Gallery", "#gallery"], ["Visit Us", "#visit"]].map(([label, href]) => (
           <a key={label} href={href} style={{ fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(245,237,216,0.4)", textDecoration: "none", transition: "color 0.3s" }}
             onMouseEnter={e => e.target.style.color = "#D4A843"}
             onMouseLeave={e => e.target.style.color = "rgba(245,237,216,0.4)"}
@@ -1470,19 +1510,585 @@ function OrderHero() {
   );
 }
 
+const BT_FLAVOURS = ["Mango","Strawberry","Taro","Lychee","Avocado","Pineapple","Orange","Watermelon","Green Tea","Peach","Papaya","Banana","Passion Fruit","Blueberry","Coconut","Mocha"];
+
+function BubbleTeaCard({ item, cart, onAdd, onRemove, onRemoveFull }) {
+  const [hovered, setHovered] = useState(false);
+  const [flavours, setFlavours] = useState(["", "", ""]);
+  const [topping, setTopping] = useState("pearl"); // pearl | jelly | none
+  const [extras, setExtras] = useState({ extraPearl: false, extraJelly: false });
+
+  const primaryFlavour = flavours[0];
+  const extraFlavours = flavours.slice(1).filter(Boolean);
+  const extraFlavourCost = extraFlavours.length * 0.50;
+  const extraToppingCost = (extras.extraPearl ? 0.50 : 0) + (extras.extraJelly ? 0.50 : 0);
+  const totalPrice = item.price + extraFlavourCost + extraToppingCost;
+
+  // Build a unique cart key from all selections
+  const flavourStr = flavours.filter(Boolean).join("+");
+  const toppingStr = topping;
+  const extrasStr = [extras.extraPearl && "xPearl", extras.extraJelly && "xJelly"].filter(Boolean).join("+");
+  const cartKey = [String(item.id), flavourStr || "none", toppingStr, extrasStr].filter(Boolean).join("|");
+  const qty = cart[cartKey]?.qty || 0;
+  const canAdd = !!primaryFlavour;
+
+  const toggleExtra = (key) => setExtras(p => ({ ...p, [key]: !p[key] }));
+  const setFlavour = (idx, val) => {
+    setFlavours(prev => {
+      const next = [...prev];
+      next[idx] = val;
+      // Clear subsequent if primary cleared
+      if (idx === 0 && !val) { next[1] = ""; next[2] = ""; }
+      if (idx === 1 && !val) { next[2] = ""; }
+      return next;
+    });
+  };
+
+  const usedFlavours = (idx) => flavours.filter((f, i) => f && i !== idx);
+
+  const chipStyle = (active) => ({
+    padding: "0.3rem 0.75rem", fontSize: "0.76rem", fontFamily: "'DM Sans', sans-serif",
+    fontWeight: 600, cursor: "pointer", border: "1px solid",
+    borderColor: active ? "#6B1A1A" : "rgba(107,26,26,0.2)",
+    background: active ? "#6B1A1A" : "transparent",
+    color: active ? "white" : "#6B1A1A",
+    transition: "all 0.15s", borderRadius: 2,
+  });
+
+  const selectStyle = {
+    width: "100%", padding: "0.45rem 0.7rem",
+    border: `1px solid rgba(107,26,26,0.2)`,
+    fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem",
+    color: "#2A1A0E", background: "#FBF6EE", outline: "none", cursor: "pointer", borderRadius: 2,
+  };
+
+  return (
+    <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} style={{
+      background: "white", border: "1px solid rgba(107,26,26,0.14)",
+      padding: "1.3rem 1.4rem", display: "flex", flexDirection: "column", gap: "0.75rem",
+      transition: "all 0.25s",
+      boxShadow: hovered ? "0 8px 32px rgba(107,26,26,0.12)" : "0 2px 24px rgba(107,26,26,0.07)",
+      transform: hovered ? "translateY(-2px)" : "none",
+    }}>
+      <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontWeight: 600, color: "#2A1A0E" }}>
+        {item.name} <Tag type="pop" />
+      </div>
+      <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.92rem", color: "#6A5040" }}>{item.desc}</div>
+
+      {/* Flavour selectors */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+        <div style={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6050", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+          Flavour <span style={{ color: "#C4882B" }}>*</span>
+        </div>
+        {[0, 1, 2].map(idx => (
+          <div key={idx} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <select
+              value={flavours[idx]}
+              disabled={idx > 0 && !flavours[idx - 1]}
+              onChange={e => setFlavour(idx, e.target.value)}
+              style={{ ...selectStyle, opacity: (idx > 0 && !flavours[idx - 1]) ? 0.4 : 1 }}
+            >
+              <option value="">{idx === 0 ? "— Choose flavour —" : `— Add 2nd flavour ${idx === 1 ? "(+$0.50)" : ""} —`}{idx === 2 ? " (+$0.50)" : ""}</option>
+              {BT_FLAVOURS.filter(f => !usedFlavours(idx).includes(f)).map(f => (
+                <option key={f} value={f}>{f}</option>
+              ))}
+            </select>
+            {idx > 0 && flavours[idx] && (
+              <span style={{ fontSize: "0.72rem", color: "#C4882B", fontWeight: 600, whiteSpace: "nowrap" }}>+$0.50</span>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Pearl or Jelly */}
+      <div>
+        <div style={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6050", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>Base</div>
+        <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+          {[["pearl", "🧋 Tapioca Pearl"], ["jelly", "🍮 Jelly"], ["none", "No Topping"]].map(([val, label]) => (
+            <button key={val} onClick={() => setTopping(val)} style={chipStyle(topping === val)}>{label}</button>
+          ))}
+        </div>
+      </div>
+
+      {/* Extras */}
+      <div>
+        <div style={{ fontSize: "0.7rem", fontWeight: 600, color: "#7A6050", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.4rem" }}>Extras (+$0.50 each)</div>
+        <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+          {[["extraPearl", "Extra Pearl"], ["extraJelly", "Extra Jelly"]].map(([key, label]) => (
+            <button key={key} onClick={() => toggleExtra(key)} style={chipStyle(extras[key])}>{label}{extras[key] ? " ✓" : ""}</button>
+          ))}
+        </div>
+      </div>
+
+      {/* Price + Add */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: "0.7rem", borderTop: "1px solid rgba(107,26,26,0.08)" }}>
+        <div>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontWeight: 700, color: "#6B1A1A" }}>${totalPrice.toFixed(2)}</span>
+          {(extraFlavourCost + extraToppingCost) > 0 && (
+            <span style={{ fontSize: "0.72rem", color: "#7A6050", marginLeft: "0.4rem" }}>base $6.50 + extras</span>
+          )}
+        </div>
+        {qty === 0 ? (
+          <button
+            onClick={() => { if (canAdd) onAdd(item.id, flavourStr, null, totalPrice, cartKey); }}
+            style={{ background: canAdd ? "#6B1A1A" : "#ccc", color: "white", border: "none", width: 32, height: 32, fontSize: "1.2rem", fontWeight: 700, cursor: canAdd ? "pointer" : "not-allowed", display: "flex", alignItems: "center", justifyContent: "center" }}
+            title={!canAdd ? "Please choose a flavour first" : ""}
+          >+</button>
+        ) : (
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <button onClick={() => onRemoveFull(cartKey)} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", color: "#2A1A0E" }}>−</button>
+            <span style={{ fontWeight: 700, minWidth: 20, textAlign: "center", fontSize: "0.95rem", color: "#6B1A1A" }}>{qty}</span>
+            <button onClick={() => onAdd(item.id, flavourStr, null, totalPrice, cartKey)} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", color: "#2A1A0E" }}>+</button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Shared sauce list ──────────────────────────────────────────
+const SHARED_SAUCES = [
+  { key: "fish",    label: "Add Fish Sauce",        price: 0.50 },
+  { key: "peanut",  label: "Add Peanut Sauce",      price: 0.50 },
+  { key: "hoisin",  label: "Add Hoisin Sauce",      price: 0.50 },
+  { key: "sriracha",label: "Add Sriracha Sauce",    price: 0.50 },
+  { key: "plum",    label: "Add Plum Sauce",        price: 0.50 },
+];
+const SUB_ADDONS = [
+  { key: "xmeat",   label: "Add Extra Meat",        price: 3.00 },
+  { key: "xshrimp", label: "Add Extra Shrimp",      price: 3.95 },
+  { key: "xcheese", label: "Add Extra Cheese",      price: 1.00 },
+  { key: "xjal",    label: "Add Jalapeños",         price: 0.50 },
+  { key: "xavo",    label: "Add Avocado",           price: 1.50 },
+];
+const BUN_ADDONS = [
+  { key: "xverm",   label: "Add Extra Vermicelli",  price: 2.50 },
+  { key: "xroll",   label: "Add Spring Roll (1pc)", price: 1.75 },
+  { key: "xpork",   label: "Add BBQ Pork",          price: 3.00 },
+  { key: "xshred",  label: "Add Shredded Pork",     price: 3.00 },
+  { key: "xpatty",  label: "Add Marinated Pork Patty", price: 3.00 },
+  { key: "xchk",    label: "Add BBQ Chicken",       price: 3.00 },
+  { key: "xbeef",   label: "Add Beef",              price: 3.00 },
+  { key: "xsate",   label: "Add Beef Sate Skewer",  price: 3.00 },
+  { key: "xpaste",  label: "Add Grilled Shrimp Paste", price: 2.95 },
+  { key: "xshrimp", label: "Add Shrimp",            price: 3.95 },
+  { key: "xprawn",  label: "Add Charbroiled Prawns (3pcs)", price: 3.95 },
+];
+const NOODLE_CHOICES = [
+  { key: "regular", label: "Regular Egg Noodles",       price: 0 },
+  { key: "crispy",  label: "Crispy Egg Noodles",        price: 1.00 },
+];
+const NOODLE_ADDONS = [
+  { key: "xnoodle", label: "Add Extra Egg Noodles",     price: 2.50 },
+  { key: "xcrispy", label: "Add Extra Crispy Egg Noodles", price: 1.00 },
+  { key: "xchk",    label: "Add Chicken",               price: 3.00 },
+  { key: "xbeef",   label: "Add Beef",                  price: 3.00 },
+  { key: "xseafood",label: "Add Seafood",               price: 3.50 },
+  { key: "xtofu",   label: "Add Tofu",                  price: 2.50 },
+];
+const RICE_ADDONS = [
+  { key: "xrice",   label: "Add Extra Rice",            price: 3.50 },
+  { key: "xveg",    label: "Add Extra Vegetables",      price: 3.00 },
+  { key: "xchk",    label: "Add BBQ Chicken",           price: 3.00 },
+  { key: "xpchop",  label: "Add BBQ Pork Chop",         price: 4.95 },
+  { key: "xshred",  label: "Add Shredded Pork",         price: 3.00 },
+  { key: "xpie",    label: "Add Meat Pie",              price: 3.00 },
+  { key: "xbreast", label: "Add Chicken Breast",        price: 3.00 },
+  { key: "xbeef",   label: "Add Beef",                  price: 3.00 },
+  { key: "xpaste",  label: "Add Grilled Shrimp Paste",  price: 3.95 },
+  { key: "xfish",   label: "Add Fish Cake",             price: 3.95 },
+  { key: "xseafood",label: "Add Seafood",               price: 3.50 },
+];
+
+function CustomizeModal({ item, basePrice, extraSections, onClose, onAddToCart }) {
+  const [selections, setSelections] = useState({});
+  const [note, setNote] = useState("");
+  const [qty,  setQty]  = useState(1);
+
+  const extraCost = extraSections.reduce((sum, section) => {
+    if (section.type === "radio") {
+      const chosen = section.options.find(o => selections[o.key]);
+      return sum + (chosen?.price || 0);
+    }
+    return sum + (section.items || []).reduce((s, a) => s + (selections[a.key] ? a.price : 0), 0);
+  }, 0);
+  const unitPrice = basePrice + extraCost;
+  const total = unitPrice * qty;
+
+  const toggleCheck = (key) => setSelections(p => ({ ...p, [key]: !p[key] }));
+  const selectRadio = (section, key) => setSelections(p => {
+    const next = { ...p };
+    section.options.forEach(o => { next[o.key] = false; });
+    next[key] = true;
+    return next;
+  });
+
+  const handleAdd = () => {
+    const parts = extraSections.flatMap(s =>
+      s.type === "radio"
+        ? (s.options.find(o => selections[o.key])?.key ? [s.options.find(o => selections[o.key]).key] : [])
+        : (s.items || []).filter(a => selections[a.key]).map(a => a.key)
+    );
+    const extrasStr = parts.join("+");
+    const noteStr   = note.trim();
+    const customKey = [String(item.id), extrasStr || null, noteStr ? `note:${noteStr.slice(0,40).replace(/\|/g,",")}` : null].filter(Boolean).join("|");
+    onAddToCart(item.id, null, null, unitPrice, customKey, qty);
+    onClose();
+  };
+
+  const rowStyle   = { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.55rem 0.2rem", borderBottom: "1px solid rgba(107,26,26,0.07)", cursor: "pointer" };
+  const boxStyle   = (on) => ({ width: 18, height: 18, borderRadius: 3,    border: `2px solid ${on ? "#6B1A1A" : "rgba(107,26,26,0.25)"}`, background: on ? "#6B1A1A" : "white", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" });
+  const radioStyle = (on) => ({ width: 18, height: 18, borderRadius: "50%", border: `2px solid ${on ? "#6B1A1A" : "rgba(107,26,26,0.25)"}`, background: "white", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" });
+  const checkSvg = <svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2" stroke="white" strokeWidth="1.8" fill="none"/></svg>;
+  const dotEl    = <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#6B1A1A" }} />;
+
+  return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(20,8,0,0.65)", zIndex: 500, display: "flex", alignItems: "flex-end", justifyContent: "center" }} onClick={onClose}>
+      <div onClick={e => e.stopPropagation()} style={{ background: "white", width: "100%", maxWidth: 480, maxHeight: "92dvh", overflowY: "auto", borderRadius: "14px 14px 0 0", boxShadow: "0 -8px 40px rgba(0,0,0,0.3)", display: "flex", flexDirection: "column" }}>
+        <div style={{ background: "#1E1410", color: "#F5EDD8", padding: "1.1rem 1.4rem", display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderRadius: "14px 14px 0 0", flexShrink: 0 }}>
+          <div>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.05rem", fontWeight: 600 }}>{item.name}</div>
+            <div style={{ fontSize: "0.75rem", color: "#D4A843", marginTop: "0.2rem" }}>${basePrice.toFixed(2)}</div>
+          </div>
+          <button onClick={onClose} style={{ background: "none", border: "none", color: "rgba(245,237,216,0.6)", fontSize: "1.4rem", cursor: "pointer", lineHeight: 1, padding: "0.1rem 0.3rem" }}>✕</button>
+        </div>
+        <div style={{ padding: "1.2rem 1.4rem", flex: 1 }}>
+          {item.desc && <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem", color: "#6A5040", marginBottom: "1rem", lineHeight: 1.6 }}>{item.desc}</p>}
+          {extraSections.map((section, si) => (
+            <div key={si}>
+              <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E1410", margin: `${si > 0 ? "1rem" : "0.2rem"} 0 0.3rem` }}>{section.label}</div>
+              {(section.options || section.items || []).map(a => (
+                <div key={a.key} style={rowStyle} onClick={() => section.type === "radio" ? selectRadio(section, a.key) : toggleCheck(a.key)}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+                    {section.type === "radio"
+                      ? <div style={radioStyle(selections[a.key])}>{selections[a.key] && dotEl}</div>
+                      : <div style={boxStyle(selections[a.key])}>{selections[a.key] && checkSvg}</div>
+                    }
+                    <span style={{ fontSize: "0.88rem", color: "#2A1A0E" }}>{a.label}</span>
+                  </div>
+                  <span style={{ fontSize: "0.82rem", color: a.price ? "#6B1A1A" : "#7A6050", fontWeight: 600 }}>
+                    {a.price ? `+$${a.price.toFixed(2)}` : "Free"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ))}
+          <div style={{ marginTop: "1.1rem" }}>
+            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E1410", marginBottom: "0.4rem" }}>Special Request</div>
+            <textarea value={note} onChange={e => setNote(e.target.value)} placeholder="e.g. No onions, extra spicy, sauce on the side…" rows={2}
+              style={{ width: "100%", padding: "0.6rem 0.8rem", border: "1px solid rgba(107,26,26,0.18)", fontFamily: "'DM Sans', sans-serif", fontSize: "0.85rem", color: "#2A1A0E", background: "#FBF6EE", resize: "none", outline: "none", borderRadius: 2, boxSizing: "border-box" }}
+              onFocus={e => e.target.style.borderColor = "#6B1A1A"}
+              onBlur={e => e.target.style.borderColor = "rgba(107,26,26,0.18)"}
+            />
+          </div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "1.2rem", paddingTop: "1rem", borderTop: "1px solid rgba(107,26,26,0.1)" }}>
+            <div>
+              <div style={{ fontSize: "0.7rem", color: "#7A6050", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.4rem" }}>Quantity</div>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <button onClick={() => setQty(q => Math.max(1, q - 1))} style={{ width: 34, height: 34, border: "1px solid rgba(107,26,26,0.2)", background: "white", fontSize: "1.1rem", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#2A1A0E" }}>−</button>
+                <span style={{ fontWeight: 700, fontSize: "1rem", minWidth: 24, textAlign: "center" }}>{qty}</span>
+                <button onClick={() => setQty(q => q + 1)} style={{ width: 34, height: 34, border: "1px solid rgba(107,26,26,0.2)", background: "white", fontSize: "1.1rem", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#2A1A0E" }}>+</button>
+              </div>
+            </div>
+            <button onClick={handleAdd} style={{ background: "#6B1A1A", color: "white", border: "none", padding: "0.85rem 1.6rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", fontWeight: 600, letterSpacing: "0.08em", cursor: "pointer", borderRadius: 2, transition: "background 0.2s" }}
+              onMouseEnter={e => e.target.style.background = "#C4882B"}
+              onMouseLeave={e => e.target.style.background = "#6B1A1A"}
+            >Add to Order — ${total.toFixed(2)}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SubModal({ item, onClose, onAddToCart }) {
+  return <CustomizeModal item={item} basePrice={item.price} onClose={onClose} onAddToCart={onAddToCart}
+    extraSections={[{ label: "Add-Ons", items: SUB_ADDONS }, { label: "Add Sauce", items: SHARED_SAUCES }]} />;
+}
+function BunModal({ item, onClose, onAddToCart }) {
+  return <CustomizeModal item={item} basePrice={item.price} onClose={onClose} onAddToCart={onAddToCart}
+    extraSections={[{ label: "Add-Ons", items: BUN_ADDONS }, { label: "Add Sauce", items: SHARED_SAUCES }]} />;
+}
+function NoodleModal({ item, onClose, onAddToCart }) {
+  return <CustomizeModal item={item} basePrice={item.price} onClose={onClose} onAddToCart={onAddToCart}
+    extraSections={[{ label: "Choose Noodles", type: "radio", options: NOODLE_CHOICES }, { label: "Add-Ons", items: NOODLE_ADDONS }, { label: "Add Sauce", items: SHARED_SAUCES }]} />;
+}
+function RiceModal({ item, onClose, onAddToCart }) {
+  return <CustomizeModal item={item} basePrice={item.price} onClose={onClose} onAddToCart={onAddToCart}
+    extraSections={[{ label: "Add-Ons", items: RICE_ADDONS }, { label: "Add Sauce", items: SHARED_SAUCES }]} />;
+}
+
+const APP_SAUCES = [
+  { key: "fish",    label: "Add Fish Sauce",     price: 0.50 },
+  { key: "peanut",  label: "Add Peanut Sauce",   price: 0.50 },
+  { key: "hoisin",  label: "Add Hoisin Sauce",   price: 0.50 },
+  { key: "sriracha",label: "Add Sriracha Sauce", price: 0.50 },
+  { key: "plum",    label: "Add Plum Sauce",     price: 0.50 },
+  { key: "sweet",   label: "Add Sweet Chili Sauce", price: 0.50 },
+];
+
+function AppCustomizeModal({ item, onClose, onAddToCart }) {
+  const [sauces, setSauces] = useState({});
+  const [note,   setNote]   = useState("");
+  const [qty,    setQty]    = useState(1);
+
+  const sauceCost = APP_SAUCES.reduce((s, a) => s + (sauces[a.key] ? a.price : 0), 0);
+  const unitPrice = item.price + sauceCost;
+  const total     = unitPrice * qty;
+
+  const toggle = (key) => setSauces(p => ({ ...p, [key]: !p[key] }));
+
+  const handleAdd = () => {
+    const sauceKeys = APP_SAUCES.filter(a => sauces[a.key]).map(a => a.key).join("+");
+    const noteStr   = note.trim();
+    const customKey = [String(item.id), sauceKeys || null, noteStr ? `note:${noteStr.slice(0,40).replace(/\|/g,",")}` : null].filter(Boolean).join("|");
+    onAddToCart(item.id, null, null, unitPrice, customKey, qty);
+    onClose();
+  };
+
+  const rowStyle  = { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.55rem 0.2rem", borderBottom: "1px solid rgba(107,26,26,0.07)", cursor: "pointer" };
+  const checkStyle = (on) => ({
+    width: 18, height: 18, borderRadius: 3, border: `2px solid ${on ? "#6B1A1A" : "rgba(107,26,26,0.25)"}`,
+    background: on ? "#6B1A1A" : "white", flexShrink: 0,
+    display: "flex", alignItems: "center", justifyContent: "center",
+  });
+
+  return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(20,8,0,0.65)", zIndex: 500, display: "flex", alignItems: "flex-end", justifyContent: "center" }} onClick={onClose}>
+      <div onClick={e => e.stopPropagation()} style={{ background: "white", width: "100%", maxWidth: 480, maxHeight: "88dvh", overflowY: "auto", borderRadius: "14px 14px 0 0", boxShadow: "0 -8px 40px rgba(0,0,0,0.3)", display: "flex", flexDirection: "column" }}>
+
+        {/* Header */}
+        <div style={{ background: "#1E1410", color: "#F5EDD8", padding: "1.1rem 1.4rem", display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderRadius: "14px 14px 0 0", flexShrink: 0 }}>
+          <div>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.05rem", fontWeight: 600 }}>{item.name}</div>
+            <div style={{ fontSize: "0.75rem", color: "#D4A843", marginTop: "0.2rem" }}>${item.price.toFixed(2)}</div>
+          </div>
+          <button onClick={onClose} style={{ background: "none", border: "none", color: "rgba(245,237,216,0.6)", fontSize: "1.4rem", cursor: "pointer", lineHeight: 1, padding: "0.1rem 0.3rem" }}>✕</button>
+        </div>
+
+        <div style={{ padding: "1.2rem 1.4rem", flex: 1 }}>
+
+          {/* Desc */}
+          {item.desc && (
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.95rem", color: "#6A5040", marginBottom: "1rem", lineHeight: 1.6 }}>{item.desc}</p>
+          )}
+
+          {/* Sauces */}
+          <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E1410", marginBottom: "0.3rem" }}>Add Sauce</div>
+          {APP_SAUCES.map(a => (
+            <div key={a.key} style={rowStyle} onClick={() => toggle(a.key)}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+                <div style={checkStyle(sauces[a.key])}>
+                  {sauces[a.key] && <svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2" stroke="white" strokeWidth="1.8" fill="none"/></svg>}
+                </div>
+                <span style={{ fontSize: "0.88rem", color: "#2A1A0E" }}>{a.label}</span>
+              </div>
+              <span style={{ fontSize: "0.82rem", color: "#6B1A1A", fontWeight: 600 }}>+${a.price.toFixed(2)}</span>
+            </div>
+          ))}
+
+          {/* Note */}
+          <div style={{ marginTop: "1.1rem" }}>
+            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E1410", marginBottom: "0.4rem" }}>Special Request</div>
+            <textarea value={note} onChange={e => setNote(e.target.value)} placeholder="e.g. Extra crispy, less oil, no cilantro…" rows={2}
+              style={{ width: "100%", padding: "0.6rem 0.8rem", border: "1px solid rgba(107,26,26,0.18)", fontFamily: "'DM Sans', sans-serif", fontSize: "0.85rem", color: "#2A1A0E", background: "#FBF6EE", resize: "none", outline: "none", borderRadius: 2, boxSizing: "border-box" }}
+              onFocus={e => e.target.style.borderColor = "#6B1A1A"}
+              onBlur={e => e.target.style.borderColor = "rgba(107,26,26,0.18)"}
+            />
+          </div>
+
+          {/* Qty + Add */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "1.2rem", paddingTop: "1rem", borderTop: "1px solid rgba(107,26,26,0.1)" }}>
+            <div>
+              <div style={{ fontSize: "0.7rem", color: "#7A6050", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.4rem" }}>Quantity</div>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <button onClick={() => setQty(q => Math.max(1, q - 1))} style={{ width: 34, height: 34, border: "1px solid rgba(107,26,26,0.2)", background: "white", fontSize: "1.1rem", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#2A1A0E" }}>−</button>
+                <span style={{ fontWeight: 700, fontSize: "1rem", minWidth: 24, textAlign: "center" }}>{qty}</span>
+                <button onClick={() => setQty(q => q + 1)} style={{ width: 34, height: 34, border: "1px solid rgba(107,26,26,0.2)", background: "white", fontSize: "1.1rem", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#2A1A0E" }}>+</button>
+              </div>
+            </div>
+            <button onClick={handleAdd} style={{ background: "#6B1A1A", color: "white", border: "none", padding: "0.85rem 1.6rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", fontWeight: 600, letterSpacing: "0.08em", cursor: "pointer", borderRadius: 2, transition: "background 0.2s" }}
+              onMouseEnter={e => e.target.style.background = "#C4882B"}
+              onMouseLeave={e => e.target.style.background = "#6B1A1A"}
+            >Add to Order — ${total.toFixed(2)}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+const SOUP_ADDONS = [
+  { key: "noodles",    label: "Add Extra Noodles",       price: 2.00 },
+  { key: "veggies",    label: "Add Vegetables",           price: 3.00 },
+  { key: "beef",       label: "Add Extra Beef",           price: 3.00 },
+  { key: "rarebeef",   label: "Add Medium-Rare Beef",     price: 3.00 },
+  { key: "flank",      label: "Add Flank",                price: 3.00 },
+  { key: "tendon",     label: "Add Tendon",               price: 3.00 },
+  { key: "tripe",      label: "Add Tripe",                price: 3.00 },
+  { key: "meatballs",  label: "Add Beef Meatballs (4pcs)",price: 2.50 },
+  { key: "chicken",    label: "Add Chicken",              price: 3.00 },
+  { key: "seafood",    label: "Add Seafood",              price: 3.95 },
+];
+const SOUP_SAUCES = [
+  { key: "fish",    label: "Add Fish Sauce",    price: 0.50 },
+  { key: "peanut",  label: "Add Peanut Sauce",  price: 0.50 },
+  { key: "hoisin",  label: "Add Hoisin Sauce",  price: 0.50 },
+  { key: "sriracha",label: "Add Sriracha Sauce",price: 0.50 },
+  { key: "plum",    label: "Add Plum Sauce",    price: 0.50 },
+];
+
+function SoupCustomizeModal({ item, size, onClose, onAddToCart }) {
+  const [addons, setAddons]   = useState({});
+  const [sauces, setSauces]   = useState({});
+  const [note, setNote]       = useState("");
+  const [qty, setQty]         = useState(1);
+
+  const basePrice = size ? size.price : item.price;
+  const addonCost = SOUP_ADDONS.reduce((s, a) => s + (addons[a.key] ? a.price : 0), 0);
+  const sauceCost = SOUP_SAUCES.reduce((s, a) => s + (sauces[a.key] ? a.price : 0), 0);
+  const unitPrice = basePrice + addonCost + sauceCost;
+  const total     = unitPrice * qty;
+
+  const toggle = (obj, setObj, key) => setObj(p => ({ ...p, [key]: !p[key] }));
+
+  const handleAdd = () => {
+    const addonKeys  = SOUP_ADDONS.filter(a => addons[a.key]).map(a => a.key);
+    const sauceKeys  = SOUP_SAUCES.filter(a => sauces[a.key]).map(a => a.key);
+    const extras     = [...addonKeys, ...sauceKeys].join("+");
+    const noteStr    = note.trim();
+    const sizeTag    = size ? `sz:${size.label}` : null;
+    const customKey  = [String(item.id), sizeTag, extras || null, noteStr ? `note:${noteStr.slice(0,40).replace(/\|/g,",")}` : null].filter(Boolean).join("|");
+    onAddToCart(item.id, null, size, unitPrice, customKey, qty);
+    onClose();
+  };
+
+  const rowStyle = { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.55rem 0.2rem", borderBottom: "1px solid rgba(107,26,26,0.07)", cursor: "pointer" };
+  const checkStyle = (on) => ({
+    width: 18, height: 18, borderRadius: 3, border: `2px solid ${on ? "#6B1A1A" : "rgba(107,26,26,0.25)"}`,
+    background: on ? "#6B1A1A" : "white", flexShrink: 0,
+    display: "flex", alignItems: "center", justifyContent: "center",
+  });
+
+  return (
+    <div style={{ position: "fixed", inset: 0, background: "rgba(20,8,0,0.65)", zIndex: 500, display: "flex", alignItems: "flex-end", justifyContent: "center" }} onClick={onClose}>
+      <div onClick={e => e.stopPropagation()} style={{ background: "white", width: "100%", maxWidth: 480, maxHeight: "92dvh", overflowY: "auto", borderRadius: "14px 14px 0 0", boxShadow: "0 -8px 40px rgba(0,0,0,0.3)", display: "flex", flexDirection: "column" }}>
+        {/* Header */}
+        <div style={{ background: "#1E1410", color: "#F5EDD8", padding: "1.1rem 1.4rem", display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderRadius: "14px 14px 0 0", flexShrink: 0 }}>
+          <div>
+            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.05rem", fontWeight: 600 }}>{item.name}</div>
+            {size && <div style={{ fontSize: "0.75rem", color: "#D4A843", marginTop: "0.2rem" }}>Size: {size.label} — ${basePrice.toFixed(2)}</div>}
+          </div>
+          <button onClick={onClose} style={{ background: "none", border: "none", color: "rgba(245,237,216,0.6)", fontSize: "1.4rem", cursor: "pointer", lineHeight: 1, padding: "0.1rem 0.3rem" }}>✕</button>
+        </div>
+
+        <div style={{ padding: "1.2rem 1.4rem", flex: 1, overflowY: "auto" }}>
+
+          {/* ADD-ONS */}
+          <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E1410", marginBottom: "0.3rem", marginTop: "0.2rem" }}>Add-Ons</div>
+          {SOUP_ADDONS.map(a => (
+            <div key={a.key} style={rowStyle} onClick={() => toggle(addons, setAddons, a.key)}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+                <div style={checkStyle(addons[a.key])}>
+                  {addons[a.key] && <svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2" stroke="white" strokeWidth="1.8" fill="none"/></svg>}
+                </div>
+                <span style={{ fontSize: "0.88rem", color: "#2A1A0E" }}>{a.label}</span>
+              </div>
+              <span style={{ fontSize: "0.82rem", color: "#6B1A1A", fontWeight: 600 }}>+${a.price.toFixed(2)}</span>
+            </div>
+          ))}
+
+          {/* SAUCES */}
+          <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E1410", margin: "1rem 0 0.3rem" }}>Add Sauce</div>
+          {SOUP_SAUCES.map(a => (
+            <div key={a.key} style={rowStyle} onClick={() => toggle(sauces, setSauces, a.key)}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+                <div style={checkStyle(sauces[a.key])}>
+                  {sauces[a.key] && <svg width="10" height="10" viewBox="0 0 10 10"><polyline points="1.5,5 4,7.5 8.5,2" stroke="white" strokeWidth="1.8" fill="none"/></svg>}
+                </div>
+                <span style={{ fontSize: "0.88rem", color: "#2A1A0E" }}>{a.label}</span>
+              </div>
+              <span style={{ fontSize: "0.82rem", color: "#6B1A1A", fontWeight: 600 }}>+${a.price.toFixed(2)}</span>
+            </div>
+          ))}
+
+          {/* NOTE */}
+          <div style={{ marginTop: "1.1rem" }}>
+            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#1E1410", marginBottom: "0.4rem" }}>Special Request</div>
+            <textarea value={note} onChange={e => setNote(e.target.value)} placeholder="e.g. No onions, less spicy, extra broth…" rows={2}
+              style={{ width: "100%", padding: "0.6rem 0.8rem", border: "1px solid rgba(107,26,26,0.18)", fontFamily: "'DM Sans', sans-serif", fontSize: "0.85rem", color: "#2A1A0E", background: "#FBF6EE", resize: "none", outline: "none", borderRadius: 2, boxSizing: "border-box" }}
+              onFocus={e => e.target.style.borderColor = "#6B1A1A"}
+              onBlur={e => e.target.style.borderColor = "rgba(107,26,26,0.18)"}
+            />
+          </div>
+
+          {/* QTY + ADD */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "1.2rem", paddingTop: "1rem", borderTop: "1px solid rgba(107,26,26,0.1)" }}>
+            <div>
+              <div style={{ fontSize: "0.7rem", color: "#7A6050", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.4rem" }}>Quantity</div>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                <button onClick={() => setQty(q => Math.max(1, q - 1))} style={{ width: 34, height: 34, border: "1px solid rgba(107,26,26,0.2)", background: "white", fontSize: "1.1rem", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#2A1A0E" }}>−</button>
+                <span style={{ fontWeight: 700, fontSize: "1rem", minWidth: 24, textAlign: "center" }}>{qty}</span>
+                <button onClick={() => setQty(q => q + 1)} style={{ width: 34, height: 34, border: "1px solid rgba(107,26,26,0.2)", background: "white", fontSize: "1.1rem", fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#2A1A0E" }}>+</button>
+              </div>
+            </div>
+            <button onClick={handleAdd} style={{ background: "#6B1A1A", color: "white", border: "none", padding: "0.85rem 1.6rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.88rem", fontWeight: 600, letterSpacing: "0.08em", cursor: "pointer", borderRadius: 2, transition: "background 0.2s" }}
+              onMouseEnter={e => e.target.style.background = "#C4882B"}
+              onMouseLeave={e => e.target.style.background = "#6B1A1A"}
+            >
+              Add to Order — ${total.toFixed(2)}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function MenuCard({ item, cart, onAdd, onRemove }) {
   const [hovered, setHovered] = useState(false);
   const [selected, setSelected] = useState("");
   const [size, setSize] = useState(item.sizes ? item.sizes[0] : null);
+  const [showSoupModal,   setShowSoupModal]   = useState(false);
+  const [showAppModal,    setShowAppModal]    = useState(false);
+  const [showSubModal,    setShowSubModal]    = useState(false);
+  const [showBunModal,    setShowBunModal]    = useState(false);
+  const [showNoodleModal, setShowNoodleModal] = useState(false);
+  const [showRiceModal,   setShowRiceModal]   = useState(false);
+
+  const isSoup   = !!item.isSoup;
+  const isApp    = !!item.isApp;
+  const isSub    = !!item.isSub;
+  const isBun    = !!item.isBun;
+  const isNoodle = !!item.isNoodle;
+  const isRice   = !!item.isRice;
 
   const canAdd = (!item.selectOptions || selected !== "");
   const activePrice = size ? size.price : item.price;
-
   const sizeTag = size ? `sz:${size.label}` : null;
   const cartKey = [String(item.id), selected || null, sizeTag].filter(Boolean).join("|");
   const qty = cart[cartKey]?.qty || 0;
 
+  const handleAddClick = () => {
+    if (!canAdd) return;
+    if (isSoup)   { setShowSoupModal(true);   return; }
+    if (isApp)    { setShowAppModal(true);     return; }
+    if (isSub)    { setShowSubModal(true);     return; }
+    if (isBun)    { setShowBunModal(true);     return; }
+    if (isNoodle) { setShowNoodleModal(true);  return; }
+    if (isRice)   { setShowRiceModal(true);    return; }
+    onAdd(item.id, selected, size);
+  };
+
   return (
+    <>
+    {showSoupModal && <SoupCustomizeModal item={item} size={size} onClose={() => setShowSoupModal(false)} onAddToCart={(id,f,sz,price,key,qty) => { for(let i=0;i<qty;i++) onAdd(id,f,sz,price,key); }} />}
+    {showAppModal  && <AppCustomizeModal  item={item} onClose={() => setShowAppModal(false)}  onAddToCart={(id,f,sz,price,key,qty) => { for(let i=0;i<qty;i++) onAdd(id,f,sz,price,key); }} />}
+    {showSubModal  && <SubModal    item={item} onClose={() => setShowSubModal(false)}    onAddToCart={(id,f,sz,price,key,qty) => { for(let i=0;i<qty;i++) onAdd(id,f,sz,price,key); }} />}
+    {showBunModal  && <BunModal    item={item} onClose={() => setShowBunModal(false)}    onAddToCart={(id,f,sz,price,key,qty) => { for(let i=0;i<qty;i++) onAdd(id,f,sz,price,key); }} />}
+    {showNoodleModal && <NoodleModal item={item} onClose={() => setShowNoodleModal(false)} onAddToCart={(id,f,sz,price,key,qty) => { for(let i=0;i<qty;i++) onAdd(id,f,sz,price,key); }} />}
+    {showRiceModal && <RiceModal   item={item} onClose={() => setShowRiceModal(false)}   onAddToCart={(id,f,sz,price,key,qty) => { for(let i=0;i<qty;i++) onAdd(id,f,sz,price,key); }} />}
     <div onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} style={{
       background: "white", border: "1px solid rgba(107,26,26,0.14)",
       padding: "1.3rem 1.4rem",
@@ -1515,29 +2121,26 @@ function MenuCard({ item, cart, onAdd, onRemove }) {
       )}
 
       {item.selectOptions && (
-        <select
-          value={selected}
-          onChange={e => setSelected(e.target.value)}
-          style={{
-            width: "100%", padding: "0.5rem 0.7rem",
-            border: `1px solid ${selected ? "rgba(107,26,26,0.3)" : "rgba(107,26,26,0.18)"}`,
-            fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem",
-            color: selected ? "#2A1A0E" : "#7A6050",
-            background: "#FBF6EE", outline: "none", cursor: "pointer",
-            borderRadius: 2,
-          }}
+        <select value={selected} onChange={e => setSelected(e.target.value)}
+          style={{ width: "100%", padding: "0.5rem 0.7rem", border: `1px solid ${selected ? "rgba(107,26,26,0.3)" : "rgba(107,26,26,0.18)"}`, fontFamily: "'DM Sans', sans-serif", fontSize: "0.82rem", color: selected ? "#2A1A0E" : "#7A6050", background: "#FBF6EE", outline: "none", cursor: "pointer", borderRadius: 2 }}
         >
           <option value="">— {item.selectLabel} —</option>
-          {item.selectOptions.map(opt => (
-            <option key={opt} value={opt}>{opt}</option>
-          ))}
+          {item.selectOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
         </select>
       )}
 
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "0.3rem", paddingTop: "0.7rem", borderTop: "1px solid rgba(107,26,26,0.08)" }}>
-        <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontWeight: 700, color: "#6B1A1A" }}>${activePrice.toFixed(2)}</span>
+        <div>
+          <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontWeight: 700, color: "#6B1A1A" }}>${activePrice.toFixed(2)}</span>
+          {isSoup   && <span style={{ fontSize: "0.68rem", color: "#7A6050", marginLeft: "0.5rem" }}>+ add-ons available</span>}
+          {isApp    && <span style={{ fontSize: "0.68rem", color: "#7A6050", marginLeft: "0.5rem" }}>+ sauces available</span>}
+          {isSub    && <span style={{ fontSize: "0.68rem", color: "#7A6050", marginLeft: "0.5rem" }}>+ add-ons available</span>}
+          {isBun    && <span style={{ fontSize: "0.68rem", color: "#7A6050", marginLeft: "0.5rem" }}>+ add-ons available</span>}
+          {isNoodle && <span style={{ fontSize: "0.68rem", color: "#7A6050", marginLeft: "0.5rem" }}>+ add-ons available</span>}
+          {isRice   && <span style={{ fontSize: "0.68rem", color: "#7A6050", marginLeft: "0.5rem" }}>+ add-ons available</span>}
+        </div>
         {qty === 0 ? (
-          <button onClick={() => { if (canAdd) onAdd(item.id, selected, size); }} style={{ background: canAdd ? "#6B1A1A" : "#ccc", color: "white", border: "none", width: 32, height: 32, fontSize: "1.2rem", fontWeight: 700, cursor: canAdd ? "pointer" : "not-allowed", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}
+          <button onClick={handleAddClick} style={{ background: canAdd ? "#6B1A1A" : "#ccc", color: "white", border: "none", width: 32, height: 32, fontSize: "1.2rem", fontWeight: 700, cursor: canAdd ? "pointer" : "not-allowed", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}
             onMouseEnter={e => { if (canAdd) e.target.style.background = "#C4882B"; }}
             onMouseLeave={e => { if (canAdd) e.target.style.background = "#6B1A1A"; }}
             title={!canAdd ? `Please ${item.selectLabel?.toLowerCase()} first` : ""}
@@ -1546,11 +2149,12 @@ function MenuCard({ item, cart, onAdd, onRemove }) {
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <button onClick={() => onRemove(item.id, selected, size)} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s", color: "#2A1A0E" }}>−</button>
             <span style={{ fontWeight: 700, minWidth: 20, textAlign: "center", fontSize: "0.95rem", color: "#6B1A1A" }}>{qty}</span>
-            <button onClick={() => onAdd(item.id, selected, size)} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s", color: "#2A1A0E" }}>+</button>
+            <button onClick={handleAddClick} style={{ background: "#FBF6EE", border: "1px solid rgba(107,26,26,0.14)", width: 28, height: 28, cursor: "pointer", fontSize: "1rem", fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s", color: "#2A1A0E" }}>+</button>
           </div>
         )}
       </div>
     </div>
+    </>
   );
 }
 
@@ -1789,12 +2393,22 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
                 {Object.entries(cart).map(([key, v]) => {
                   const item = getItem(key);
                   const parts = key.split("|").slice(1);
-                  const flavour = parts.find(p => !p.startsWith("sz:")) || null;
-                  const sizeLabel = (parts.find(p => p.startsWith("sz:")) || "").replace("sz:", "");
+                  const isBT = item?.isBubbleTea;
+                  let label = "";
+                  if (isBT) {
+                    const [flavourPart, toppingPart, extrasPart] = parts;
+                    const flavours = (flavourPart || "").replace(/\+/g, " · ");
+                    const topping = toppingPart === "pearl" ? "Tapioca Pearl" : toppingPart === "jelly" ? "Jelly" : "No Topping";
+                    const extras = (extrasPart || "").split("+").filter(Boolean).map(e => e === "xPearl" ? "Extra Pearl" : "Extra Jelly").join(", ");
+                    label = [flavours, topping, extras].filter(Boolean).join(" · ");
+                  } else {
+                    const flavour = parts.find(p => !p.startsWith("sz:")) || null;
+                    const sizeLabel = (parts.find(p => p.startsWith("sz:")) || "").replace("sz:", "");
+                    label = [sizeLabel, flavour].filter(Boolean).join(", ");
+                  }
                   if (!item) return null;
                   const qty = v?.qty || 0;
                   const price = v?.price || item.price;
-                  const label = [sizeLabel, flavour].filter(Boolean).join(", ");
                   return (
                     <div key={key} style={{ display: "flex", justifyContent: "space-between", fontSize: "0.85rem", padding: "0.3rem 0", color: "#2A1A0E" }}>
                       <span>{item.name}{label ? ` (${label})` : ""} ×{qty}</span>
@@ -1824,10 +2438,10 @@ function CheckoutModal({ open, onClose, cart, onSuccess }) {
                 </div>
               ))}
               <div style={{ marginBottom: "1.1rem" }}>
-                <label style={labelStyle}>Special Instructions</label>
-                <textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Allergies, modifications, preferences…" style={{ ...inputStyle, resize: "vertical", minHeight: 70 }}
-                  onFocus={e => e.target.style.borderColor = "#6B1A1A"}
-                  onBlur={e => e.target.style.borderColor = "rgba(107,26,26,0.14)"}
+                <label style={labelStyle}>📝 Order Notes <span style={{ fontWeight: 400, textTransform: "none", letterSpacing: 0, color: "#C4882B" }}>(allergies, modifications, special requests…)</span></label>
+                <textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="e.g. Extra spicy, no onions, allergy to peanuts…" style={{ ...inputStyle, resize: "vertical", minHeight: 90, borderColor: "rgba(196,136,43,0.35)", background: "rgba(251,246,238,0.7)" }}
+                  onFocus={e => e.target.style.borderColor = "#C4882B"}
+                  onBlur={e => e.target.style.borderColor = "rgba(196,136,43,0.35)"}
                 />
               </div>
               <button onClick={handlePlace} disabled={placing} style={{ width: "100%", background: placing ? "#7A6050" : "#6B1A1A", color: "white", border: "none", padding: "1.1rem", fontFamily: "'DM Sans', sans-serif", fontSize: "0.9rem", fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", cursor: placing ? "not-allowed" : "pointer", marginTop: "0.5rem", transition: "background 0.25s" }}
@@ -1864,10 +2478,10 @@ function OrderPage({ onBack }) {
     return () => observers.forEach(o => o.disconnect());
   }, []);
 
-  const addItem = useCallback((id, flavour, size) => {
+  const addItem = useCallback((id, flavour, size, customPrice, customKey) => {
     const sizeTag = size ? `sz:${size.label}` : null;
-    const key = [String(id), flavour || null, sizeTag].filter(Boolean).join("|");
-    const price = size ? size.price : (getItem(String(id))?.price || 0);
+    const key = customKey || [String(id), flavour || null, sizeTag].filter(Boolean).join("|");
+    const price = customPrice !== undefined ? customPrice : (size ? size.price : (getItem(String(id))?.price || 0));
     setCart(c => ({ ...c, [key]: { qty: ((c[key]?.qty) || 0) + 1, price } }));
   }, []);
   const removeItem = useCallback((id, flavour, size) => {
@@ -1960,7 +2574,9 @@ function OrderPage({ onBack }) {
                 {cat.category.replace(/^[^\s]+\s/, "")}
               </div>
               <div className="order-menu-grid">
-                {cat.items.map(item => (
+                {cat.items.map(item => item.isBubbleTea ? (
+                  <BubbleTeaCard key={item.id} item={item} cart={cart} onAdd={addItem} onRemove={removeItem} onRemoveFull={removeItemFull} />
+                ) : (
                   <MenuCard key={item.id} item={item} cart={cart} onAdd={addItem} onRemove={removeItem} />
                 ))}
               </div>
