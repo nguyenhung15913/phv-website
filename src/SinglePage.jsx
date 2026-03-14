@@ -250,19 +250,19 @@ const MENU = [
     { id: 117, name: "19 — Chicken Wings (8 pcs)", desc: "BBQ, Honey Garlic, Salt & Pepper, Crispy, or Hot Wings", price: 8.95, tags: ["pop"] , isApp: true },
   ]},
   { category: "🥖 Vietnamese Sub", id: "banhmi", items: [
-    { id: 201, name: "S1 — Sate Beef & Chicken Sub", desc: "Sate beef and chicken in a toasted baguette with mayo, cheese, pickled carrot, cucumber and cilantro", price: 10.75, tags: ["pop", "spicy"] , isSub: true },
-    { id: 202, name: "S2 — Sate Chicken Sub", desc: "Spicy sate chicken with house toppings", price: 9.75, tags: ["spicy"] , isSub: true },
-    { id: 203, name: "S3 — Sate Beef Sub", desc: "Spicy sate beef with house toppings", price: 9.75, tags: ["spicy"] , isSub: true },
+    { id: 201, name: "S1 — Sate Beef & Chicken Sub", desc: "Sate beef and chicken in a toasted baguette with mayo, cheese, pickled carrot, cucumber and cilantro", price: 10.75, tags: ["pop"] , isSub: true },
+    { id: 202, name: "S2 — Sate Chicken Sub", desc: "Spicy sate chicken with house toppings", price: 9.75, tags: [] , isSub: true },
+    { id: 203, name: "S3 — Sate Beef Sub", desc: "Spicy sate beef with house toppings", price: 9.75, tags: [] , isSub: true },
     { id: 204, name: "S4 — Charbroiled Pork Sub", desc: "Charbroiled BBQ pork with house toppings", price: 9.75 , isSub: true },
     { id: 205, name: "S5 — Marinated Pork Patty Sub", desc: "Grilled marinated pork patty with house toppings", price: 9.75, tags: ["pop"] , isSub: true },
     { id: 206, name: "S6 — Grilled Beef Skewers Sub", desc: "Grilled beef skewers with house toppings", price: 9.95 , isSub: true },
     { id: 207, name: "S7 — Grilled Prawn Skewers Sub", desc: "Chargrilled prawn skewers with house toppings", price: 11.75, tags: ["pop"] , isSub: true },
   ]},
   { category: "🍜 Beef Noodle Soup", id: "pho", items: [
-    { id: 301, name: "1 — Huong Viet Sate Beef Noodle Soup (Spicy)", desc: "House signature spicy sate beef in rich bone broth.", price: 14.25, tags: ["pop", "spicy"], sizes: [{label:"Sm", price:14.25},{label:"Lg", price:15.25}] , isSoup: true },
-    { id: 302, name: "1A — Seafood Sate Noodle Soup", desc: "Shrimp, squid and artificial crab in spicy sate broth.", price: 16.25, tags: ["spicy"] , isSoup: true },
+    { id: 301, name: "1 — Huong Viet Sate Beef Noodle Soup (Spicy)", desc: "House signature spicy sate beef in rich bone broth.", price: 14.25, tags: ["pop", "spicy", "peanut"], sizes: [{label:"Sm", price:14.25},{label:"Lg", price:15.25}] , isSoup: true },
+    { id: 302, name: "1A — Seafood Sate Noodle Soup", desc: "Shrimp, squid and artificial crab in spicy sate broth.", price: 16.25, tags: ["spicy", "peanut"] , isSoup: true },
     { id: 303, name: "2 — Chicken Noodle Soup", desc: "Tender chicken breast in light fragrant broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
-    { id: 304, name: "2A — Sate Chicken Noodle Soup (Spicy)", desc: "Chicken breast in spicy sate broth.", price: 14.25, tags: ["spicy"], sizes: [{label:"Sm", price:14.25},{label:"Lg", price:15.25}] , isSoup: true },
+    { id: 304, name: "2A — Sate Chicken Noodle Soup (Spicy)", desc: "Chicken breast in spicy sate broth.", price: 14.25, tags: ["spicy", "peanut"], sizes: [{label:"Sm", price:14.25},{label:"Lg", price:15.25}] , isSoup: true },
     { id: 305, name: "2B — Curry Chicken Noodle Soup", desc: "Chicken breast in aromatic curry broth.", price: 15.25 , isSoup: true },
     { id: 306, name: "3 — Huong Viet's Special Noodle Soup", desc: "Rare beef, beef ball, tendon, flank and tripe.", price: 14.95, tags: ["pop"], sizes: [{label:"Sm", price:14.95},{label:"Lg", price:15.95}] , isSoup: true },
     { id: 307, name: "4 — Rare Beef Noodle Soup", desc: "Sliced rare beef in classic bone broth.", price: 13.95, sizes: [{label:"Sm", price:13.95},{label:"Lg", price:14.95}] , isSoup: true },
@@ -309,9 +309,9 @@ const MENU = [
     { id: 504, name: "26A — Stir Fried Seafood with Lemongrass", desc: "Shrimp, squid and artificial crab in lemongrass sauce on egg noodles", price: 17.25, tags: ["pop"] , isNoodle: true },
   ]},
   { category: "🍚 Rice Dishes", id: "rice", items: [
-    { id: 601, name: "C1 — Stir Fried Curry Chicken Breast with Veggies on Rice", desc: "Mildly spicy curry chicken stir fry on steamed rice", price: 16.25, tags: ["spicy"] , isRice: true },
-    { id: 602, name: "C2 — Stir Fried Curry Beef with Veggies on Rice", desc: "Mildly spicy curry beef stir fry on steamed rice", price: 16.25, tags: ["spicy"] , isRice: true },
-    { id: 603, name: "C3 — Stir Fried Curry Seafood with Veggies on Rice", desc: "Mildly spicy curry seafood on steamed rice", price: 17.25, tags: ["spicy"] , isRice: true },
+    { id: 601, name: "C1 — Stir Fried Curry Chicken Breast with Veggies on Rice", desc: "Mildly spicy curry chicken stir fry on steamed rice", price: 16.25, tags: [] , isRice: true },
+    { id: 602, name: "C2 — Stir Fried Curry Beef with Veggies on Rice", desc: "Mildly spicy curry beef stir fry on steamed rice", price: 16.25, tags: [] , isRice: true },
+    { id: 603, name: "C3 — Stir Fried Curry Seafood with Veggies on Rice", desc: "Mildly spicy curry seafood on steamed rice", price: 17.25, tags: [] , isRice: true },
     { id: 604, name: "C27 — Grilled Beef Lemongrass with Veggies on Rice", desc: "Our signature lemongrass beef on fragrant steamed rice", price: 16.25, tags: ["pop"] , isRice: true },
     { id: 605, name: "C28 — BBQ Chicken with Veggies on Steamed Rice", desc: "Mild spicy BBQ chicken with prepared sauce on steamed rice", price: 15.95, tags: ["pop"] , isRice: true },
     { id: 606, name: "C29 — Charbroiled BBQ Pork Chop, Shredded Pork & Fried Egg on Rice", desc: "Classic Vietnamese pork chop rice plate", price: 16.25, tags: ["pop"] , isRice: true },
@@ -366,9 +366,10 @@ const PATTERN_BG = `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBo
 
 function Tag({ type }) {
   const cfg = {
-    pop:   { label: "Popular",    bg: "rgba(212,168,67,0.12)",  color: "#C4882B", border: "rgba(212,168,67,0.3)" },
-    veg:   { label: "Vegetarian", bg: "rgba(46,125,50,0.08)",   color: "#2E7D32", border: "rgba(46,125,50,0.2)" },
-    spicy: { label: "Spicy",      bg: "rgba(107,26,26,0.07)",   color: "#6B1A1A", border: "rgba(107,26,26,0.2)" },
+    pop:    { label: "Popular",    bg: "rgba(212,168,67,0.12)",  color: "#C4882B", border: "rgba(212,168,67,0.3)" },
+    veg:    { label: "Vegetarian", bg: "rgba(46,125,50,0.08)",   color: "#2E7D32", border: "rgba(46,125,50,0.2)" },
+    spicy:  { label: "Spicy",      bg: "rgba(107,26,26,0.07)",   color: "#6B1A1A", border: "rgba(107,26,26,0.2)" },
+    peanut: { label: "⚠ Peanut",  bg: "rgba(180,100,0,0.1)",    color: "#8B5000", border: "rgba(180,100,0,0.35)" },
   }[type];
   if (!cfg) return null;
   return (
@@ -883,6 +884,146 @@ function Marquee() {
   );
 }
 
+function SpecialAdSidebar() {
+  const [visible, setVisible] = useState(true);
+  const [expanded, setExpanded] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  if (!visible) return (
+    // Collapsed tab — click to reopen
+    <div
+      onClick={() => setVisible(true)}
+      style={{
+        position: "fixed", right: 0, top: "50%", transform: "translateY(-50%)",
+        zIndex: 140, background: "#C4882B", color: "white",
+        writingMode: "vertical-rl", textOrientation: "mixed",
+        padding: "0.8rem 0.45rem", fontSize: "0.65rem", fontWeight: 700,
+        letterSpacing: "0.15em", textTransform: "uppercase",
+        borderRadius: "6px 0 0 6px", cursor: "pointer",
+        boxShadow: "-3px 0 12px rgba(0,0,0,0.3)",
+        transition: "background 0.2s",
+      }}
+      onMouseEnter={e => e.currentTarget.style.background = "#6B1A1A"}
+      onMouseLeave={e => e.currentTarget.style.background = "#C4882B"}
+    >🔥 Special</div>
+  );
+
+  return (
+    <>
+      {/* Backdrop when expanded */}
+      {expanded && (
+        <div
+          onClick={() => setExpanded(false)}
+          style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)", zIndex: 139, backdropFilter: "blur(3px)" }}
+        />
+      )}
+
+      <div
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={{
+          position: "fixed",
+          right: 0,
+          top: "50%",
+          transform: expanded ? "translateY(-50%) translateX(0)" : "translateY(-50%)",
+          zIndex: 140,
+          width: expanded ? "clamp(300px, 40vw, 480px)" : 170,
+          background: "#1E1410",
+          border: "1px solid rgba(196,136,43,0.35)",
+          borderRight: "none",
+          borderRadius: "10px 0 0 10px",
+          boxShadow: hovered || expanded
+            ? "-8px 0 40px rgba(196,136,43,0.3)"
+            : "-4px 0 20px rgba(0,0,0,0.4)",
+          transition: "width 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s",
+          overflow: "hidden",
+          cursor: expanded ? "default" : "pointer",
+        }}
+        onClick={() => { if (!expanded) setExpanded(true); }}
+      >
+        {/* Top bar */}
+        <div style={{ background: "#C4882B", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.35rem 0.75rem" }}>
+          <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "white" }}>
+            🔥 Weekly Special
+          </span>
+          <div style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}>
+            {expanded && (
+              <button onClick={e => { e.stopPropagation(); setExpanded(false); }} style={{
+                background: "rgba(255,255,255,0.2)", border: "none", color: "white",
+                width: 20, height: 20, fontSize: "0.7rem", cursor: "pointer",
+                borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center",
+              }} title="Collapse">−</button>
+            )}
+            <button onClick={e => { e.stopPropagation(); setVisible(false); setExpanded(false); }} style={{
+              background: "rgba(255,255,255,0.2)", border: "none", color: "white",
+              width: 20, height: 20, fontSize: "0.75rem", cursor: "pointer",
+              borderRadius: 3, display: "flex", alignItems: "center", justifyContent: "center",
+            }} title="Close">✕</button>
+          </div>
+        </div>
+
+        {/* Image */}
+        <img
+          src="/tuesday-special.jpg"
+          alt="95¢ Wings Special"
+          style={{
+            width: "100%", display: "block",
+            transition: "transform 0.4s",
+            transform: hovered && !expanded ? "scale(1.03)" : "scale(1)",
+            maxHeight: expanded ? "none" : 180,
+            objectFit: "cover",
+          }}
+        />
+
+        {/* Text */}
+        <div style={{ padding: expanded ? "1.2rem 1.4rem 1.5rem" : "0.7rem 0.85rem 0.9rem" }}>
+          <div style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: expanded ? "1.6rem" : "0.95rem",
+            color: "#F5EDD8", lineHeight: 1.2, marginBottom: expanded ? "0.8rem" : "0.35rem",
+            transition: "font-size 0.3s",
+          }}>
+            Tue & Wed<br /><em style={{ color: "#D4A843" }}>95¢ Wings</em>
+          </div>
+          {expanded && (
+            <p style={{
+              fontFamily: "'Cormorant Garamond', serif", fontSize: "1.05rem",
+              color: "rgba(245,237,216,0.7)", lineHeight: 1.7, fontStyle: "italic",
+              marginBottom: "1rem",
+            }}>
+              Buy any <strong style={{ color: "#D4A843", fontStyle: "normal" }}>Beer or Bubble Tea</strong> and get crispy chicken wings for just <strong style={{ color: "#D4A843", fontStyle: "normal" }}>95¢ each</strong>. Dine-in only. While supplies last.
+            </p>
+          )}
+          {expanded && (
+            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.8rem" }}>
+              {["📅 Every Tuesday", "📅 Every Wednesday"].map(d => (
+                <div key={d} style={{ background: "rgba(196,136,43,0.12)", border: "1px solid rgba(196,136,43,0.3)", color: "#D4A843", padding: "0.3rem 0.8rem", fontSize: "0.75rem", fontWeight: 600 }}>{d}</div>
+              ))}
+            </div>
+          )}
+          {!expanded && (
+            <div style={{ fontSize: "0.65rem", color: "rgba(245,237,216,0.45)", lineHeight: 1.5, fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
+              With any beer or bubble tea · Dine-in only
+            </div>
+          )}
+          {expanded && (
+            <p style={{ fontSize: "0.7rem", color: "rgba(245,237,216,0.3)", marginTop: "0.5rem" }}>
+              With purchase of any beer or bubble tea · Dine-in only · While supplies last
+            </p>
+          )}
+        </div>
+
+        {/* Click to expand hint */}
+        {!expanded && (
+          <div style={{ textAlign: "center", padding: "0.4rem 0 0.6rem", fontSize: "0.58rem", color: "rgba(212,168,67,0.5)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+            Click to expand ▶
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
 function AboutSection() {
   const ref = useReveal();
   return (
@@ -962,18 +1103,20 @@ function MenuSection() {
   const homeTabs = [
     { id: "pho", label: "Pho & Soups", items: [
       { name: "Huong Viet Special Pho", viet: "Phở Đặc Biệt", desc: "Rare beef, beef ball, tendon, flank and tripe in our signature savoury bone broth.", price: "From $14.95", tag: "House Special", img: "/phodacbiet.jpg", fallback: "/phodacbiet.jpg" },
-      { name: "Beef Ribs Phở", viet: "Phở Sườn Bò", desc: "Short ribs, beef balls and flank with rice noodles in a savoury beef broth. New item!", price: "$19.95", tag: "NEW", img: "/beefrib.jpg", fallback: "/beefrib.jpg"},
-      { name: "Phnom Penh Style Noodle Soup", viet: "Hủ Tiếu Nam Vang", desc: "Vietnamese noodle bowl with rice and egg noodles, veggies, with Pork Ribs or Seafood in pork broth.", price: "From $17.95", tag: "Classic", img: "/hutieu.jpg", fallback: "/hutieu.jpg" },
+      { name: "Beef Rib Pho", viet: "Phở Sườn Bò", desc: "Short ribs, beef balls and flank with rice noodles in a savoury beef broth. New item!", price: "$19.95", tag: "NEW", img: "/beefrib.jpg", fallback: "/beefrib.jpg"},
+      { name: "Hutieu - Vietnamese Noodle Soup", viet: "Hủ Tiếu Nam Vang", desc: "Vietnamese noodle bowl with rice and egg noodles, veggies, with Pork Ribs or Seafood in pork broth.", price: "From $17.95", tag: "Classic", img: "/hutieu.jpg", fallback: "/hutieu.jpg" },
+      { name: "Beef Stew", viet: "Bò Kho", desc: "Slow-braised beef in rich aromatic broth with lemongrass and spices. Choice of noodle or baguette.", price: "$16.25", tag: "Classic", img: "/bokho.webp", fallback: "/bokho.webp" },
     ]},
     { id: "mains", label: "Rice & Noodles", items: [
       { name: "Grilled Beef Lemongrass Rice", viet: "Cơm Bò Xào Sả", desc: "Lemongrass grilled beef with veggies on fragrant steamed rice. A customer favourite.", price: "$16.25", tag: "Signature", img: "/boxao.jpg", fallback: "/boxao.jpg" },
       { name: "Vietnamese Sizzling Crispy Crepe", viet: "Bánh Xèo", desc: "Savoury crispy crepe filled with seafood, ground pork, onion and bean sprouts.", price: "$17.95", tag: "NEW", img: "/banhxeo.jpg", fallback: "/banhxeo.jpg"},
       { name: "Golden Fried Chicken Rice", viet: "Cơm Gà Chiên Vàng", desc: "Crispy chicken with special sauce on coconut rice.", price: "$16.25", tag: "NEW", img: "/comga.jpg", fallback: "/comga.jpg" },
+      { name: "BBQ Pork Chop on Rice", viet: "Cơm Sườn Nướng", desc: "Charbroiled BBQ pork chop with shredded pork and fried egg on steamed rice.", price: "$16.25", tag: "pop", img: "/comtam.jpg", fallback: "/comtam.jpg" },
     ]},
     { id: "drinks", label: "Drinks & Desserts", items: [
-      { name: "Caramel Coffee", viet: "Cà Phê Caramel", desc: "Smooth Vietnamese coffee swirled with golden caramel, served over ice for a rich indulgent sip.", price: "~$6", tag: "NEW", img: "/caramelcoffee.jpg", fallback: "/caramelcoffee.jpg" },
-      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "cold, sweet and tropical.", price: "~$6", tag: "NEW", img: "/coconutcoffee.webp", fallback: "/coconutcoffee.webp" },
-      { name: "Sparkling Lychee Drink", viet: "Nước Vải Có Ga", desc: "Refreshing sparkling lychee drink with a fruity floral finish. Perfect to cool down.", price: "~$6", tag: "NEW", img: "/lycheedrink.webp", fallback: "/lycheedrink.webp" },
+      { name: "Caramel Coffee", viet: "Cà Phê Caramel", desc: "Smooth Vietnamese coffee swirled with golden caramel, served over ice for a rich indulgent sip.", price: "$6.50", tag: "NEW", img: "/caramelcoffee.jpg", fallback: "/caramelcoffee.jpg" },
+      { name: "Coconut Coffee", viet: "Cà Phê Dừa", desc: "cold, sweet and tropical.", price: "$6.50", tag: "NEW", img: "/coconutcoffee.jpeg", fallback: "/coconutcoffee.jpeg" },
+      { name: "Sparkling Lychee Drink", viet: "Nước Vải Có Ga", desc: "Refreshing sparkling lychee drink with a fruity floral finish. Perfect to cool down.", price: "$6.50", tag: "NEW", img: "/lycheedrink.webp", fallback: "/lycheedrink.webp" },
     ]},
   ];
   const active = homeTabs.find(t => t.id === activeTab);
@@ -1004,23 +1147,23 @@ function MenuSection() {
       </div>
       <div ref={ref} className="reveal" style={{ maxWidth: 1300, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "2px" }}>
         {active && active.items.map(item => (
-          <div key={item.name} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(245,237,216,0.07)", overflow: "hidden", transition: "all 0.4s", cursor: "pointer" }}
+          <div key={item.name} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(245,237,216,0.07)", overflow: "hidden", transition: "all 0.4s", cursor: "pointer", display: "flex", flexDirection: "column" }}
             onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.07)"; e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 20px 60px rgba(0,0,0,0.4)"; }}
             onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.03)"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
           >
-            <div style={{ overflow: "hidden", height: 320 }}>
+            <div style={{ overflow: "hidden", height: 320, flexShrink: 0 }}>
               <img src={item.img} alt={item.name} style={{ width: "100%", height: 320, objectFit: "cover", objectPosition: item.imgPos || "center center", display: "block", transition: "transform 0.6s" }}
                 onError={e => e.target.src = item.fallback}
                 onMouseEnter={e => e.target.style.transform = "scale(1.07)"}
                 onMouseLeave={e => e.target.style.transform = "scale(1)"}
               />
             </div>
-            <div style={{ padding: "1.6rem 1.8rem 0.5rem" }}>
+            <div style={{ padding: "1.6rem 1.8rem 0.5rem", flex: 1 }}>
               <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.15rem", color: "#F5EDD8", marginBottom: "0.4rem" }}>{item.name}</div>
               <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "0.9rem", fontStyle: "italic", color: "#D4A843", marginBottom: "0.8rem", opacity: 0.85 }}></div>
               <div style={{ fontSize: "0.84rem", lineHeight: 1.65, color: "rgba(245,237,216,0.5)" }}>{item.desc}</div>
             </div>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem 1.8rem 1.5rem" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1rem 1.8rem 1.5rem", marginTop: "auto" }}>
               <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.25rem", color: "#C4882B" }}>{item.price}</span>
               <span style={{ fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", padding: "0.3rem 0.8rem", border: "1px solid rgba(212,168,67,0.3)", color: "rgba(212,168,67,0.7)" }}>{item.tag}</span>
             </div>
@@ -1059,27 +1202,8 @@ function GallerySection() {
   );
 }
 
-const VIDEO_SRC = "video.mp4";
-
 function FeaturedVideoSection() {
   const ref = useReveal();
-  const videoRef = useRef(null);
-  const [started, setStarted] = useState(false);
-
-  // Try autoplay on desktop
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = true;
-    v.play().then(() => setStarted(true)).catch(() => {});
-  }, []);
-
-  const handlePlay = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    setStarted(true);
-    v.play().catch(() => {});
-  };
 
   return (
     <section className="section-pad" style={{ background: "#1E1410" }}>
@@ -1094,44 +1218,14 @@ function FeaturedVideoSection() {
           </p>
         </div>
 
-        <div style={{ maxWidth: 400, margin: "0 auto", borderRadius: 4, overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.6)", position: "relative" }}>
-          {/* Actual video (always rendered so autoplay works on desktop) */}
-          <video
-            ref={videoRef}
-            muted
-            loop
-            playsInline
-            style={{ width: "100%", display: "block", aspectRatio: "9/16", objectFit: "cover" }}
-          >
-            <source src={VIDEO_SRC} type="video/mp4" />
-          </video>
-
-          {/* Overlay shown on mobile until user taps */}
-          {!started && (
-            <div onClick={handlePlay} style={{
-              position: "absolute", inset: 0, cursor: "pointer",
-              background: "rgba(0,0,0,0.45)",
-              display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1rem"
-            }}>
-              <img src="/phodacbiet.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }} />
-              <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.42)", zIndex: 1 }} />
-              <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
-                <div style={{
-                  width: 76, height: 76, borderRadius: "50%",
-                  background: "rgba(196,136,43,0.92)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
-                }}>
-                  <svg width="30" height="30" viewBox="0 0 24 24" fill="white" style={{ marginLeft: 5 }}>
-                    <polygon points="5,3 19,12 5,21" />
-                  </svg>
-                </div>
-                <span style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.78rem", letterSpacing: "0.18em", textTransform: "uppercase", fontFamily: "'DM Sans', sans-serif" }}>
-                  Tap to watch
-                </span>
-              </div>
-            </div>
-          )}
+        <div style={{ maxWidth: 400, margin: "0 auto", borderRadius: 4, overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.6)", position: "relative", aspectRatio: "9/16" }}>
+          <iframe
+            src="https://www.youtube.com/embed/qQ0C4N5nwOY?autoplay=1&mute=1&loop=1&playlist=qQ0C4N5nwOY&controls=0&modestbranding=1&rel=0"
+            title="Pho Huong Viet"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            style={{ width: "100%", height: "100%", border: "none", display: "block" }}
+          />
         </div>
       </div>
     </section>
@@ -1407,6 +1501,7 @@ function HomePage({ onOrderClick }) {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div>
+      <SpecialAdSidebar />
       <HomeNav onOrderClick={onOrderClick} />
       <HomeHero onOrderClick={onOrderClick} onMenuClick={() => setMenuOpen(true)} />
       <Marquee />
