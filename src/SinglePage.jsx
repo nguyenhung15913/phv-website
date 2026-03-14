@@ -975,47 +975,9 @@ function SpecialAdSidebar() {
           }}
         />
 
-        {/* Text */}
-        <div style={{ padding: expanded ? "1.2rem 1.4rem 1.5rem" : "0.7rem 0.85rem 0.9rem" }}>
-          <div style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: expanded ? "1.6rem" : "0.95rem",
-            color: "#F5EDD8", lineHeight: 1.2, marginBottom: expanded ? "0.8rem" : "0.35rem",
-            transition: "font-size 0.3s",
-          }}>
-            Tue & Wed<br /><em style={{ color: "#D4A843" }}>95¢ Wings</em>
-          </div>
-          {expanded && (
-            <p style={{
-              fontFamily: "'Cormorant Garamond', serif", fontSize: "1.05rem",
-              color: "rgba(245,237,216,0.7)", lineHeight: 1.7, fontStyle: "italic",
-              marginBottom: "1rem",
-            }}>
-              Buy any <strong style={{ color: "#D4A843", fontStyle: "normal" }}>Beer or Bubble Tea</strong> and get crispy chicken wings for just <strong style={{ color: "#D4A843", fontStyle: "normal" }}>95¢ each</strong>. Dine-in only. While supplies last.
-            </p>
-          )}
-          {expanded && (
-            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.8rem" }}>
-              {["📅 Every Tuesday", "📅 Every Wednesday"].map(d => (
-                <div key={d} style={{ background: "rgba(196,136,43,0.12)", border: "1px solid rgba(196,136,43,0.3)", color: "#D4A843", padding: "0.3rem 0.8rem", fontSize: "0.75rem", fontWeight: 600 }}>{d}</div>
-              ))}
-            </div>
-          )}
-          {!expanded && (
-            <div style={{ fontSize: "0.65rem", color: "rgba(245,237,216,0.45)", lineHeight: 1.5, fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic" }}>
-              With any beer or bubble tea · Dine-in only
-            </div>
-          )}
-          {expanded && (
-            <p style={{ fontSize: "0.7rem", color: "rgba(245,237,216,0.3)", marginTop: "0.5rem" }}>
-              With purchase of any beer or bubble tea · Dine-in only · While supplies last
-            </p>
-          )}
-        </div>
-
         {/* Click to expand hint */}
         {!expanded && (
-          <div style={{ textAlign: "center", padding: "0.4rem 0 0.6rem", fontSize: "0.58rem", color: "rgba(212,168,67,0.5)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+          <div style={{ textAlign: "center", padding: "0.4rem 0 0.5rem", fontSize: "0.58rem", color: "rgba(212,168,67,0.5)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
             Click to expand ▶
           </div>
         )}
